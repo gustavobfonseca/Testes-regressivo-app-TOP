@@ -11,8 +11,9 @@ public class Login {
     private MobileElement campoUsuario;
     private MobileElement campoSenha;
     private MobileElement botaoLogin;
-    private MobileElement modal;
-    private MobileElement textoModalContaBloqueada;
+
+    private MobileElement modalErro;
+
 
     public Login(AppiumDriver driver){
         this.driver = driver;
@@ -32,17 +33,48 @@ public class Login {
 
     public void logar(){
         botaoLogin.click();
+        buscarModalErro();
     }
 
 
-    public void buscarModal(){
+
+    public void buscarModalErro(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"CPF e/ou senha inválidos.\"]")));
 
-        modal = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]");
+        modalErro = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"CPF e/ou senha inválidos.\"]");
+
     }
 
-    public MobileElement getTextoModalContaBloqueada() {
-        return textoModalContaBloqueada;
+    public MobileElement getCampoUsuario() {
+        return campoUsuario;
+    }
+
+    public void setCampoUsuario(MobileElement campoUsuario) {
+        this.campoUsuario = campoUsuario;
+    }
+
+    public MobileElement getCampoSenha() {
+        return campoSenha;
+    }
+
+    public void setCampoSenha(MobileElement campoSenha) {
+        this.campoSenha = campoSenha;
+    }
+
+    public MobileElement getBotaoLogin() {
+        return botaoLogin;
+    }
+
+    public void setBotaoLogin(MobileElement botaoLogin) {
+        this.botaoLogin = botaoLogin;
+    }
+
+    public MobileElement getModalErro() {
+        return modalErro;
+    }
+
+    public void setModalErro(MobileElement modalErro) {
+        this.modalErro = modalErro;
     }
 }

@@ -38,10 +38,21 @@ public class FeatureCadastro
 
         Assert.assertEquals("Olá, Carlitos!", telaHome.getNomeUsuario().getText());
 
-
-
-
         assertTrue( true );
+    }
+
+    @Test
+    public void login_com_credenciais_invalidas() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        Login telaLogin = new Login(driver);
+
+        telaLogin.buscarElementos();
+        telaLogin.preencherFormulario("327.721.478-86", "SenhaIncorreta");
+        telaLogin.logar();
+
+
+        Assert.assertEquals("CPF e/ou senha inválidos.", telaLogin.getModalErro().getText());
 
     }
 public void login_com_usuario_bloqueado() throws InterruptedException {

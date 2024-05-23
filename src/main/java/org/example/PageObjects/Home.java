@@ -1,7 +1,6 @@
 package org.example.PageObjects;
 
 import com.google.common.collect.ImmutableMap;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_INPeer;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -50,10 +49,10 @@ public class Home {
 
 
     public void arrastarModalParaBaixo() throws InterruptedException {
-        Thread.sleep(4000);
+        Thread.sleep(10000);
         buscarModal();
         driver.executeScript("gesture: swipe", ImmutableMap.of("elementId", modal.getId(),
-                "percentage", 50,
+                "percentage", 100,
                 "direction", "down"));
         Thread.sleep(500);
         buscarMensagemBemVindo();
@@ -65,10 +64,6 @@ public class Home {
 
     public MobileElement getNomeUsuario() {
         return nomeUsuario;
-    }
-
-    public MobileElement getBotaoBiometria() {
-        return botaoBiometria;
     }
 
     public PointerInput getFinger() {
