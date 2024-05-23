@@ -11,7 +11,9 @@ public class Login {
     private MobileElement campoUsuario;
     private MobileElement campoSenha;
     private MobileElement botaoLogin;
+
     private MobileElement modalErro;
+
 
     public Login(AppiumDriver driver){
         this.driver = driver;
@@ -33,6 +35,8 @@ public class Login {
         botaoLogin.click();
         buscarModalErro();
     }
+
+
 
     public void buscarModalErro(){
         WebDriverWait espera = new WebDriverWait(driver, 10);

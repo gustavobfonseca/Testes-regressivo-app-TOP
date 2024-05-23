@@ -55,4 +55,19 @@ public class FeatureCadastro
         Assert.assertEquals("CPF e/ou senha inválidos.", telaLogin.getModalErro().getText());
 
     }
+public void login_com_usuario_bloqueado() throws InterruptedException {
+    AppiumDriver driver =  AppiumDriverConfig.Instance().driver;
+
+    Login telaLogin = new Login(driver);
+
+        telaLogin.buscarElementos();
+        telaLogin.preencherFormulario("73040542559", "Devires@123");
+        telaLogin.logar();
+        telaLogin.buscarModal();
+        Assert.assertEquals("Por questões de segurança, sua conta foi bloqueada temporariamente.", telaLogin.getTextoModalContaBloqueada().getText());
+        assertTrue( true );
+
+
+    }
 }
+
