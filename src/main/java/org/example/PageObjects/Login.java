@@ -11,6 +11,8 @@ public class Login {
     private MobileElement campoUsuario;
     private MobileElement campoSenha;
     private MobileElement botaoLogin;
+    private MobileElement modal;
+    private MobileElement textoModalContaBloqueada;
 
     public Login(AppiumDriver driver){
         this.driver = driver;
@@ -32,4 +34,15 @@ public class Login {
         botaoLogin.click();
     }
 
+
+    public void buscarModal(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]")));
+
+        modal = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]");
+    }
+
+    public MobileElement getTextoModalContaBloqueada() {
+        return textoModalContaBloqueada;
+    }
 }
