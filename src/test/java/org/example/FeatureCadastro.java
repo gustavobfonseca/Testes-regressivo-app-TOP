@@ -55,6 +55,7 @@ public class FeatureCadastro
         Assert.assertEquals("CPF e/ou senha inválidos.", telaLogin.getModalErro().getText());
 
     }
+    @Test
 public void login_com_usuario_bloqueado() throws InterruptedException {
     AppiumDriver driver =  AppiumDriverConfig.Instance().driver;
 
@@ -63,7 +64,7 @@ public void login_com_usuario_bloqueado() throws InterruptedException {
         telaLogin.buscarElementos();
         telaLogin.preencherFormulario("73040542559", "Devires@123");
         telaLogin.logar();
-        telaLogin.buscarModal();
+        telaLogin.buscarMensagemContaBloqueada();
         Assert.assertEquals("Por questões de segurança, sua conta foi bloqueada temporariamente.", telaLogin.getTextoModalContaBloqueada().getText());
         assertTrue( true );
 
