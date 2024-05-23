@@ -1,22 +1,17 @@
 package org.example;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import junit.framework.TestCase;
+import org.example.PageObjects.EsqueciMinhaSenha;
 import org.example.PageObjects.Home;
 import org.example.PageObjects.Login;
 import org.junit.jupiter.api.Test;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.net.MalformedURLException;
 
 /**
  * Unit test for simple App.
  */
-public class FeatureCadastro
+public class FeatureLogin
         extends TestCase
 {
     @Test
@@ -67,8 +62,28 @@ public void login_com_usuario_bloqueado() throws InterruptedException {
         telaLogin.buscarMensagemContaBloqueada();
         Assert.assertEquals("Por questões de segurança, sua conta foi bloqueada temporariamente.", telaLogin.getTextoModalContaBloqueada().getText());
         assertTrue( true );
-
-
     }
+
+    @Test
+    public void login_atraves_esqueci_minha_senha_com_cpf_bloqueado() throws InterruptedException {
+        AppiumDriver driver =  AppiumDriverConfig.Instance().driver;
+
+        Login telaLogin = new Login(driver);
+        telaLogin.buscarElementos();
+        telaLogin.preencherFormulario("73040542559", " ");
+        telaLogin.clicarEsqueciMinhaSenha();
+
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.buscarElementos();
+        telaEsqueciminhaSenha.preencherInputCpf("73040542559");
+        telaEsqueciminhaSenha.clicarBotaoConfirmar();
+        telaEsqueciminhaSenha.buscarMensagemContaBloqueada();
+        Assert.assertEquals("Por questões de segurança, sua conta foi bloqueada temporariamente.", telaEsqueciminhaSenha.getTextoModalContaBloqueada().getText());
+        assertTrue( true );
+    }
+
+
+
 }
 

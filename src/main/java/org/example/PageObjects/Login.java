@@ -11,8 +11,8 @@ public class Login {
     private MobileElement campoUsuario;
     private MobileElement campoSenha;
     private MobileElement botaoLogin;
-    private MobileElement modal;
     private MobileElement textoModalContaBloqueada;
+    private MobileElement linkEsqueciMinhaSenha;
 
     private MobileElement modalErro;
 
@@ -21,13 +21,14 @@ public class Login {
     }
 
     public void buscarElementos() throws InterruptedException {
-        Thread.sleep(15000);
-        campoUsuario = (MobileElement) driver
-                .findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]");
-        campoSenha = (MobileElement) driver
-                .findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]");
-        botaoLogin = (MobileElement) driver.findElementByXPath(
-                "//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
+        WebDriverWait espera = new WebDriverWait(driver, 15);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]")));
+
+        campoUsuario = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]");
+        campoSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]");
+        botaoLogin = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
+
+        linkEsqueciMinhaSenha = (MobileElement) driver.findElementByXPath("ADICIONAR XPATH DO LINK ESQUECI SENHA");
     }
 
     public void preencherFormulario(String usuario, String senha) {
@@ -45,9 +46,11 @@ public class Login {
         espera.until(ExpectedConditions
                 .presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"CPF e/ou senha inválidos.\"]")));
 
-        modalErro = (MobileElement) driver
-                .findElementByXPath("//android.widget.TextView[@text=\"CPF e/ou senha inválidos.\"]");
+        modalErro = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"CPF e/ou senha inválidos.\"]");
 
+    }
+    public void clicarEsqueciMinhaSenha(){
+        linkEsqueciMinhaSenha.click();
     }
 
     public void  buscarMensagemContaBloqueada(){        
@@ -56,6 +59,11 @@ public class Login {
 
         textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]");
     }
+
+
+
+
+
 
     public MobileElement getCampoUsuario() {
         return campoUsuario;
