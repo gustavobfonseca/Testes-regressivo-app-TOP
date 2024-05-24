@@ -28,7 +28,7 @@ public class Login {
         campoSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]");
         botaoLogin = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
 
-        linkEsqueciMinhaSenha = (MobileElement) driver.findElementByXPath("ADICIONAR XPATH DO LINK ESQUECI SENHA");
+        linkEsqueciMinhaSenha = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Esqueci minha senha.\"]");
     }
 
     public void preencherFormulario(String usuario, String senha) {

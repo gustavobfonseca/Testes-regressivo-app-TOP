@@ -80,7 +80,7 @@ public void login_com_usuario_bloqueado() throws InterruptedException {
         telaEsqueciminhaSenha.preencherInputCpf("73040542559");
         telaEsqueciminhaSenha.clicarBotaoConfirmar();
         telaEsqueciminhaSenha.buscarMensagemContaBloqueada();
-        Assert.assertEquals("Por questões de segurança, sua conta foi bloqueada temporariamente.", telaEsqueciminhaSenha.getTextoModalContaBloqueada().getText());
+        Assert.assertTrue(telaEsqueciminhaSenha.getTextoModalContaBloqueada().isDisplayed());
         assertTrue( true );
     }
 

@@ -10,7 +10,7 @@ public class EsqueciMinhaSenha {
     private AppiumDriver driver;
 
     private MobileElement textoModalContaBloqueada;
-    private MobileElement inputUsuario;
+    private MobileElement inputCPFUsuario;
     private MobileElement botaoConfirmar;
 
 
@@ -22,14 +22,14 @@ public class EsqueciMinhaSenha {
 
     public void buscarElementos() throws InterruptedException {
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("XPATH INPUT USUÁRIO")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Digite o seu cpf para recuperar a senha\"]")));
 
-        inputUsuario = (MobileElement) driver.findElementByXPath("");
-        botaoConfirmar = (MobileElement) driver.findElementByXPath("");
+        inputCPFUsuario = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Digite o seu cpf para recuperar a senha\"]");
+        botaoConfirmar = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para confirmar o cpf\"]/android.view.ViewGroup");
     }
 
     public void preencherInputCpf(String cpf) {
-        inputUsuario.sendKeys(cpf);
+        inputCPFUsuario.sendKeys(cpf);
     }
 
     public void clicarBotaoConfirmar(){
@@ -38,9 +38,9 @@ public class EsqueciMinhaSenha {
 
     public void  buscarMensagemContaBloqueada(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]")));
 
-        textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]");
+        textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]");
     }
 
 
