@@ -3,20 +3,14 @@ package org.example.PageObjects;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.util.Assert;
 
 public class Home {
     private AppiumDriver driver;
-    private MobileElement nomeUsuario;
+    private MobileElement msgBoaViagem;
     private MobileElement botaoBiometria;
     private PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
     private MobileElement modal;
@@ -44,7 +38,7 @@ public class Home {
     }
 
     public void buscarMensagemBemVindo(){
-        nomeUsuario = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Olá, Carlitos!\"]");
+        msgBoaViagem = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Tenha uma boa viagem.\"]");
     }
 
 
@@ -62,8 +56,8 @@ public class Home {
         return driver;
     }
 
-    public MobileElement getNomeUsuario() {
-        return nomeUsuario;
+    public MobileElement getMsgBoaViagem() {
+        return msgBoaViagem;
     }
 
     public PointerInput getFinger() {

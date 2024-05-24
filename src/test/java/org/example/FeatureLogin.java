@@ -31,7 +31,7 @@ public class FeatureLogin
 
         telaHome.arrastarModalParaBaixo();
 
-        Assert.assertEquals("Olá, Carlitos!", telaHome.getNomeUsuario().getText());
+        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
 
         assertTrue( true );
     }
@@ -82,6 +82,23 @@ public void login_com_usuario_bloqueado() throws InterruptedException {
         telaEsqueciminhaSenha.buscarMensagemContaBloqueada();
         Assert.assertTrue(telaEsqueciminhaSenha.getTextoModalContaBloqueada().isDisplayed());
         assertTrue( true );
+    }
+
+    @Test
+    public void login_atraves_esqueci_minha_senha_credenciais_invalidas() throws InterruptedException {
+        AppiumDriver driver =  AppiumDriverConfig.Instance().driver;
+
+        Login telaLogin = new Login(driver);
+        telaLogin.buscarElementos();
+        telaLogin.clicarEsqueciMinhaSenha();
+
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+        telaEsqueciminhaSenha.buscarElementos();
+        telaEsqueciminhaSenha.preencherInputCpf("12345678910");
+        telaEsqueciminhaSenha.clicarBotaoConfirmar();
+        telaEsqueciminhaSenha.buscarMensagemCPFInvalido();
+        Assert.assertTrue(telaEsqueciminhaSenha.getMsgCPFInvalido().isDisplayed());
+
     }
 
 
