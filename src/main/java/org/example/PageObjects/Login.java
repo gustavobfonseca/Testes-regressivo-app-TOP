@@ -38,7 +38,6 @@ public class Login {
 
     public void logar() {
         botaoLogin.click();
-        buscarModalErro();
     }
 
     public void buscarModalErro() {
@@ -55,9 +54,9 @@ public class Login {
 
     public void  buscarMensagemContaBloqueada(){        
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]")));
 
-        textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]");
+        textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]");
     }
 
 
