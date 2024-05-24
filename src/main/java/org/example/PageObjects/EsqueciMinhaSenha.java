@@ -12,7 +12,7 @@ public class EsqueciMinhaSenha {
     private MobileElement textoModalContaBloqueada;
     private MobileElement inputCPFUsuario;
     private MobileElement botaoConfirmar;
-
+    private MobileElement msgCPFInvalido;
 
 
     public EsqueciMinhaSenha(AppiumDriver driver) {
@@ -43,12 +43,20 @@ public class EsqueciMinhaSenha {
         textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]");
     }
 
+    public void buscarMensagemCPFInvalido(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Digite o seu cpf para recuperar a senha\"]")));
 
+        msgCPFInvalido = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Erro Digite o seu cpf para recuperar a senha\"]");
 
-
-
+    }
 
     public MobileElement getTextoModalContaBloqueada() {
         return textoModalContaBloqueada;
     }
+
+    public MobileElement getMsgCPFInvalido() {
+        return msgCPFInvalido;
+    }
 }
+
