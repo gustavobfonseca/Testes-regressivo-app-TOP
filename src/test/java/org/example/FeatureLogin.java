@@ -31,7 +31,7 @@ public class FeatureLogin
 
         telaHome.arrastarModalParaBaixo();
 
-        Assert.assertEquals("Olá, Carlitos!", telaHome.getNomeUsuario().getText());
+        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
 
         assertTrue( true );
     }
