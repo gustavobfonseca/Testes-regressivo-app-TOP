@@ -36,6 +36,16 @@ public class Login {
         campoSenha.sendKeys(senha);
     }
 
+    public void preencherFormularioUsuario(String usuario) {
+        campoUsuario.sendKeys(usuario);
+    }
+
+    public void preencherFormularioSenha(String senha) {
+        campoSenha.sendKeys(senha);
+    }
+
+
+
     public void logar() {
         botaoLogin.click();
     }
