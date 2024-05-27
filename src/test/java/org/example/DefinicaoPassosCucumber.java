@@ -37,13 +37,16 @@ public class DefinicaoPassosCucumber {
     }
 
     @Entao("visualizo o modal de CPF e, ou Senha inválidos")
-    public void theScenarioPasses() {
+    public void theScenarioPasses() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
 
         telaLogin.buscarModalErro();
         Assert.assertEquals("CPF e/ou senha inválidos.", telaLogin.getModalErro().getText());
-
+        telaLogin.buscarBotaoFecharModalCPFSenha();
+        telaLogin.clicarBotaoFecharModalCPFSenha();
+        telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
     }
 
     @Quando("submeto minhas credenciais válidas para login")
@@ -70,7 +73,7 @@ public class DefinicaoPassosCucumber {
         telaHome.arrastarModalParaBaixo();
 
         //Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
-        Assert.assertEquals("BUG teste", telaHome.getMsgBoaViagem().getText());
+        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
     @After

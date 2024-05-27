@@ -13,6 +13,7 @@ public class Login {
     private MobileElement botaoLogin;
     private MobileElement textoModalContaBloqueada;
     private MobileElement linkEsqueciMinhaSenha;
+    private MobileElement botaoFecharModalErroCPFSenha;
 
     private MobileElement modalErro;
 
@@ -69,8 +70,23 @@ public class Login {
         textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]");
     }
 
+    public void buscarBotaoFecharModalCPFSenha(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Fechar\"]/android.view.ViewGroup")));
 
+        botaoFecharModalErroCPFSenha = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Fechar\"]/android.view.ViewGroup");
+    }
 
+    public void clicarBotaoFecharModalCPFSenha(){
+        botaoFecharModalErroCPFSenha.click();
+    }
+
+    public void limparCamposLogin() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]")));
+        campoUsuario.clear();
+        campoSenha.clear();
+    }
 
 
 
