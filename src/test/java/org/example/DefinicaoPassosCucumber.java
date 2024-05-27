@@ -18,8 +18,6 @@ import java.sql.Driver;
 import static org.junit.Assert.assertTrue;
 
 public class DefinicaoPassosCucumber {
-    AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-    Login telaLogin = new Login(driver);
 
     @Dado("que estou na área não logada do app")
     public void anExampleScenario() {
@@ -48,17 +46,6 @@ public class DefinicaoPassosCucumber {
 
     }
 
-
-    @After
-    public void includeScreenshot(Scenario scenario) throws IOException {
-        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-
-        if(scenario.isFailed()) {
-            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
-            scenario.attach(fileContent, "image/png", "image1");
-        }}
-
     @Quando("submeto minhas credenciais válidas para login")
     public void submetoMinhasCredenciaisVálidasParaLogin() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -85,4 +72,14 @@ public class DefinicaoPassosCucumber {
         //Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
         Assert.assertEquals("BUG teste", telaHome.getMsgBoaViagem().getText());
     }
+
+    @After
+    public void includeScreenshot(Scenario scenario) throws IOException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        if(scenario.isFailed()) {
+            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
+            scenario.attach(fileContent, "image/png", "image1");
+        }}
 }
