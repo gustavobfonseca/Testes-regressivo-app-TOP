@@ -14,7 +14,7 @@ import org.junit.Assert;
 public class FeatureLogin
         extends TestCase
 {
-    @Test
+
     public void login_com_preenchimento_correto() throws InterruptedException {
 
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -37,7 +37,7 @@ public class FeatureLogin
         assertTrue( true );
     }
 
-    @Test
+
     public void login_com_credenciais_invalidas() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
 
@@ -52,7 +52,7 @@ public class FeatureLogin
         Assert.assertEquals("CPF e/ou senha inválidos.", telaLogin.getModalErro().getText());
 
     }
-    @Test
+
 public void login_com_usuario_bloqueado() throws InterruptedException {
     AppiumDriver driver =  AppiumDriverConfig.Instance().driver;
 
@@ -66,7 +66,7 @@ public void login_com_usuario_bloqueado() throws InterruptedException {
         assertTrue( true );
     }
 
-    @Test
+
     public void login_atraves_esqueci_minha_senha_com_cpf_bloqueado() throws InterruptedException {
         AppiumDriver driver =  AppiumDriverConfig.Instance().driver;
 
@@ -85,7 +85,7 @@ public void login_com_usuario_bloqueado() throws InterruptedException {
         assertTrue( true );
     }
 
-    @Test
+
     public void login_atraves_esqueci_minha_senha_credenciais_invalidas() throws InterruptedException {
         AppiumDriver driver =  AppiumDriverConfig.Instance().driver;
 

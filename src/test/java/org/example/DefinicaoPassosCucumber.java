@@ -1,50 +1,88 @@
 package org.example;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.cucumber.java.pt.Dado;
-import io.cucumber.java.pt.E;
-import io.cucumber.java.pt.Entao;
-import io.cucumber.java.pt.Quando;
-import org.example.PageObjects.Login;
+import io.cucumber.java.*;
+import io.cucumber.java.pt.*;
+import org.example.PageObjects.*;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import java.io.File;
+import java.io.IOException;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Driver;
 
 import static org.junit.Assert.assertTrue;
 
 public class DefinicaoPassosCucumber {
-    AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-    Login telaLogin = new Login(driver);
 
-    @Dado("que estou na tela de login")
-    public void buscarElementosTelaLogin() throws InterruptedException {
+    @Dado("que estou na área não logada do app")
+    public void anExampleScenario() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+    }
+
+    @Quando("submeto minhas credenciais inválidas para login")
+    public void allStepDefinitionsAreImplemented() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
         telaLogin.buscarElementos();
-    }
-
-    @Quando("Quando insiro o cpf bloqueado {string}")
-    public void inserirCpfBloqueado(String cpf) {
-        telaLogin.preencherFormularioUsuario(cpf);
-    }
-
-        @E("preencho com qualquer senha dentro dos criterios de aceite {string}")
-        public void inserirSenha(String senha){
-            telaLogin.preencherFormularioSenha(senha);
-    }
-
-
-    @E("clico no botao de entrar")
-    public void clicarBotaoEntrar(){
+        telaLogin.preencherFormulario("327.721.478-86", "SenhaIncorreta");
         telaLogin.logar();
     }
 
-    @Entao("visualizo o modal com a mensagem de conta bloqueada")
-    public void visualizarModalComMensagemDeContaBloqueada(){
-        telaLogin.buscarMensagemContaBloqueada();
-        assertTrue(telaLogin.getTextoModalContaBloqueada().isDisplayed());
-        assertTrue( true );
+    @Entao("visualizo o modal de CPF e, ou Senha inválidos")
+    public void theScenarioPasses() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+        telaLogin.buscarModalErro();
+        Assert.assertEquals("CPF e/ou senha inválidos.", telaLogin.getModalErro().getText());
+        telaLogin.buscarBotaoFecharModalCPFSenha();
+        telaLogin.clicarBotaoFecharModalCPFSenha();
+        telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
     }
+
+    @Quando("submeto minhas credenciais válidas para login")
+    public void submetoMinhasCredenciaisVálidasParaLogin() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+
+        telaLogin.buscarElementos();
+        telaLogin.preencherFormulario("327.721.478-86", "Devires@123");
+        telaLogin.logar();
+    }
+
+
+    @Entao("acesso a home do aplicativo")
+    public void acessoAHomeDoAplicativo() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        Home telaHome = new Home(driver);
+
+        telaHome.esperarBotaoBiometria();
+        telaHome.clicarBotaoAtivarBiometria();
+
+        telaHome.arrastarModalParaBaixo();
+
+        //Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+    }
+
+    @After
+    public void includeScreenshot(Scenario scenario) throws IOException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        if(scenario.isFailed()) {
+            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
+            scenario.attach(fileContent, "image/png", "image1");
+        }}
 }

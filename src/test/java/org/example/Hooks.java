@@ -28,11 +28,7 @@ public class Hooks {
     private static StringBuilder relatorio = new StringBuilder();
 
 
-    @Before
-    public void setUp() {
-        // Inicialize o AppiumDriver aqui
-        driver = AppiumDriverConfig.Instance().driver;
-    }
+
 
     @After
     public void verificarErro(Scenario scenario) {
