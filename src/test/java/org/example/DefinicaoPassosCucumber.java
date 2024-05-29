@@ -1,6 +1,10 @@
 package org.example;
 
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.cucumber.java.*;
 import io.cucumber.java.pt.*;
 import org.example.PageObjects.*;
@@ -32,6 +36,7 @@ public class DefinicaoPassosCucumber {
         Login telaLogin = new Login(driver);
 
         telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
         telaLogin.preencherFormulario("327.721.478-86", "SenhaIncorreta");
         telaLogin.logar();
     }
@@ -56,6 +61,7 @@ public class DefinicaoPassosCucumber {
 
 
         telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
         telaLogin.preencherFormulario("327.721.478-86", "Devires@123");
         telaLogin.logar();
     }
@@ -85,4 +91,89 @@ public class DefinicaoPassosCucumber {
             byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
             scenario.attach(fileContent, "image/png", "image1");
         }}
+
+    @Quando("submeto minhas credenciais bloqueadas para login")
+    public void submetoMinhasCredenciaisBloqueadasParaLogin() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+
+        telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
+        telaLogin.preencherFormulario("73040542559", "Devires@123");
+        telaLogin.logar();
+    }
+
+
+    @Entao("visualizo o modal de usuário bloqueado")
+    public void visualizoOModalDeUsuárioBloqueado() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+        telaLogin.buscarMensagemContaBloqueada();
+        Assert.assertTrue(telaLogin.getTextoModalContaBloqueada().isDisplayed());
+    }
+
+    @Dado("que acesso a opção esqueci minha senha na área não logada")
+    public void queAcessoAOpçãoEsqueciMinhaSenhaNaÁreaNãoLogada() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+        telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
+        telaLogin.clicarEsqueciMinhaSenha();
+    }
+
+    @Quando("informo um CPF bloqueado")
+    public void informoUmCPFBloqueado() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciSenha = new EsqueciMinhaSenha(driver);
+        telaEsqueciSenha.buscarElementos();
+
+        telaEsqueciSenha.preencherInputCpf("73040542559");
+        telaEsqueciSenha.clicarBotaoConfirmar();
+    }
+
+    @Entao("visualizo o modal de usuário bloqueado na tela de esqueci minha senha")
+    public void visualizoOModalDeUsuárioBloqueadoNaTelaDeEsqueciMinhaSenha() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciSenha.buscarMensagemContaBloqueada();
+        Assert.assertTrue(telaEsqueciSenha.getTextoModalContaBloqueada().isDisplayed());
+    }
+
+    @Quando("informo um CPF inválido")
+    public void informoUmCPFInválido() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+        telaEsqueciminhaSenha.buscarElementos();
+        telaEsqueciminhaSenha.preencherInputCpf("12345678910");
+        telaEsqueciminhaSenha.clicarBotaoConfirmar();
+    }
+
+
+    @Entao("visualizo a mensagem de Documento inválido")
+    public void visualizoAMensagemDeDocumentoInválido() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+        telaEsqueciminhaSenha.buscarMensagemCPFInvalido();
+        Assert.assertTrue(telaEsqueciminhaSenha.getMsgCPFInvalido().isDisplayed());
+
+    }
+
+    @E("reseto o app")
+    public void resetoOApp() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Celular.resetApp(driver);
+    }
+
+    @E("clico em cancelar")
+    public void clicoEmCancelar() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.buscarElementos();
+        telaEsqueciminhaSenha.clicarBotaoCancelar();
+    }
 }

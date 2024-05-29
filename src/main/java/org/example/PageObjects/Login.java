@@ -1,8 +1,10 @@
 package org.example.PageObjects;
 
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,6 +16,7 @@ public class Login {
     private MobileElement textoModalContaBloqueada;
     private MobileElement linkEsqueciMinhaSenha;
     private MobileElement botaoFecharModalErroCPFSenha;
+    private MobileElement iconeInformativo;
 
     private MobileElement modalErro;
 
@@ -68,6 +71,24 @@ public class Login {
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]")));
 
         textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]");
+    }
+
+    public void arrastarModalContaBloqueadaBaixo(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]")));
+
+        iconeInformativo = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]");
+        buscarMensagemContaBloqueada();
+
+        Dimension tamanhoTela = driver.manage().window().getSize();
+        int alturaTela = tamanhoTela.getHeight();
+        int alturaModal = alturaTela * 2 / 3;
+        int larguraModal = tamanhoTela.getWidth() / 2;
+
+        driver.executeScript("mobile: flingGesture", ImmutableMap.of("elementId", textoModalContaBloqueada.getId(),
+                "percentage", 100,
+                "direction", "down",
+                "speed", 500));
     }
 
     public void buscarBotaoFecharModalCPFSenha(){

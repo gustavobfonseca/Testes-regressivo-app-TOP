@@ -13,6 +13,7 @@ public class EsqueciMinhaSenha {
     private MobileElement inputCPFUsuario;
     private MobileElement botaoConfirmar;
     private MobileElement msgCPFInvalido;
+    private MobileElement botaoCancelar;
 
 
     public EsqueciMinhaSenha(AppiumDriver driver) {
@@ -26,6 +27,7 @@ public class EsqueciMinhaSenha {
 
         inputCPFUsuario = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Digite o seu cpf para recuperar a senha\"]");
         botaoConfirmar = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para confirmar o cpf\"]/android.view.ViewGroup");
+        botaoCancelar = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para cancelar a recuperação de senha\"]");
     }
 
     public void preencherInputCpf(String cpf) {
@@ -34,6 +36,10 @@ public class EsqueciMinhaSenha {
 
     public void clicarBotaoConfirmar(){
         botaoConfirmar.click();
+    }
+
+    public void clicarBotaoCancelar(){
+        botaoCancelar.click();
     }
 
     public void  buscarMensagemContaBloqueada(){
