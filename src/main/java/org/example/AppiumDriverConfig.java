@@ -27,6 +27,7 @@ public class AppiumDriverConfig {
         config.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
         config.setCapability(MobileCapabilityType.UDID, "RQ8NA0A9GYW");
         config.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13");
+        config.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "3000");
 
 
         URL urlConexao = null;

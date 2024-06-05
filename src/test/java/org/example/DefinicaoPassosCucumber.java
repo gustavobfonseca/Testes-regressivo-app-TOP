@@ -176,4 +176,94 @@ public class DefinicaoPassosCucumber {
         telaEsqueciminhaSenha.buscarElementos();
         telaEsqueciminhaSenha.clicarBotaoCancelar();
     }
+
+
+
+    @E("vou para a minha home do aplicativo")
+    public void vouParaAMinhaHomeDoAplicativo() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        Home telaHome = new Home(driver);
+
+        telaHome.esperarBotaoBiometria();
+        telaHome.clicarBotaoAtivarBiometria();
+
+        telaHome.arrastarModalParaBaixo();
+    }
+
+    @Quando("que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado")
+    public void queEuAcessoOMenuNaHomeDoAplicativoTendoCartãoDeCréditoCadastrado() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Home telaHome = new Home(driver);
+
+        telaHome.buscarBotaoBilhetes();
+        telaHome.clicarBotaoBilhetes();
+    }
+
+    @E("clico na opçao Comprar Bilhetes")
+    public void clicoNaOpçaoComprarBilhetes() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
+
+        paginaMeusBilhetes.buscarElementos();
+        paginaMeusBilhetes.clicarBotaoComprarBilhetes();
+    }
+
+    @E("clico na opção CPTM, Metrô")
+    public void clicoNaOpção() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarBotaoCPTM();
+        telaMeusBilhetes.clicarBotaoCPTM();
+
+    }
+
+    @E("seleciono a quantidade de bilhetes")
+    public void selecionoAQuantidadeDeBilhetes() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+        telaMeusBilhetes.buscarBotaoUnidades();
+        telaMeusBilhetes.clicarBotaoUnidades();
+    }
+
+    @E("confirmo Cartão de crédito como forma de pagamento")
+    public void confirmoCartãoDeCréditoComoFormaDePagamento() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarOpcaoCartaoDeCredito();
+        telaMeusBilhetes.clicarOpcaoCartaoDeCredito();
+        telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
+    }
+
+    @Então("visualizo a tela de Pagamento efetuado com sucesso")
+    public void visualizoATelaDePagamentoEfetuadoComSucesso() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarMensagemCompraRealizadaComSucesso();
+        assertTrue(telaMeusBilhetes.getMensagemCompraRealizadaComSucesso().isDisplayed());
+        telaMeusBilhetes.buscarBotaoVoltarParaHome();
+        telaMeusBilhetes.clicarBotaoVoltarParaHome();
+    }
+
+    @E("confirmo o pagamento informando o CVV {string}")
+    public void confirmoOPagamentoInformandoOCVV(String arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarElementosConfirmarCompra();
+        telaMeusBilhetes.inserirCvv(arg0);
+        telaMeusBilhetes.clicarBotaoConfirmarCompra();
+    }
+
+    @Então("visualizo a tela de Erro no pagamento")
+    public void visualizoATelaDeErroNoPagamento() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarMensagemFalhaNoPagamento();
+        assertTrue(telaMeusBilhetes.getMensagemFalhaNoPagamento().isDisplayed());
+    }
 }
