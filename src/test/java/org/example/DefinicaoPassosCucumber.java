@@ -266,4 +266,23 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.buscarMensagemFalhaNoPagamento();
         assertTrue(telaMeusBilhetes.getMensagemFalhaNoPagamento().isDisplayed());
     }
+
+    @Quando("informo o seguinte CPF {string}")
+    public void informoOSeguinteCPF(String arg0) throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+        telaEsqueciminhaSenha.buscarElementos();
+        telaEsqueciminhaSenha.preencherInputCpf(arg0);
+        telaEsqueciminhaSenha.clicarBotaoConfirmar();
+    }
+
+    @E("insiro o token")
+    public void insiroOToken() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.buscarInput0();
+        telaEsqueciminhaSenha.clicarInput0();
+        telaEsqueciminhaSenha.inserirInputs("01234");
+    }
 }
