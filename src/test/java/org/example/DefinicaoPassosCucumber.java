@@ -283,6 +283,9 @@ public class DefinicaoPassosCucumber {
 
         telaEsqueciminhaSenha.buscarInput0();
         telaEsqueciminhaSenha.clicarInput0();
-        telaEsqueciminhaSenha.inserirInputs("01234");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("32772147886");
+        telaEsqueciminhaSenha.inserirInputs(token);
     }
 }
+
+
