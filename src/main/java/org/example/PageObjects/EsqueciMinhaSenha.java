@@ -15,7 +15,6 @@ public class EsqueciMinhaSenha {
     private MobileElement msgCPFInvalido;
     private MobileElement botaoCancelar;
     private MobileElement input0;
-    private MobileElement input1;
 
 
     public EsqueciMinhaSenha(AppiumDriver driver) {
