@@ -24,6 +24,11 @@ Funcionalidade: : Login
     Entao visualizo a mensagem de Documento inválido
     E clico em cancelar
 
+  Cenario: Teste - Recuperação de senha
+    Dado que acesso a opção esqueci minha senha na área não logada
+    Quando informo o seguinte CPF "32772147886"
+    E insiro o token
+
   Cenario: 01 - Login com as credenciais validas
     Dado que estou na área não logada do app
     Quando submeto minhas credenciais válidas para login

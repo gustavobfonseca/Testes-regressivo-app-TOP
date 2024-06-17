@@ -12,6 +12,7 @@ public class Home {
     private AppiumDriver driver;
     private MobileElement msgBoaViagem;
     private MobileElement botaoBiometria;
+    private MobileElement botaoBilhetes;
     private PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
     private MobileElement modal;
 
@@ -54,6 +55,19 @@ public class Home {
 
     public AppiumDriver getDriver() {
         return driver;
+    }
+
+    public void buscarBotaoBilhetes(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Bilhetes\n" +
+                "QR Code\"]")));
+
+        botaoBilhetes = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Bilhetes\n" +
+                "QR Code\"]");
+    }
+
+    public void clicarBotaoBilhetes(){
+        botaoBilhetes.click();
     }
 
     public MobileElement getMsgBoaViagem() {
