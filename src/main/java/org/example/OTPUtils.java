@@ -16,11 +16,11 @@ public class OTPUtils {
     public static final String PHONE_NUMBER_OR_EMAIL_FIELD = PHONENUMBER_OR_EMAIL_FIELD;
     public static final String OTP_TOKEN_FIELD = "code";
 
-    public static String getOTPtokenByPhoneNumberOrEmail (String cpfOrEmail) {
+    public static String getOTPtokenByPhoneNumberOrEmail (String phoneNumberOrEmail) {
         MongoClient mongoClient = MongoDb.getConnection();
         MongoDatabase database = mongoClient.getDatabase(OTP_TOKEN_DATABASE);
         MongoCollection<Document> collection = database.getCollection(OTP_TOKEN_COLLECTION);
-        Document query = new Document(PHONE_NUMBER_OR_EMAIL_FIELD, cpfOrEmail);
+        Document query = new Document(PHONE_NUMBER_OR_EMAIL_FIELD, phoneNumberOrEmail);
         List<Document> result = collection.find(query).into(new ArrayList<>());;
         mongoClient.close();
         return result.get(0).get(OTP_TOKEN_FIELD).toString();

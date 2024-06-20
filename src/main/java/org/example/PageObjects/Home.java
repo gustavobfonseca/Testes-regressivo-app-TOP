@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,6 +14,7 @@ public class Home {
     private MobileElement msgBoaViagem;
     private MobileElement botaoBiometria;
     private MobileElement botaoBilhetes;
+    private MobileElement botaoModalQueroConhecer;
     private PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
     private MobileElement modal;
 
@@ -34,7 +36,10 @@ public class Home {
     }
 
     public void buscarModal(){
-       modal = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]");
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]")));
+
+        modal = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]");
 
     }
 
@@ -70,6 +75,23 @@ public class Home {
         botaoBilhetes.click();
     }
 
+    public void clicarBotaoModalQueroConhecer() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        By botaoModalQueroConhecerLocator = By.xpath("//android.view.ViewGroup[@content-desc=\"Botão de navegação tela de vantagens.\"]/android.view.ViewGroup");
+
+        try {
+            espera.until(ExpectedConditions.presenceOfElementLocated(botaoModalQueroConhecerLocator));
+            MobileElement botaoModalQueroConhecer = (MobileElement) driver.findElement(botaoModalQueroConhecerLocator);
+            botaoModalQueroConhecer.click();
+            Thread.sleep(1000);
+            driver.navigate().back();
+            buscarMensagemBemVindo();
+        } catch (TimeoutException e) {
+            buscarMensagemBemVindo();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public MobileElement getMsgBoaViagem() {
         return msgBoaViagem;
     }

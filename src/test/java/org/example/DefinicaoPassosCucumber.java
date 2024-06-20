@@ -85,8 +85,16 @@ public class DefinicaoPassosCucumber {
         telaHome.clicarBotaoAtivarBiometria();
 
         telaHome.arrastarModalParaBaixo();
+        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+    }
 
-        //Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+    @Entao("acesso a tela home do aplicativo")
+    public void acessoATelaHomeDoAplicativo() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        Home telaHome = new Home(driver);
+
+        telaHome.clicarBotaoModalQueroConhecer();
         Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
@@ -278,7 +286,7 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.clicarBotaoVoltarParaHome();
     }
 
-    @Quando("informo o seguinte CPF {string}")
+    @Quando("informo o seguinte CPF {string} que possui o email 'lucas.kuroda@devires.com.br' e o telefone '+5514996237865'")
     public void informoOSeguinteCPF(String arg0) throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
@@ -287,15 +295,76 @@ public class DefinicaoPassosCucumber {
         telaEsqueciminhaSenha.clicarBotaoConfirmar();
     }
 
-    @E("insiro o token")
-    public void insiroOToken() {
+    @E("insiro o token sms")
+    public void insiroOTokenSms() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
 
-        telaEsqueciminhaSenha.buscarInput0();
+        telaEsqueciminhaSenha.buscarInput0Sms();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("32772147886");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5514996237865");
         telaEsqueciminhaSenha.inserirInputs(token);
+        Thread.sleep(2000)
+        ;
+    }
+
+    @E("insiro o token email")
+    public void insiroOTokenEmail() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.buscarInput0Email();
+        telaEsqueciminhaSenha.clicarInput0();
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+        telaEsqueciminhaSenha.inserirInputs(token);
+    }
+
+    @E("clico em confirmar")
+    public void confirmar() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciMinhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciMinhaSenha.clicarBotaoConfirmar();
+    }
+
+    @E("clico em confirmar sms")
+    public void confirmarSms() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.clicarBotaoConfirmarSms();
+    }
+
+    @E("insiro a nova senha {string}")
+    public void inserirNovaSenha(String novaSenha) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.preencherInputSuaSenha(novaSenha);
+    }
+
+ @E("confirmo a nova senha {string}")
+    public void confirmarNovaSenha(String confirmarSenha) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.preencherInputConfirmarSenha(confirmarSenha);
+    }
+
+ @E("clico em confirmar redefinir senha")
+    public void confirmarRedefinirSenha() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.clicarBotaoConfirmarRedefinirSenha();
+    }
+
+    @E("clico em confirmar email")
+    public void confirmarEmail() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.clicarBotaoConfirmarEmail();
     }
 
     @E("confirmo Cartão de débito como forma de pagamento")

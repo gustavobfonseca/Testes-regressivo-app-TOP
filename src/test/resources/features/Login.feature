@@ -24,10 +24,18 @@ Funcionalidade: : Login
     Entao visualizo a mensagem de Documento inválido
     E clico em cancelar
 
-  Cenario: Teste - Recuperação de senha
+  Cenario: Teste -Login através da recuperação de senha
     Dado que acesso a opção esqueci minha senha na área não logada
-    Quando informo o seguinte CPF "32772147886"
-    E insiro o token
+    Quando informo o seguinte CPF "32772147886" que possui o email 'lucas.kuroda@devires.com.br' e o telefone '+5514996237865'
+    E insiro o token sms
+    E clico em confirmar sms
+    E insiro o token email
+    E clico em confirmar email
+    E insiro a nova senha "Devires@123"
+    E confirmo a nova senha "Devires@123"
+    E clico em confirmar redefinir senha
+    Entao acesso a tela home do aplicativo
+
 
   Cenario: 01 - Login com as credenciais validas
     Dado que estou na área não logada do app
