@@ -5,6 +5,7 @@ import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.util.Assert;
 
 public class EsqueciMinhaSenha {
     private AppiumDriver driver;
@@ -20,6 +21,12 @@ public class EsqueciMinhaSenha {
     private MobileElement msgCPFInvalido;
     private MobileElement botaoCancelar;
     private MobileElement input0;
+    private MobileElement modalErroToken;
+    private MobileElement botaoConfirmarModalErroToken;
+    private MobileElement mensagemErroCampoNovaSenha;
+    private MobileElement mensagemErroCampoRepetirNovaSenha;
+    private MobileElement visualizarNovaSenha;
+    private MobileElement visualizarConfirmarNovaSenha;
 
 
     public EsqueciMinhaSenha(AppiumDriver driver) {
@@ -45,14 +52,13 @@ public class EsqueciMinhaSenha {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Campo para digitar nova senha\"]\n")));
 
-        inputSuaSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Campo para digitar nova senha\"]\n");
+        inputSuaSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Campo para digitar nova senha\"]");
 
         inputSuaSenha.sendKeys(senhaNova);
     }
 
     public void preencherInputConfirmarSenha(String confirmarSenha) {
-        inputConfirmarSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Campo para digitar confirmação de senha\"]\n");
-
+        inputConfirmarSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Campo para digitar confirmação de senha\"]");
         inputConfirmarSenha.sendKeys(confirmarSenha);
     }
 
@@ -73,6 +79,9 @@ public class EsqueciMinhaSenha {
     }
 
     public void clicarBotaoConfirmarRedefinirSenha() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para confirmar a nova senha\"]/android.view.ViewGroup\n")));
+
         botaoConfirmarRedefinirSenha = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para confirmar a nova senha\"]/android.view.ViewGroup\n");
         botaoConfirmarRedefinirSenha.click();
     }
@@ -103,8 +112,9 @@ public class EsqueciMinhaSenha {
         input0 = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]");
 
     }
+
     public void buscarInput0Email() {
-        WebDriverWait espera = new WebDriverWait(driver, 10);
+        WebDriverWait espera = new WebDriverWait(driver, 20);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]")));
 
         input0 = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup[1]\n");
@@ -119,6 +129,66 @@ public class EsqueciMinhaSenha {
         driver.getKeyboard().sendKeys(input0);
     }
 
+    public void buscarModalErroSms() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"O código enviado é invalido.\"]\n")));
+
+        modalErroToken = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"O código enviado é invalido.\"]\n");
+
+        botaoConfirmarModalErroToken = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Confirmar \"]\n");
+        botaoConfirmarModalErroToken.click();
+    }
+
+    public void novaSenhaTesteCriterioDeAceite() throws InterruptedException {
+
+        clicarBotaoConfirmarRedefinirSenha();
+
+        visualizarNovaSenha = (MobileElement) driver.findElementByXPath("(//android.widget.TextView[@text=\"\uE91C\"])[1]");
+        visualizarConfirmarNovaSenha = (MobileElement) driver.findElementByXPath("(//android.widget.TextView[@text=\"\uE91C\"])[2]");
+
+        Thread.sleep(500);
+
+        mensagemErroCampoNovaSenha = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Erro Campo para digitar nova senha\"]");
+        mensagemErroCampoRepetirNovaSenha = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Erro Campo para digitar confirmação de senha\"]");
+
+        Assert.state(mensagemErroCampoNovaSenha.getText().equals("Campo obrigatório"), "Mensagem de erro incorreta era pra ser Campo obrigatório ");
+        Thread.sleep(500);
+        Assert.state(mensagemErroCampoRepetirNovaSenha.getText().equals("Campo obrigatório"), "Mensagem de erro incorreta era pra ser Campo obrigatório ");
+
+        visualizarNovaSenha.click();
+        visualizarConfirmarNovaSenha.click();
+
+        preencherInputSuaSenha("1");
+        Thread.sleep(500);
+        Assert.state(mensagemErroCampoNovaSenha.getText().equals("Senha deve conter pelo menos 8 dígitos"), "Mensagem de erro incorreta era pra ser Sua senha deve conter pelo menos 8 dígitos");
+        Thread.sleep(500);
+
+
+        preencherInputSuaSenha("2345678");
+        Thread.sleep(500);
+        Assert.state(mensagemErroCampoNovaSenha.getText().equals("A senha precisa ter pelo menos 1 caractere maiúsculo, 1 minúsculo e 1 número"), "Mensagem de erro incorreta era pra ser A senha precisa ter pelo menos 1 caractere maiúsculo, 1 minúsculo e 1 número");
+        Thread.sleep(500);
+
+        preencherInputSuaSenha("Aa");
+        Thread.sleep(500);
+
+        preencherInputConfirmarSenha("1");
+        Thread.sleep(500);
+        Assert.state(mensagemErroCampoRepetirNovaSenha.getText().equals("As senhas devem ser iguais"), "Mensagem de erro incorreta era pra ser As senhas devem ser iguais");
+        Thread.sleep(500);
+        preencherInputConfirmarSenha("2345678Aa");
+
+        Thread.sleep(500);
+    }
+
+    public MobileElement getMensagemErroCampoNovaSenha() {
+        return mensagemErroCampoNovaSenha;
+    }
+
+    public MobileElement getMensagemErroCampoRepetirNovaSenha() {
+        return mensagemErroCampoRepetirNovaSenha;
+    }
+
     public MobileElement getTextoModalContaBloqueada() {
         return textoModalContaBloqueada;
     }
@@ -126,5 +196,8 @@ public class EsqueciMinhaSenha {
     public MobileElement getMsgCPFInvalido() {
         return msgCPFInvalido;
     }
+
 }
+
+
 

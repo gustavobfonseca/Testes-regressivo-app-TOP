@@ -30,12 +30,10 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class DefinicaoPassosCucumber {
-
     @Dado("que estou na área não logada do app")
     public void anExampleScenario() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
-
     }
 
     @Quando("submeto minhas credenciais inválidas para login")
@@ -62,15 +60,14 @@ public class DefinicaoPassosCucumber {
         telaLogin.limparCamposLogin();
     }
 
-    @Quando("submeto minhas credenciais válidas para login")
-    public void submetoMinhasCredenciaisVálidasParaLogin() throws InterruptedException {
+    @Quando("submeto minhas credenciais válidas para login, cpf {string} e senha {string}")
+    public void submetoMinhasCredenciaisVálidasParaLogin(String cpf, String senha) throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
 
-
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("327.721.478-86", "Devires@123");
+        telaLogin.preencherFormulario(cpf, senha);
         telaLogin.logar();
     }
 
@@ -83,8 +80,11 @@ public class DefinicaoPassosCucumber {
 
         telaHome.esperarBotaoBiometria();
         telaHome.clicarBotaoAtivarBiometria();
-
-        telaHome.arrastarModalParaBaixo();
+        try {
+            telaHome.arrastarModalParaBaixo();
+        } catch (Exception e) {
+            telaHome.clicarBotaoModalQueroConhecer();
+        }
         Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
@@ -98,15 +98,26 @@ public class DefinicaoPassosCucumber {
         Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
+    @Entao("visualizo o modal de codigo invalido")
+    public void visualizarModalErroCodigoSms() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        EsqueciMinhaSenha esqueciMinhaSenha = new EsqueciMinhaSenha(driver);
+
+
+        esqueciMinhaSenha.buscarModalErroSms();
+    }
+
     @After
     public void includeScreenshot(Scenario scenario) throws IOException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
 
-        if(scenario.isFailed()) {
+        if (scenario.isFailed()) {
             File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
             scenario.attach(fileContent, "image/png", "image1");
-        }}
+        }
+    }
 
     @Quando("submeto minhas credenciais bloqueadas para login")
     public void submetoMinhasCredenciaisBloqueadasParaLogin() throws InterruptedException {
@@ -193,8 +204,6 @@ public class DefinicaoPassosCucumber {
         telaEsqueciminhaSenha.clicarBotaoCancelar();
     }
 
-
-
     @E("vou para a minha home do aplicativo")
     public void vouParaAMinhaHomeDoAplicativo() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -205,6 +214,14 @@ public class DefinicaoPassosCucumber {
         telaHome.clicarBotaoAtivarBiometria();
 
         telaHome.arrastarModalParaBaixo();
+    }
+
+    @E("redefino a senha")
+    public void redefinirSenha() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        Home telaHme = new Home(driver);
+        telaHme.redefinirSenhaPeloPerfil();
     }
 
     @Quando("que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado")
@@ -306,6 +323,19 @@ public class DefinicaoPassosCucumber {
         telaEsqueciminhaSenha.inserirInputs(token);
         Thread.sleep(2000)
         ;
+
+    }
+
+    @E("insiro o token sms invalido")
+    public void insiroOTokenSmsInvalido() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.buscarInput0Sms();
+        telaEsqueciminhaSenha.clicarInput0();
+        telaEsqueciminhaSenha.inserirInputs("111111");
+        Thread.sleep(2000)
+        ;
     }
 
     @E("insiro o token email")
@@ -313,10 +343,22 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
 
+        Thread.sleep(1000);
         telaEsqueciminhaSenha.buscarInput0Email();
         telaEsqueciminhaSenha.clicarInput0();
         String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
         telaEsqueciminhaSenha.inserirInputs(token);
+    }
+
+    @E("insiro o token email invalido")
+    public void insiroOTokenEmailInvalido() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.buscarInput0Email();
+        telaEsqueciminhaSenha.clicarInput0();
+        Thread.sleep(3000);
+        telaEsqueciminhaSenha.inserirInputs("111111");
     }
 
     @E("clico em confirmar")
@@ -343,7 +385,7 @@ public class DefinicaoPassosCucumber {
         telaEsqueciminhaSenha.preencherInputSuaSenha(novaSenha);
     }
 
- @E("confirmo a nova senha {string}")
+    @E("confirmo a nova senha {string}")
     public void confirmarNovaSenha(String confirmarSenha) {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
@@ -351,7 +393,7 @@ public class DefinicaoPassosCucumber {
         telaEsqueciminhaSenha.preencherInputConfirmarSenha(confirmarSenha);
     }
 
- @E("clico em confirmar redefinir senha")
+    @E("clico em confirmar redefinir senha")
     public void confirmarRedefinirSenha() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
@@ -378,14 +420,12 @@ public class DefinicaoPassosCucumber {
     }
 
 
-
-
     @E("submeto as informações corretas do cartão")
     public void submetoAsInformaçõesCorretasDoCartão(DataTable dataTable) {
         List<Map<String, String>> dados = dataTable.asMaps(String.class, String.class);
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         InserirDadosCartao paginaCartoes = new InserirDadosCartao(driver);
-        for(Map<String, String> linha : dados) {
+        for (Map<String, String> linha : dados) {
             String nomeCartao = linha.get("NomeCartao");
             String numeroCartao = linha.get("numeroCartao");
             String validadeCartao = linha.get("dtVal");
@@ -401,7 +441,7 @@ public class DefinicaoPassosCucumber {
     @E("submeto as credenciais para login")
     public void submetoAsCredenciaisParaLogin(DataTable dataTable) throws InterruptedException {
         List<Map<String, String>> dados = dataTable.asMaps(String.class, String.class);
-        for(Map<String, String> linha : dados){
+        for (Map<String, String> linha : dados) {
             String argumento1 = linha.get("cpf");
             String argumento2 = linha.get("senha");
 
@@ -451,6 +491,14 @@ public class DefinicaoPassosCucumber {
         paginaMeusBilhetes.buscarElementosTelaCadastroRealizado();
         assertTrue(paginaMeusBilhetes.getMsgCadastroCartaoSucesso().isDisplayed());
         paginaMeusBilhetes.clicarBotaoVoltarParaInicio();
+    }
+
+    @Entao("verifico os criterios de aceite dos campos \"Sua senha\" e \"Confirmar senha\" validando as mensagens exibidas")
+    public void criterioDeAceiteNovaSenha() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha esqueciMinhaSenha = new EsqueciMinhaSenha(driver);
+
+        esqueciMinhaSenha.novaSenhaTesteCriterioDeAceite();
     }
 
     @E("clico na opção excluir cartão")
