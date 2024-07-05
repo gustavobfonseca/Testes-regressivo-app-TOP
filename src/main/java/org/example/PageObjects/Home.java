@@ -2,6 +2,7 @@ package org.example.PageObjects;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.PointerInput;
@@ -15,10 +16,21 @@ public class Home {
     private MobileElement botaoBilhetes;
     private PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
     private MobileElement modal;
+    private MobileElement fotoDePerfil;
+    private MobileElement textoDadosPessoais;
+    private MobileElement textoMockTokenGemalto;
+    private MobileElement botaoTogleMockTokenGemalto;
 
 
     public Home(AppiumDriver driver){
         this.driver = driver;
+    }
+
+    public void buscarFotoDePerfil(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]")));
+
+        fotoDePerfil = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]");
     }
 
     public void esperarBotaoBiometria() {
@@ -31,6 +43,10 @@ public class Home {
 
     public void clicarBotaoAtivarBiometria() {
         botaoBiometria.click();
+    }
+
+    public void clicarFotoDePerfil(){
+        fotoDePerfil.click();
     }
 
     public void buscarModal(){
@@ -51,6 +67,21 @@ public class Home {
                 "direction", "down"));
         Thread.sleep(500);
         buscarMensagemBemVindo();
+    }
+
+    public void scrolAteOpcaoMock(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]")));
+
+        textoMockTokenGemalto = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" +
+                ".scrollIntoView(new UiSelector().text(\"Mock gemalto token\"));"));
+
+        botaoTogleMockTokenGemalto = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Mock gemalto token\"]/android.view.ViewGroup");
+
+    }
+
+    public void clicarBotaoMockTokenGemalto(){
+        botaoTogleMockTokenGemalto.click();
     }
 
     public AppiumDriver getDriver() {

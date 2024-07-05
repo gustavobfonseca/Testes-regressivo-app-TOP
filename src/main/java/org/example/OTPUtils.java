@@ -23,6 +23,7 @@ public class OTPUtils {
         Document query = new Document(PHONE_NUMBER_OR_EMAIL_FIELD, cpfOrEmail);
         List<Document> result = collection.find(query).into(new ArrayList<>());;
         mongoClient.close();
+        System.out.println("ESSE É O TOKEN DE REDEFINIÇÃO DE SENHA: " + result);
         return result.get(0).get(OTP_TOKEN_FIELD).toString();
     }
 }
