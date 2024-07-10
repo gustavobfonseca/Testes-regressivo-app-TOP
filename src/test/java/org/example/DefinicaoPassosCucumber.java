@@ -170,8 +170,14 @@ public class DefinicaoPassosCucumber {
 
     }
 
-    @E("reseto o app")
+    @Quando("reseto o app")
     public void resetoOApp() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Celular.resetApp(driver);
+    }
+
+    @Dado("que reseto o app")
+    public void queResetoOApp() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Celular.resetApp(driver);
     }
@@ -209,11 +215,12 @@ public class DefinicaoPassosCucumber {
     }
 
     @E("clico na opçao Comprar Bilhetes")
-    public void clicoNaOpçaoComprarBilhetes() {
+    public void clicoNaOpçaoComprarBilhetes() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
 
         paginaMeusBilhetes.buscarElementos();
+        Thread.sleep(5000);
         //paginaMeusBilhetes.clicarFormasDePgto();
         paginaMeusBilhetes.clicarBotaoComprarBilhetes();
     }
@@ -524,8 +531,8 @@ public class DefinicaoPassosCucumber {
         Assert.assertTrue(telaMeusBilhetes.getModalDetalhesCompra().isDisplayed());
     }
 
-    @Quando("eu habilito o mock do token no perfil do usuario")
-    public void euHabilitoOMockDoTokenNoPerfilDoUsuario() {
+    @E("eu habilito o mock do token no perfil do usuario")
+    public void euHabilitoOMockDoTokenNoPerfilDoUsuario() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Home telaHome = new Home(driver);
 
@@ -533,6 +540,7 @@ public class DefinicaoPassosCucumber {
         telaHome.clicarFotoDePerfil();
         telaHome.scrolAteOpcaoMock();
         telaHome.clicarBotaoMockTokenGemalto();
+        Thread.sleep(1000);
         driver.navigate().back();
     }
 

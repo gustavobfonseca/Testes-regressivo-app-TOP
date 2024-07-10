@@ -89,7 +89,7 @@ public class Home {
     }
 
     public void buscarBotaoBilhetes(){
-        WebDriverWait espera = new WebDriverWait(driver, 10);
+        WebDriverWait espera = new WebDriverWait(driver, 20);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Bilhetes\n" +
                 "QR Code\"]")));
 

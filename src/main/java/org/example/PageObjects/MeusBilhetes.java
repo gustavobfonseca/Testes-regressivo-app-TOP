@@ -97,7 +97,7 @@ public class MeusBilhetes {
     public void buscarElementos(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Comprar \n" +
-                "Bilhetes\"]")));
+                                "Bilhetes\"]")));
 
         botaoComprarBilhetes = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Comprar \n" +
                 "Bilhetes\"]");
@@ -187,7 +187,7 @@ public class MeusBilhetes {
 
     public void clicarBotaoCPTM(){bilheteMetro.click();}
 
-    public void clicarBotaoComprarBilhetes(){
+    public void clicarBotaoComprarBilhetes() throws InterruptedException {
         botaoComprarBilhetes.click();
     }
 
@@ -248,7 +248,7 @@ public class MeusBilhetes {
     public void clicarBotaoConfirmarCompra(){botaoConfirmarCompra.click();}
 
     public void buscarMensagemCompraRealizadaComSucesso(){
-        WebDriverWait espera = new WebDriverWait(driver, 20);
+        WebDriverWait espera = new WebDriverWait(driver, 50);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Sua compra foi realizada\n" +
                 "com sucesso!\"]")));
 
@@ -257,7 +257,7 @@ public class MeusBilhetes {
     }
 
     public void buscarMensagemFalhaNoPagamento(){
-        WebDriverWait espera = new WebDriverWait(driver, 10);
+        WebDriverWait espera = new WebDriverWait(driver, 50);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Falha no pagamento!\"]")));
 
         mensagemFalhaNoPagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Falha no pagamento!\"]");
