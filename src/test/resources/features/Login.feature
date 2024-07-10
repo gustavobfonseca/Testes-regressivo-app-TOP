@@ -6,7 +6,7 @@ Funcionalidade: Login
     Quando submeto minhas credenciais inválidas para login
     Entao visualizo o modal de CPF e, ou Senha inválidos
 
-  Cenario: 03 - login com usuario bloqueado
+    Cenario: 03 - login com usuario bloqueado
     Dado que estou na área não logada do app
     Quando submeto minhas credenciais bloqueadas para login
     Entao visualizo o modal de usuário bloqueado
@@ -77,3 +77,16 @@ Funcionalidade: Login
     Dado que estou na área não logada do app
     Quando submeto minhas credenciais válidas para login, cpf '32772147886' e senha 'Devires@123'
     Entao acesso a home do aplicativo
+
+#  Cenario: Atendimento usuário bloqueado
+#    Dado que estou na área não logada do app
+#    Quando submeto minhas credenciais bloqueadas para login
+#    E visualizo o modal de usuário bloqueado
+#    E clico no botão 'Atendimento via Whatsapp' no modal     NAO ESTA FUNCIONANDO
+#    Entao sou direcionado para o WhatsApp da Central de atendimento Autopass
+
+  Cenario: Central de Ajuda
+    Dado que estou na área não logada do app
+    Quando clico na opção "Central de Ajuda"
+    E clico no botão "Enviar mensagem"
+    Entao sou direcionado para o WhatsApp da Central de atendimento Autopass

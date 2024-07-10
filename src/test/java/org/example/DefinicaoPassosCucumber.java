@@ -31,9 +31,10 @@ import static org.junit.Assert.*;
 
 public class DefinicaoPassosCucumber {
     @Dado("que estou na área não logada do app")
-    public void anExampleScenario() {
+    public void anExampleScenario() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
+        telaLogin.buscarElementos();
     }
 
     @Quando("submeto minhas credenciais inválidas para login")
@@ -141,6 +142,24 @@ public class DefinicaoPassosCucumber {
         assertTrue(telaLogin.getTextoModalContaBloqueada().isDisplayed());
     }
 
+    @Entao("sou direcionado para o WhatsApp da Central de atendimento Autopass")
+    public void verificarRedirecionamentoWhatsapp() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+        telaLogin.verificarRedirecionamentoWhatsapp();
+
+
+    }
+
+    @E("clico no botão 'Atendimento via Whatsapp' no modal")
+    public void clicarBotaoAtendimentoWhatsApp() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+        telaLogin.clicarBotaoAtendimentoWhatsApp();
+    }
+
     @Dado("que acesso a opção esqueci minha senha na área não logada")
     public void queAcessoAOpçãoEsqueciMinhaSenhaNaÁreaNãoLogada() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -159,6 +178,21 @@ public class DefinicaoPassosCucumber {
 
         telaEsqueciSenha.preencherInputCpf("73040542559");
         telaEsqueciSenha.clicarBotaoConfirmar();
+    }
+
+    @Quando("clico na opção \"Central de Ajuda\"")
+    public void clicoCentralDeAjuda() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login login = new Login(driver);
+        login.clicarCentralDeAjuda();
+    }
+
+    @E("clico no botão \"Enviar mensagem\"")
+    public void enviarMensagem() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login login = new Login(driver);
+
+        login.clicarEnviarMensagem();
     }
 
     @Entao("visualizo o modal de usuário bloqueado na tela de esqueci minha senha")

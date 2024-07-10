@@ -92,9 +92,19 @@ public class EsqueciMinhaSenha {
 
     public void buscarMensagemContaBloqueada() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Para sua segurança o acesso ao Aplicativo foi\n" +
+                "temporariamente bloqueado.\n" +
+                "Te ajudamos a desbloquear através da nossa\n" +
+                "Central de Atendimento.\n" +
+                "\n" +
+                "Ligue para (11) 3888-2200 ou chame-nos no WhatsApp.\"]")));
 
-        textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]");
+        textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Para sua segurança o acesso ao Aplicativo foi\n" +
+                "temporariamente bloqueado.\n" +
+                "Te ajudamos a desbloquear através da nossa\n" +
+                "Central de Atendimento.\n" +
+                "\n" +
+                "Ligue para (11) 3888-2200 ou chame-nos no WhatsApp.\"]");
     }
 
     public void buscarMensagemCPFInvalido() {
