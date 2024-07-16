@@ -113,7 +113,7 @@ public class MeusBilhetes {
                 "Pagamento\"]");
     }
 
-    public void buscarElementosTentativasMaximas(){
+    public MobileElement buscarElementosTentativasMaximas(){
         final int maxTentativas = 10;
         int tentativas = 0;
 
@@ -123,20 +123,21 @@ public class MeusBilhetes {
                 WebDriverWait espera = new WebDriverWait(driver, 120);
                 espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Histórico de atividades\"]")));
 
-                botaoComprarBilhetes = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Comprar \n" +
+                botaoComprarBilhetes = (MobileElement) driver.findElementByXPath("//*[@text=\"Comprar \n" +
                         "Bilhetes\"]");
-                botaoFormasDePagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Formas de \n" +
+                botaoFormasDePagamento = (MobileElement) driver.findElementByXPath("//*[@text=\"Formas de \n" +
                         "Pagamento\"]");
-                break;
+                return botaoComprarBilhetes;
             }catch (StaleElementReferenceException e) {
                 tentativas++;
                 if(tentativas == maxTentativas){
                     throw e;
                 }
             }
+
             throw new RuntimeException("Element not found after maximum retries");
         }
-
+        return null;
     }
 
     public void clicarFormasDePgto(){
@@ -219,14 +220,14 @@ public class MeusBilhetes {
 
     public void clicarBotaoCPTM(){bilheteMetro.click();}
 
-    public void clicarBotaoComprarBilhetes() throws InterruptedException {
+    public MobileElement clicarBotaoComprarBilhetes() throws InterruptedException {
         final int maxTentativas = 10;
         int tentativas = 0;
 
         while (tentativas < maxTentativas){
             try {
                 botaoComprarBilhetes.click();
-                break;
+                return botaoComprarBilhetes;
             }catch (StaleElementReferenceException e) {
                 tentativas++;
                 buscarElementosTentativasMaximas();
@@ -236,6 +237,7 @@ public class MeusBilhetes {
             }
             throw new RuntimeException("Element not found after maximum retries");
         }
+        return null;
     }
 
 
