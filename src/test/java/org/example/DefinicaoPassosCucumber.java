@@ -210,6 +210,8 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Home telaHome = new Home(driver);
 
+        Celular.resetApp(driver);
+
         telaHome.buscarBotaoBilhetes();
         telaHome.clicarBotaoBilhetes();
     }
@@ -219,8 +221,8 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
 
-        paginaMeusBilhetes.buscarElementos();
-        Thread.sleep(5000);
+        paginaMeusBilhetes.buscarElementosTentativasMaximas();
+        //paginaMeusBilhetes.buscarElementos();
         //paginaMeusBilhetes.clicarFormasDePgto();
         paginaMeusBilhetes.clicarBotaoComprarBilhetes();
     }
@@ -262,6 +264,7 @@ public class DefinicaoPassosCucumber {
         assertTrue(telaMeusBilhetes.getMensagemCompraRealizadaComSucesso().isDisplayed());
         telaMeusBilhetes.buscarBotaoVoltarParaHome();
         telaMeusBilhetes.clicarBotaoVoltarParaHome();
+
     }
 
     @E("confirmo o pagamento informando o CVV {string}")
@@ -359,7 +362,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
 
-        paginaMeusBilhetes.buscarElementos();
+        paginaMeusBilhetes.buscarBotaoFormasDePagamento();
         paginaMeusBilhetes.clicarFormasDePgto();
     }
 
@@ -564,6 +567,11 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.clicarInput0SenhaSaldoEmConta();
         telaMeusBilhetes.inserirSenhaConta(arg0);
         telaMeusBilhetes.clicarBotaoConfirmarCompra();
+    }
+
+    @Dado("que eu reseto o driver")
+    public void queEuResetoODriver() {
+        AppiumDriverConfig.Instance().driver = null;
     }
 }
 

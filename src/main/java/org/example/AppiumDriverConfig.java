@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class AppiumDriverConfig {
 
-    public final AppiumDriver driver;
+    public AppiumDriver driver;
     private static AppiumDriverConfig _instance;
 
     public static AppiumDriverConfig Instance(){

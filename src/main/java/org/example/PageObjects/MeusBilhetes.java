@@ -94,15 +94,49 @@ public class MeusBilhetes {
         botaoTentarNovamente.click();
     }
 
-    public void buscarElementos(){
+
+    public void buscarBotaoComprarBilhetes(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Comprar \n" +
-                                "Bilhetes\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.widget.TextView[@text=\"\uEA45\"])[1]")));
+
+        botaoComprarBilhetes = (MobileElement) driver.findElementByXPath("(//android.widget.TextView[@text=\"\uEA45\"])[1]");
+
+    }
+
+    public void buscarElementos(){
+        WebDriverWait espera = new WebDriverWait(driver, 120);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Histórico de atividades\"]")));
 
         botaoComprarBilhetes = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Comprar \n" +
                 "Bilhetes\"]");
         botaoFormasDePagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Formas de \n" +
                 "Pagamento\"]");
+    }
+
+    public void buscarElementosTentativasMaximas(){
+        final int maxTentativas = 10;
+        int tentativas = 0;
+
+        while (tentativas < maxTentativas){
+
+            try {
+                WebDriverWait espera = new WebDriverWait(driver, 120);
+                espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Histórico de atividades\"]")));
+
+                botaoComprarBilhetes = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Comprar \n" +
+                        "Bilhetes\"]");
+                botaoFormasDePagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Formas de \n" +
+                        "Pagamento\"]");
+                break;
+            }catch (StaleElementReferenceException e) {
+                tentativas++;
+                if(tentativas == maxTentativas){
+                    throw e;
+                }
+            }
+            throw new RuntimeException("Element not found after maximum retries");
+        }
+
     }
 
     public void clicarFormasDePgto(){
@@ -111,12 +145,10 @@ public class MeusBilhetes {
 
     public void buscarBotaoFormasDePagamento(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Comprar \n" +
-                "Bilhetes\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão formas de pagamento\"]")));
 
-         driver.findElementByXPath("//android.widget.TextView[@text=\"Formas de \n" +
-                "Pagamento\"]").click();
-
+        botaoFormasDePagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Formas de \n" +
+                "Pagamento\"]");
 
     }
 
@@ -188,7 +220,22 @@ public class MeusBilhetes {
     public void clicarBotaoCPTM(){bilheteMetro.click();}
 
     public void clicarBotaoComprarBilhetes() throws InterruptedException {
-        botaoComprarBilhetes.click();
+        final int maxTentativas = 10;
+        int tentativas = 0;
+
+        while (tentativas < maxTentativas){
+            try {
+                botaoComprarBilhetes.click();
+                break;
+            }catch (StaleElementReferenceException e) {
+                tentativas++;
+                buscarElementosTentativasMaximas();
+                if(tentativas == maxTentativas){
+                    throw e;
+                }
+            }
+            throw new RuntimeException("Element not found after maximum retries");
+        }
     }
 
 
