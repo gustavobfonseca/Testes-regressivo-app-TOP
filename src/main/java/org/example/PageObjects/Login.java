@@ -21,6 +21,7 @@ public class Login {
     private MobileElement botaoAtendimentoViaWhatsApp;
     private MobileElement centralDeAjuda;
     private MobileElement enviarMensagem;
+    private MobileElement criarConta;
 
 
     private MobileElement modalErro;
@@ -34,6 +35,7 @@ public class Login {
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]")));
 
         campoUsuario = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]");
+        criarConta = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Crie uma conta.\"]");
         campoSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]");
         botaoLogin = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
 
@@ -70,8 +72,12 @@ public class Login {
     public void clicarEsqueciMinhaSenha(){
         linkEsqueciMinhaSenha.click();
     }
+    public void buscarModalContaBloqueada(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@resource-id=\"modal_bloqueio\"]")));
+    }
 
-    public void  buscarMensagemContaBloqueada(){        
+    public void  buscarMensagemContaBloqueada(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Para sua segurança o acesso ao Aplicativo foi\n" +
                 "temporariamente bloqueado.\n" +
@@ -116,15 +122,22 @@ public class Login {
     public void clicarBotaoFecharModalCPFSenha(){
         botaoFecharModalErroCPFSenha.click();
     }
+
     public void clicarBotaoAtendimentoWhatsApp() throws InterruptedException {
-        Thread.sleep(1000);
-        botaoAtendimentoViaWhatsApp = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[contains(@text, 'ATENDIMENTO VIA WHATSAPP')]");
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.elementToBeClickable(By.id("br.com.autopass.top.hml:id/botao_modal_bloqueio")));
+
+        botaoAtendimentoViaWhatsApp = (MobileElement) driver.findElementByXPath("br.com.autopass.top.hml:id/botao_modal_bloqueio");
         botaoAtendimentoViaWhatsApp.click();
     }
 
     public void clicarCentralDeAjuda() {
         centralDeAjuda = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Central de Ajuda\"]");
         centralDeAjuda.click();
+    }
+
+    public void clicarCriarConta() {
+        criarConta.click();
     }
     public void clicarEnviarMensagem() {
         WebDriverWait espera = new WebDriverWait(driver, 10);

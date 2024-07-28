@@ -6,17 +6,16 @@ Funcionalidade: Login
     Quando submeto minhas credenciais inválidas para login
     Entao visualizo o modal de CPF e, ou Senha inválidos
 
-    Cenario: 03 - login com usuario bloqueado
+  Cenario: 03 - login com usuario bloqueado
     Dado que estou na área não logada do app
     Quando submeto minhas credenciais bloqueadas para login
     Entao visualizo o modal de usuário bloqueado
-    E reseto o app
 
   Cenario: 09 - Recuperação de senha com CPF bloqueado
     Dado que acesso a opção esqueci minha senha na área não logada
     Quando informo um CPF bloqueado
     Entao visualizo o modal de usuário bloqueado na tela de esqueci minha senha
-    E reseto o app
+
 
   Cenario: 08 - Recuperação de senha com CPF inválido
     Dado que acesso a opção esqueci minha senha na área não logada
@@ -31,11 +30,10 @@ Funcionalidade: Login
     E clico em confirmar sms
     E insiro o token email
     E clico em confirmar email
-    E insiro a nova senha "Devires@1234"
+    E insiro a senha "Devires@1234"
     E confirmo a nova senha "Devires@1234"
     E clico em confirmar redefinir senha
     Entao acesso a tela home do aplicativo
-
 
   Cenario: Login com senha antiga
     Dado que estou na área não logada do app
@@ -82,7 +80,7 @@ Funcionalidade: Login
 #    Dado que estou na área não logada do app
 #    Quando submeto minhas credenciais bloqueadas para login
 #    E visualizo o modal de usuário bloqueado
-#    E clico no botão 'Atendimento via Whatsapp' no modal     NAO ESTA FUNCIONANDO
+#    E clico no botão 'Atendimento via Whatsapp' no modal
 #    Entao sou direcionado para o WhatsApp da Central de atendimento Autopass
 
   Cenario: Central de Ajuda
