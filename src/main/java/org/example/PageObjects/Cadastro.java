@@ -1,6 +1,7 @@
 package org.example.PageObjects;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +11,8 @@ import kong.unirest.Unirest;
 
 
 public class Cadastro {
+
+
     private AppiumDriver driver;
     private MobileElement inputCpf;
     private MobileElement inputNome;
@@ -35,6 +38,25 @@ public class Cadastro {
     private MobileElement cpfInvalido;
     private MobileElement modalErroSms;
     private MobileElement botaoReverCodigo;
+    private MobileElement reenviarCodigo;
+    private MobileElement editarCelular;
+    private MobileElement editarEmail;
+    private MobileElement inputAlterarNumero;
+    private MobileElement inputAlterarEmail;
+    private MobileElement msgValidacaoInputAlteraNumero;
+    private MobileElement msgValidacaoInputAlteraEmail;
+    private MobileElement botaoConfirmarAlterarNumero;
+    private MobileElement botaoConfirmarAlterarEmail;
+    private MobileElement textoComNumeroAlterado;
+    private MobileElement textoComEmailAlterado;
+    private MobileElement inputSuaSenha;
+    private MobileElement inputConfirmarSenha;
+    private MobileElement visualizarNovaSenha;
+    private MobileElement visualizarConfirmarNovaSenha;
+    private MobileElement minimoDeOito1;
+    private MobileElement umaMaiuscula2;
+    private MobileElement umaMinuscula3;
+    private MobileElement minimoUmNumero4;
 
 
     public Cadastro(AppiumDriver driver) {
@@ -97,6 +119,7 @@ public class Cadastro {
     public void preencherTelefone(String telefone) {
         inputTelefone.sendKeys(telefone);
     }
+
     public void limparTelefone() {
         inputTelefone.clear();
     }
@@ -126,6 +149,7 @@ public class Cadastro {
             System.out.println("A mensagem de erro está incorreta. Mensagem encontrada: " + mensagemErro);
         }
     }
+
     public void dtNascInvalida() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         MobileElement dtNascInvalida = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para informar data de nascimento completa\"]")));
@@ -150,11 +174,6 @@ public class Cadastro {
         }
     }
 
-    public void clicarBotaoConfirmarCadastroSenha() throws InterruptedException {
-        botaoConfirmarCadastroSenha = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para confirmar o cadastro\"]/android.view.ViewGroup");
-        botaoConfirmarCadastroSenha.click();
-
-    }
 
     public void aceitarTermos() throws InterruptedException {
         WebDriverWait espera = new WebDriverWait(driver, 20);
@@ -195,17 +214,6 @@ public class Cadastro {
 
     }
 
-
-    public void preencherFormularioInteiro() throws Exception {
-        preencherCpf(fakeCpf());
-        buscarElementos();
-        preencherNome();
-        preencherDataNascimentoPadrao();
-        preencherEmailPadrao();
-        preencherTelefonePadrao();
-        clicarBotaoContinuar();
-    }
-
     public void buscarModalCpfJaCadastrado() {
         WebDriverWait espera = new WebDriverWait(driver, 5);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Vimos que você já tem cadastro no App\"]")));
@@ -233,14 +241,21 @@ public class Cadastro {
         }
     }
 
-    public void buscarModalErroSms(){
+    public void buscarModalErroSms() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Opa! O código informado é inválido.\"]")));
         modalErroSms = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Opa! O código informado é inválido.\"]");
 
         botaoReverCodigo = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão rever código\"]/android.view.ViewGroup");
         botaoReverCodigo.click();
+    }
 
+    public void esperarReenviarCodigo(String xpath) {
+        WebDriverWait esperarAparecer = new WebDriverWait(driver, 60);
+        esperarAparecer.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+
+        reenviarCodigo = (MobileElement) driver.findElementByXPath(xpath);
+        reenviarCodigo.click();
     }
 
 
@@ -248,4 +263,196 @@ public class Cadastro {
         System.out.println(fakeCpf());
 
     }
+
+    public void clicarEditarNumeroCelular() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Editar meu número de celular\"]")));
+        editarCelular = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Editar meu número de celular\"]");
+        editarCelular.click();
+    }
+
+    public void alterarNumero() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Campo para alterar telefone de cadastro\"]")));
+
+        inputAlterarNumero = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Campo para alterar telefone de cadastro\"]");
+        inputAlterarNumero.sendKeys("1193392346");
+
+        confirmarAlterarNumero();
+
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar telefone de cadastro\"]")));
+//        msgValidacaoInputAlteraNumero = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar telefone de cadastro\"]");
+
+        inputAlterarNumero.clear();
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar telefone de cadastro\"]")));
+
+        inputAlterarNumero.sendKeys("1412345678914");
+
+        confirmarAlterarNumero();
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar telefone de cadastro\"]")));
+
+        inputAlterarNumero.clear();
+        inputAlterarNumero.sendKeys("14996237865");
+
+        espera.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar telefone de cadastro\"]")));
+    }
+
+    public void confirmarAlterarNumero() {
+        botaoConfirmarAlterarNumero = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão ir para a tela de login\"]/android.view.ViewGroup");
+        botaoConfirmarAlterarNumero.click();
+    }
+
+    public void confirmarAlterarEmail() {
+        botaoConfirmarAlterarEmail = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão editar e-mail\"]/android.view.ViewGroup");
+        botaoConfirmarAlterarEmail.click();
+    }
+
+    public void buscarTextoComNumeroAlterado() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (14) *****-7865\"]")));
+        textoComNumeroAlterado = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (14) *****-7865\"]");
+    }
+
+    public void clicarEditarEmail() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Editar meu endereço de e-mail\"]")));
+        editarEmail = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Editar meu endereço de e-mail\"]");
+        editarEmail.click();
+    }
+
+    public void alterarEmail() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Campo para alterar email de cadastro\"]")));
+
+        inputAlterarEmail = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Campo para alterar email de cadastro\"]");
+        inputAlterarEmail.sendKeys("emailSemArroba.com");
+        confirmarAlterarEmail();
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar email de cadastro\"]")));
+
+        inputAlterarEmail.clear();
+        confirmarAlterarEmail();
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar email de cadastro\"]")));
+
+//        inputAlterarEmail.sendKeys("exemplo.de.email.com.um.tamanho.bem.especifico.com.noventa.e.noveeeeexemplo.de.email.com.um.tamanho.bem.especifico.com.noventa.e.nove.caracteres@exemplo.com.br\nexemplo.de.email.com.um.tamanho.bem.especifico.com.noventa.e.nove.caracteres@exemplo.com.br\nexemplo.de.email.com.um.tamanho.bem.especifico.com.noventa.e.nove.caracteres@exemplo.com.br\nexemplo.de.email.com.um.tamanho.bem.especifico.com.noventa.e.nove.caracteres@exemplo.com.br\nexemplo.de.email.com.um.tamanho.bem.especifico.com.noventa.e.nove.caracteres@exemplo.com.br\nexemplo.de.email.com.um.tamanho.bem.especifico.com.noventa.e.nove.caracteres@exemplo.com.br\nexemplo.de.email.com.um.tamanho.bem.especifico.com.noventa.e.nove.caracteres@exemplo.com.br\n.caracteres@exemplo.com.br");
+//        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar email de cadastro\"]")));
+//        inputAlterarEmail.clear();
+
+        inputAlterarEmail.sendKeys("lucas.kuroda@devires.com.br");
+
+        espera.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar email de cadastro\"]")));
+    }
+
+    public void buscarTextoComEmailAlterado() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Um e-mail com um código de 6 dígitos acaba de ser enviado para: lucas.kuroda@devires.com.br\"]")));
+
+        textoComEmailAlterado = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Um e-mail com um código de 6 dígitos acaba de ser enviado para: lucas.kuroda@devires.com.br\"]");
+    }
+
+    public void preencherInputSuaSenha(String senhaNova) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Campo para digitar nova senha\"]\n")));
+
+        inputSuaSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Campo para digitar nova senha\"]");
+
+        inputSuaSenha.sendKeys(senhaNova);
+    }
+
+    public void preencherInputConfirmarSenha(String confirmarSenha) {
+        inputConfirmarSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Campo para digitar confirmação de senha\"]");
+        inputConfirmarSenha.sendKeys(confirmarSenha);
+    }
+
+    public void cadastrarSenhaTesteCriterioDeAceite() throws InterruptedException {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 10);
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.widget.TextView[@text=\"\uE91C\"])[1]")));
+
+        visualizarNovaSenha = (MobileElement) driver.findElementByXPath("(//android.widget.TextView[@text=\"\uE91C\"])[1]");
+        visualizarConfirmarNovaSenha = (MobileElement) driver.findElementByXPath("(//android.widget.TextView[@text=\"\uE91C\"])[2]");
+        visualizarNovaSenha.click();
+        visualizarConfirmarNovaSenha.click();
+
+        preencherInputSuaSenha("MenosD8");
+        preencherInputConfirmarSenha("MenosD8");
+
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='4']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='6']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='8']")));
+
+        System.out.println("MenosD8 OK");
+
+        clicarBotaoConfirmarCadastroSenha();
+        inputSuaSenha.clear();
+        inputConfirmarSenha.clear();
+
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='4']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='6']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='8']")));
+
+        preencherInputSuaSenha("sem1maiuscula");
+        preencherInputConfirmarSenha("sem1maiuscula");
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='2']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='6']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='8']")));
+
+        System.out.println("sem1maiuscula possui 3 checks");
+        clicarBotaoConfirmarCadastroSenha();
+        inputSuaSenha.clear();
+        inputConfirmarSenha.clear();
+
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='2']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='6']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='8']")));
+
+        preencherInputSuaSenha("SEM1MINUSCULA");
+        preencherInputConfirmarSenha("SEM1MINUSCULA");
+
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='2']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='4']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='8']")));
+        System.out.println("SEM1MINUSCULA possui 3 checks");
+        clicarBotaoConfirmarCadastroSenha();
+        inputSuaSenha.clear();
+        inputConfirmarSenha.clear();
+
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='2']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='4']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='8']")));
+
+        preencherInputSuaSenha("SemNumero");
+        preencherInputConfirmarSenha("SemNumero");
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='2']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='4']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='6']")));
+        System.out.println("SemNumero possui 3 checks");
+        clicarBotaoConfirmarCadastroSenha();
+        inputSuaSenha.clear();
+        inputConfirmarSenha.clear();
+
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='2']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='4']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='6']")));
+
+        preencherInputSuaSenha("SenhasDivergentes1");
+        preencherInputConfirmarSenha("SenhaDivergentes1234");
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='2']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='4']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='6']")));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='8']")));
+        System.out.println("SenhasDivergentes1 possui 3 checks");
+        clicarBotaoConfirmarCadastroSenha();
+        inputSuaSenha.clear();
+        inputConfirmarSenha.clear();
+
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='2']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='4']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='6']")));
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@text='\uE834' and @index='8']")));
+    }
+
+    public void clicarBotaoConfirmarCadastroSenha() throws InterruptedException {
+        botaoConfirmarCadastroSenha = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para confirmar o cadastro\"]/android.view.ViewGroup");
+        botaoConfirmarCadastroSenha.click();
+    }
+
 }

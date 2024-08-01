@@ -67,15 +67,18 @@ public class EsqueciMinhaSenha {
     }
 
     public void clicarBotaoConfirmarSms() {
-        driver.navigate().back();
+        driver.hideKeyboard();
         botaoConfirmarSms = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão Confirmar código do Sms\"]/android.view.ViewGroup\n");
         botaoConfirmarSms.click();
 
     }
 
     public void clicarBotaoConfirmarEmail() {
-        botaoConfirmarEmail = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão Confirmar código do Email\"]/android.view.ViewGroup\n");
-        botaoConfirmarEmail.click();
+        driver.hideKeyboard();
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão Confirmar código do Email\"]/android.view.ViewGroup\n")));
+            botaoConfirmarEmail = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão Confirmar código do Email\"]/android.view.ViewGroup\n");
+            botaoConfirmarEmail.click();
     }
 
     public void clicarBotaoConfirmarRedefinirSenha() {
