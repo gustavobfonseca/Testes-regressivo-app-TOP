@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.util.Assert;
 
 public class Login {
     private AppiumDriver driver;
@@ -17,6 +18,11 @@ public class Login {
     private MobileElement linkEsqueciMinhaSenha;
     private MobileElement botaoFecharModalErroCPFSenha;
     private MobileElement iconeInformativo;
+    private MobileElement botaoAtendimentoViaWhatsApp;
+    private MobileElement centralDeAjuda;
+    private MobileElement enviarMensagem;
+    private MobileElement criarConta;
+
 
     private MobileElement modalErro;
 
@@ -29,6 +35,7 @@ public class Login {
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]")));
 
         campoUsuario = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]");
+        criarConta = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Crie uma conta.\"]");
         campoSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]");
         botaoLogin = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
 
@@ -65,12 +72,26 @@ public class Login {
     public void clicarEsqueciMinhaSenha(){
         linkEsqueciMinhaSenha.click();
     }
-
-    public void  buscarMensagemContaBloqueada(){        
+    public void buscarModalContaBloqueada(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@resource-id=\"modal_bloqueio\"]")));
+    }
 
-        textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//*[contains(@text, 'sua conta foi bloqueada temporariamente.')]");
+    public void  buscarMensagemContaBloqueada(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Para sua segurança o acesso ao Aplicativo foi\n" +
+                "temporariamente bloqueado.\n" +
+                "Te ajudamos a desbloquear através da nossa\n" +
+                "Central de Atendimento.\n" +
+                "\n" +
+                "Ligue para (11) 3888-2200 ou chame-nos no WhatsApp.\"]")));
+
+        textoModalContaBloqueada = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Para sua segurança o acesso ao Aplicativo foi\n" +
+                "temporariamente bloqueado.\n" +
+                "Te ajudamos a desbloquear através da nossa\n" +
+                "Central de Atendimento.\n" +
+                "\n" +
+                "Ligue para (11) 3888-2200 ou chame-nos no WhatsApp.\"]");
     }
 
     public void arrastarModalContaBloqueadaBaixo(){
@@ -100,6 +121,48 @@ public class Login {
 
     public void clicarBotaoFecharModalCPFSenha(){
         botaoFecharModalErroCPFSenha.click();
+    }
+
+    public void clicarBotaoAtendimentoWhatsApp() throws InterruptedException {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.elementToBeClickable(By.id("br.com.autopass.top.hml:id/botao_modal_bloqueio")));
+
+        botaoAtendimentoViaWhatsApp = (MobileElement) driver.findElementByXPath("br.com.autopass.top.hml:id/botao_modal_bloqueio");
+        botaoAtendimentoViaWhatsApp.click();
+    }
+
+    public void clicarCentralDeAjuda() {
+        centralDeAjuda = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Central de Ajuda\"]");
+        centralDeAjuda.click();
+    }
+
+    public void clicarCriarConta() {
+        criarConta.click();
+    }
+    public void clicarEnviarMensagem() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"ENVIAR MENSAGEM\"]")));
+
+        enviarMensagem=(MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"ENVIAR MENSAGEM\"]");
+        enviarMensagem.click();
+    }
+
+    public void verificarRedirecionamentoWhatsapp() throws InterruptedException {
+        WebDriverWait espera = new WebDriverWait(driver, 15);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@resource-id=\"com.whatsapp:id/conversation_contact_name\"]")));
+
+        MobileElement elemento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@resource-id=\"com.whatsapp:id/conversation_contact_name\"]");
+
+        if (elemento.getText().equals("Autopass") ){
+            System.out.println(elemento.getText());
+        }else {
+            throw new AssertionError("Nome do contato não é Autopass.");
+        }
+
+        //        String nomeApp = driver.getCapabilities().getCapability("appPackage").toString();
+//        System.out.println(nomeApp);
+//        Boolean whatsAberto = nomeApp.equals("com.whatsapp");
+//        Assert.state(whatsAberto, "Usuário não foi redirecionado para o WhatsApp.");
     }
 
     public void limparCamposLogin() {

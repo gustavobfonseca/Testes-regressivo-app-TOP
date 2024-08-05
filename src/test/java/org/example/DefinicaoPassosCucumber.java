@@ -8,6 +8,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.*;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.pt.*;
 import org.example.PageObjects.*;
 import org.apache.commons.io.FileUtils;
@@ -17,13 +18,12 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+//import sun.jvm.hotspot.utilities.AssertionFailure;
 
 import java.io.File;
 import java.io.IOException;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Driver;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +31,13 @@ import static org.junit.Assert.*;
 
 public class DefinicaoPassosCucumber {
 
+
+
     @Dado("que estou na área não logada do app")
-    public void anExampleScenario() {
+    public void anExampleScenario() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
-
+        telaLogin.buscarElementos();
     }
 
     @Quando("submeto minhas credenciais inválidas para login")
@@ -62,15 +64,14 @@ public class DefinicaoPassosCucumber {
         telaLogin.limparCamposLogin();
     }
 
-    @Quando("submeto minhas credenciais válidas para login")
-    public void submetoMinhasCredenciaisVálidasParaLogin() throws InterruptedException {
+    @Quando("submeto minhas credenciais válidas para login, cpf {string} e senha {string}")
+    public void submetoMinhasCredenciaisVálidasParaLogin(String cpf, String senha) throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
 
-
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("327.721.478-86", "Devires@123");
+        telaLogin.preencherFormulario(cpf, senha);
         telaLogin.logar();
     }
 
@@ -83,22 +84,51 @@ public class DefinicaoPassosCucumber {
 
         telaHome.esperarBotaoBiometria();
         telaHome.clicarBotaoAtivarBiometria();
-
-        telaHome.arrastarModalParaBaixo();
-
-        //Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+        try {
+            telaHome.arrastarModalParaBaixo();
+        } catch (Exception e) {
+            telaHome.clicarBotaoModalQueroConhecer();
+        }
         Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
-    @After
-    public void includeScreenshot(Scenario scenario) throws IOException {
+    @Entao("acesso a tela home do aplicativo")
+    public void acessoATelaHomeDoAplicativo() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
 
-        if(scenario.isFailed()) {
+        Home telaHome = new Home(driver);
+
+        telaHome.clicarBotaoModalQueroConhecer();
+        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+    }
+
+    @Entao("visualizo o modal de codigo invalido")
+    public void visualizarModalErroCodigoSms() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        EsqueciMinhaSenha esqueciMinhaSenha = new EsqueciMinhaSenha(driver);
+
+
+        esqueciMinhaSenha.buscarModalErroSms();
+    }
+
+    @After
+    public void after(Scenario scenario) throws IOException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        if (scenario.isFailed()) {
             File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
             scenario.attach(fileContent, "image/png", "image1");
-        }}
+        } else {
+            try {
+                Celular.resetApp(driver);
+            } catch (Exception e) {
+                System.out.println("tentando resetar o app dnv");
+                Celular.resetApp(driver);
+            }
+        }
+    }
 
     @Quando("submeto minhas credenciais bloqueadas para login")
     public void submetoMinhasCredenciaisBloqueadasParaLogin() throws InterruptedException {
@@ -117,9 +147,30 @@ public class DefinicaoPassosCucumber {
     public void visualizoOModalDeUsuárioBloqueado() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
+        telaLogin.buscarModalContaBloqueada();
+    }
 
-        telaLogin.buscarMensagemContaBloqueada();
-        assertTrue(telaLogin.getTextoModalContaBloqueada().isDisplayed());
+    @Entao("sou direcionado para o WhatsApp da Central de atendimento Autopass")
+    public void verificarRedirecionamentoWhatsapp() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+        telaLogin.verificarRedirecionamentoWhatsapp();
+    }
+
+    @Entao("visualizo o modal de \"CPF já cadastrado\".")
+    public void modalCpfJaCadastrado() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarModalCpfJaCadastrado();
+    }
+
+    @E("clico no botão 'Atendimento via Whatsapp' no modal")
+    public void clicarBotaoAtendimentoWhatsApp() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+        telaLogin.clicarBotaoAtendimentoWhatsApp();
     }
 
     @Dado("que acesso a opção esqueci minha senha na área não logada")
@@ -142,6 +193,120 @@ public class DefinicaoPassosCucumber {
         telaEsqueciSenha.clicarBotaoConfirmar();
     }
 
+    @Quando("clico na opção \"Central de Ajuda\"")
+    public void clicoCentralDeAjuda() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login login = new Login(driver);
+        login.clicarCentralDeAjuda();
+    }
+
+    @E("clico no botão \"Enviar mensagem\"")
+    public void enviarMensagem() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login login = new Login(driver);
+
+        login.clicarEnviarMensagem();
+    }
+
+    @E("clico em \"Continuar\" com os demais campos preenchidos corretamente, menos o e-mail")
+    public void continuarComEmailSemArroba() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.preencherNome();
+        cadastro.preencherDataNascimentoPadrao();
+        cadastro.escolherGenero();
+        Thread.sleep(2000);
+        cadastro.preencherTelefonePadrao();
+        cadastro.clicarBotaoContinuar();
+    }
+
+    @E("clico em \"Continuar\" com os demais campos preenchidos corretamente, menos o celular")
+    public void continuarComCelularSemDDD() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.preencherNome();
+        cadastro.preencherDataNascimentoPadrao();
+        cadastro.escolherGenero();
+        Thread.sleep(2000);
+        cadastro.preencherEmailPadrao();
+        cadastro.clicarBotaoContinuar();
+    }
+
+    @E("clico em \"Continuar\" com os demais campos preenchidos dentro dos critérios de aceite, menos a data de nascimento")
+    public void continuarComIdadeMenorQue13() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.preencherNome();
+        cadastro.escolherGenero();
+        Thread.sleep(2000);
+        cadastro.preencherEmailPadrao();
+        cadastro.preencherTelefonePadrao();
+        cadastro.clicarBotaoContinuar();
+    }
+
+    @E("informo e-mail fora do padrão sem \"@\"")
+    public void emailSemArroba() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.preencherEmail("emailSemArroba.com");
+    }
+
+    @E("informo a data de nascimento menor que 13 anos")
+    public void menorDe13Anos() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+
+        LocalDate currentDate = LocalDate.now();
+        Integer anoAtual = currentDate.getYear();
+        Integer anoDeNascimento = anoAtual - 12;
+        String dataNascimento = "01/01/" + anoDeNascimento;
+
+        cadastro.buscarElementos();
+        cadastro.preencherDataNascimento(dataNascimento);
+    }
+
+    @E("informo DDD + celular com menos de 11 dígitos")
+    public void celularDDDMenos11Digitos() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.preencherTelefone("1193392346");
+    }
+
+    @E("informo DDD + celular inválido sem começar com 9")
+    public void celularInvalido() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.limparTelefone();
+        cadastro.preencherTelefone("11333923464");
+    }
+
+    @Entao("visualizo a mensagem de \"E-mail inválido\" no campo \"E-mail\".")
+    public void emailInválido() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.mensagemEmailInvalido();
+    }
+
+    @Entao("visualizo a mensagem de \"Não é possível cadastrar menores de idade\" no campo \"Data de nascimento\"")
+    public void dtNascMenorDe13() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.dtNascInvalida();
+    }
+
+    @Entao("visualizo a mensagem de \"Telefone inválido\" no campo \"Celular\".")
+    public void telefoneInvalido() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.mensagemTelefoneInvalido();
+    }
+
     @Entao("visualizo o modal de usuário bloqueado na tela de esqueci minha senha")
     public void visualizoOModalDeUsuárioBloqueadoNaTelaDeEsqueciMinhaSenha() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -158,6 +323,14 @@ public class DefinicaoPassosCucumber {
         telaEsqueciminhaSenha.buscarElementos();
         telaEsqueciminhaSenha.preencherInputCpf("12345678910");
         telaEsqueciminhaSenha.clicarBotaoConfirmar();
+    }
+
+    @E("informo um CPF inválido para cadastro")
+    public void informoUmCPFInválidoCadastro() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.preencherCpf("12312312377");
     }
 
 
@@ -191,8 +364,6 @@ public class DefinicaoPassosCucumber {
         telaEsqueciminhaSenha.clicarBotaoCancelar();
     }
 
-
-
     @E("vou para a minha home do aplicativo")
     public void vouParaAMinhaHomeDoAplicativo() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -203,6 +374,23 @@ public class DefinicaoPassosCucumber {
         telaHome.clicarBotaoAtivarBiometria();
 
         telaHome.arrastarModalParaBaixo();
+    }
+
+    @E("redefino a senha")
+    public void redefinirSenha() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        Home telaHme = new Home(driver);
+        telaHme.redefinirSenhaPeloPerfil();
+    }
+
+    @E("informo um CPF já cadastrado")
+    public void cpfCadastrado() throws Exception {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.preencherCpf("54926406829");
+
     }
 
     @Quando("que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado")
@@ -216,6 +404,15 @@ public class DefinicaoPassosCucumber {
         telaHome.clicarBotaoBilhetes();
     }
 
+    @Quando("acesso a opção \"Criar uma conta\"")
+    public void criarUmaConta() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaHome = new Login(driver);
+
+        telaHome.buscarElementos();
+        telaHome.clicarCriarConta();
+    }
+
     @E("clico na opçao Comprar Bilhetes")
     public void clicoNaOpçaoComprarBilhetes() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -226,6 +423,72 @@ public class DefinicaoPassosCucumber {
         //paginaMeusBilhetes.clicarFormasDePgto();
         Thread.sleep(2000);
         paginaMeusBilhetes.clicarBotaoComprarBilhetes();
+    }
+
+    @E("informo um CPF válido ainda não cadastrado")
+    public void cpfValidoNaoCadastrado() throws Exception {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.preencherCpf();
+
+        try {
+            cadastro.buscarModalCpfJaCadastrado();
+
+            Login telaHome = new Login(driver);
+            telaHome.buscarElementos();
+            telaHome.clicarCriarConta();
+
+            cpfValidoNaoCadastrado();
+        } catch (Exception exception) {
+
+        }
+    }
+
+    @E("clico em confirmar cadastrar senha")
+    public void confirmarCadastrarSenha() throws Exception {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.clicarBotaoConfirmarCadastroSenha();
+    }
+
+    @Entao("visualizo a mensagem de \"CPF inválido\" no campo CPF.")
+    public void visualizarMensagemCpfInválido() throws Exception {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.mensagemCpfInválido();
+    }
+
+    @E("aceito os termos de uso e privacidade")
+    public void aceitarTermos() throws Exception {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.aceitarTermos();
+    }
+
+    @Entao("visualizo o modal de \"Cadastro realizado com sucesso\".")
+    public void visualizarModalCadastro() throws Exception {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.visualizarModalCadastrado();
+
+        Login login = new Login(driver);
+        login.buscarElementos();
+    }
+
+    @E("submeto os demais dados corretamente até a finalização do formulário")
+    public void finalizarCadastro() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+
+        cadastro.buscarElementos();
+        cadastro.preencherNome();
+        cadastro.preencherDataNascimentoPadrao();
+        cadastro.escolherGenero();
+        Thread.sleep(2000);
+        cadastro.preencherEmailPadrao();
+        cadastro.preencherTelefonePadrao();
+        cadastro.clicarBotaoContinuar();
     }
 
     @E("clico na opção CPTM, Metrô")
@@ -289,7 +552,7 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.clicarBotaoVoltarParaHome();
     }
 
-    @Quando("informo o seguinte CPF {string}")
+    @Quando("informo o seguinte CPF {string} que possui o email 'lucas.kuroda@devires.com.br' e o telefone '+5514996237865'")
     public void informoOSeguinteCPF(String arg0) throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
@@ -298,16 +561,117 @@ public class DefinicaoPassosCucumber {
         telaEsqueciminhaSenha.clicarBotaoConfirmar();
     }
 
-    @E("insiro o token")
-    public void insiroOToken() throws InterruptedException {
+    @E("insiro o token sms")
+    public void insiroOTokenSms() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
 
-        telaEsqueciminhaSenha.buscarInput0();
+        Thread.sleep(2000);
+        telaEsqueciminhaSenha.buscarInput0Sms();
         telaEsqueciminhaSenha.clicarInput0();
-        Thread.sleep(3000);
         String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5514996237865");
         telaEsqueciminhaSenha.inserirInputs(token);
+        Thread.sleep(2000);
+    }
+
+    @E("insiro o token sms invalido")
+    public void insiroOTokenSmsInvalido() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.buscarInput0Sms();
+        telaEsqueciminhaSenha.clicarInput0();
+        telaEsqueciminhaSenha.inserirInputs("111111");
+        Thread.sleep(2000)
+        ;
+    }
+
+    @E("insiro o token email")
+    public void insiroOTokenEmail() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        Thread.sleep(1000);
+        telaEsqueciminhaSenha.buscarInput0Email();
+        telaEsqueciminhaSenha.clicarInput0();
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+        telaEsqueciminhaSenha.inserirInputs(token);
+    }
+
+    @E("insiro o token email invalido")
+    public void insiroOTokenEmailInvalido() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.buscarInput0Email();
+        telaEsqueciminhaSenha.clicarInput0();
+        Thread.sleep(3000);
+        telaEsqueciminhaSenha.inserirInputs("111111");
+    }
+
+    @E("clico em confirmar")
+    public void confirmar() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciMinhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciMinhaSenha.clicarBotaoConfirmar();
+    }
+
+    @E("clico em confirmar sms")
+    public void confirmarSms() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.clicarBotaoConfirmarSms();
+    }
+
+    @E("insiro a senha {string}")
+    public void inserirNovaSenha(String novaSenha) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.preencherInputSuaSenha(novaSenha);
+    }
+
+    @E("confirmo a nova senha {string}")
+    public void confirmarNovaSenha(String confirmarSenha) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.preencherInputConfirmarSenha(confirmarSenha);
+    }
+
+    @E("clico em confirmar redefinir senha")
+    public void confirmarRedefinirSenha() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.clicarBotaoConfirmarRedefinirSenha();
+    }
+
+    @E("clico no botão \"Continuar\" com os demais campos em branco")
+    public void continuarComCamposEmBranco() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.clicarBotaoContinuar();
+    }
+
+    @Entao("visualizo as mensagens de campos obrigatórios nos campos em branco.")
+    public void vizualizarMensagemErroBranco() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+
+        cadastro.buscarElementos();
+        cadastro.buscarMensagensErroObrigatoria();
+    }
+
+    @E("clico em confirmar email")
+    public void confirmarEmail() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+
+        telaEsqueciminhaSenha.clicarBotaoConfirmarEmail();
     }
 
     @E("confirmo Cartão de débito como forma de pagamento")
@@ -321,14 +685,12 @@ public class DefinicaoPassosCucumber {
     }
 
 
-
-
     @E("submeto as informações corretas do cartão")
     public void submetoAsInformaçõesCorretasDoCartão(DataTable dataTable) {
         List<Map<String, String>> dados = dataTable.asMaps(String.class, String.class);
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         InserirDadosCartao paginaCartoes = new InserirDadosCartao(driver);
-        for(Map<String, String> linha : dados) {
+        for (Map<String, String> linha : dados) {
             String nomeCartao = linha.get("NomeCartao");
             String numeroCartao = linha.get("numeroCartao");
             String validadeCartao = linha.get("dtVal");
@@ -344,7 +706,7 @@ public class DefinicaoPassosCucumber {
     @E("submeto as credenciais para login")
     public void submetoAsCredenciaisParaLogin(DataTable dataTable) throws InterruptedException {
         List<Map<String, String>> dados = dataTable.asMaps(String.class, String.class);
-        for(Map<String, String> linha : dados){
+        for (Map<String, String> linha : dados) {
             String argumento1 = linha.get("cpf");
             String argumento2 = linha.get("senha");
 
@@ -394,6 +756,14 @@ public class DefinicaoPassosCucumber {
         paginaMeusBilhetes.buscarElementosTelaCadastroRealizado();
         assertTrue(paginaMeusBilhetes.getMsgCadastroCartaoSucesso().isDisplayed());
         paginaMeusBilhetes.clicarBotaoVoltarParaInicio();
+    }
+
+    @Entao("verifico os criterios de aceite dos campos \"Sua senha\" e \"Confirmar senha\" validando as mensagens exibidas")
+    public void criterioDeAceiteNovaSenha() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        EsqueciMinhaSenha esqueciMinhaSenha = new EsqueciMinhaSenha(driver);
+
+        esqueciMinhaSenha.novaSenhaTesteCriterioDeAceite();
     }
 
     @E("clico na opção excluir cartão")
@@ -573,6 +943,155 @@ public class DefinicaoPassosCucumber {
     @Dado("que eu reseto o driver")
     public void queEuResetoODriver() {
         AppiumDriverConfig.Instance().driver = null;
+      
+    @E("clico em 'Continuar' informando todos os dados pessoais corretamente")
+    public void clicoEmInformandoTodosOsDadosPessoaisCorretamente() throws Exception {
+        AppiumDriver appiumDriver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(appiumDriver);
+        cadastro.buscarElementos();
+        Thread.sleep(1000);
+        cadastro.preencherCpf();
+        cadastro.buscarElementos();
+        cadastro.preencherNome();
+        cadastro.preencherDataNascimentoPadrao();
+        cadastro.escolherGenero();
+        Thread.sleep(1000);
+        cadastro.preencherEmailPadrao();
+        cadastro.preencherTelefonePadrao();
+        cadastro.clicarBotaoContinuar();
+    }
+
+    @Então("visualizo o modal de código inválido")
+    public void visualizoOModalDeCódigoInválido() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarModalErroSms();
+    }
+
+    @E("clico em \"REENVIAR CÓDIGO\" após término do contador SMS")
+    public void clicoEmReenviarCódigoApósTérminoDoContadorSms() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5514996237865");
+        System.out.println("primeiro código sms: " + token);
+        cadastro.esperarReenviarCodigo("//android.widget.TextView[@content-desc=\"REENVIAR CÓDIGO\"]");
+    }
+
+    @E("clico em \"REENVIAR CÓDIGO\" após término do contador e-mail")
+    public void clicoEmReenviarCódigoApósTérminoDoContadorEmail() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        Thread.sleep(2000);
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+        System.out.println("primeiro código e-mail: " + token);
+        cadastro.esperarReenviarCodigo("//android.widget.TextView[@content-desc=\"REENVIAR CÓDIGO\"]");
+    }
+
+    @Então("recebo um novo código atualizado via SMS")
+    public void receboUmNovoCódigoAtualizadoViaSMS() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5514996237865");
+
+
+        if (token.isEmpty()) {
+            throw new AssertionError("token vazio");
+        } else {
+            System.out.println("recebido novo token sms: " + token);
+
+            WebDriverWait esperarSumir = new WebDriverWait(driver, 10);
+
+            esperarSumir.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"REENVIAR CÓDIGO\"]")));
+            Thread.sleep(1500);
+        }
+    }
+
+    @Então("recebo um novo código atualizado via e-mail")
+    public void receboUmNovoCódigoAtualizadoViaEmail() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+
+        if (token.isEmpty()) {
+            throw new AssertionError("token vazio");
+        } else {
+            System.out.println("recebido novo token e-mail: " + token);
+
+            WebDriverWait esperarSumir = new WebDriverWait(driver, 10);
+
+            esperarSumir.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"REENVIAR CÓDIGO\"]")));
+            Thread.sleep(1500);
+        }
+
+    }
+
+    @E("clico em \"Editar meu número de celular\"")
+    public void editarNumeroDeCelular() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.clicarEditarNumeroCelular();
+    }
+
+    @E("informo o número de telefone errado \"11911234567\"")
+    public void informoONúmeroDeTelefoneErrado() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+
+        cadastro.buscarElementos();
+        cadastro.preencherTelefone("11911234567");
+    }
+
+    @E("clico em \"CONFIRMAR NÚMERO\" após inserir um novo número de celular")
+    public void clicoEmConfirmarNúmeroApósInserirUmNovoNúmeroDeCelular() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.alterarNumero();
+        cadastro.confirmarAlterarNumero();
+
+    }
+
+    @Então("o modal é fechado exibindo a tela de confirmação com os 4 últimos dígitos do número atualizado")
+    public void oModalÉFechadoExibindoATelaDeConfirmaçãoComOsÚltimosDígitosDoNúmeroAtualizado() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarTextoComNumeroAlterado();
+    }
+
+    @E("clico em \"Editar meu endereço de e-mail\"")
+    public void clicoEmEditarMeuEndereçoDeEMail() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.clicarEditarEmail();
+    }
+
+    @E("clico em \"CONFIRMAR E-MAIL\" após inserir um novo e-mail")
+    public void clicoEmConfirmarEmailApósInserirUmNovoEMail() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.alterarEmail();
+        cadastro.confirmarAlterarEmail();
+    }
+
+    @Então("o modal é fechado exibindo a tela de confirmação com o e-mail atualizado")
+    public void oModalÉFechadoExibindoATelaDeConfirmaçãoComOEMailAtualizado() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarTextoComEmailAlterado();
+    }
+
+    @E("informo o endereço de e-mail errado \"email.errado@gmail.com\"")
+    public void informoOEndereçoDeEMailErrado() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.buscarElementos();
+        cadastro.preencherEmail("email.errado@gmail.com");
+    }
+
+
+    @Entao("verifico os criterios de aceite do campo \"Sua senha\" validando o estado do botão \"Confirmar\" e visualizando os checks nos requisítos da senha")
+    public void verificoOsCriteriosDeAceiteDoCampoSuaSenhaValidandoOEstadoDoBotãoConfirmarEVisualizandoOsChecksNosRequisítosDaSenha() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Cadastro cadastro = new Cadastro(driver);
+        cadastro.cadastrarSenhaTesteCriterioDeAceite();
+
     }
 }
 
