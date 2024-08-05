@@ -20,6 +20,7 @@ public class Home {
     private MobileElement textoDadosPessoais;
     private MobileElement textoMockTokenGemalto;
     private MobileElement botaoTogleMockTokenGemalto;
+    private MobileElement botaoCartaoTop;
 
 
     public Home(AppiumDriver driver){
@@ -97,8 +98,21 @@ public class Home {
                 "QR Code\"]");
     }
 
+    public void buscarBotaoCartaoTop(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão\n" +
+                "TOP\"]")));
+
+        botaoCartaoTop = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão\n" +
+                "TOP\"]");
+    }
+
     public void clicarBotaoBilhetes(){
         botaoBilhetes.click();
+    }
+
+    public void clicarBotaoCartaoTop(){
+        botaoCartaoTop.click();
     }
 
     public MobileElement getMsgBoaViagem() {

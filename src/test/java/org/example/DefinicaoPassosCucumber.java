@@ -210,7 +210,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Home telaHome = new Home(driver);
 
-        Celular.resetApp(driver);
+        //Celular.resetApp(driver);
 
         telaHome.buscarBotaoBilhetes();
         telaHome.clicarBotaoBilhetes();
@@ -224,6 +224,7 @@ public class DefinicaoPassosCucumber {
         paginaMeusBilhetes.buscarElementosTentativasMaximas();
         //paginaMeusBilhetes.buscarElementos();
         //paginaMeusBilhetes.clicarFormasDePgto();
+        Thread.sleep(2000);
         paginaMeusBilhetes.clicarBotaoComprarBilhetes();
     }
 
