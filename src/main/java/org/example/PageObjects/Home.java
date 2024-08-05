@@ -18,6 +18,11 @@ public class Home {
     private MobileElement botaoModalQueroConhecer;
     private PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
     private MobileElement modal;
+    private MobileElement fotoDePerfil;
+    private MobileElement textoDadosPessoais;
+    private MobileElement textoMockTokenGemalto;
+    private MobileElement botaoTogleMockTokenGemalto;
+    private MobileElement botaoCartaoTop;
     private MobileElement iconePerfil;
     private MobileElement campoSenhaDoAplicativo;
     private MobileElement senhaAtualRedefinir;
@@ -29,6 +34,13 @@ public class Home {
 
     public Home(AppiumDriver driver) {
         this.driver = driver;
+    }
+
+    public void buscarFotoDePerfil(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]")));
+
+        fotoDePerfil = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]");
     }
 
     public void esperarBotaoBiometria() {
@@ -73,11 +85,16 @@ public class Home {
         botaoBiometria.click();
     }
 
+    public void clicarFotoDePerfil(){
+        fotoDePerfil.click();
+    }
+
     public void buscarModal() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]")));
 
         modal = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]");
+
 
     }
 
@@ -96,12 +113,27 @@ public class Home {
         buscarMensagemBemVindo();
     }
 
+    public void scrolAteOpcaoMock(){
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]")));
+
+        textoMockTokenGemalto = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" +
+                ".scrollIntoView(new UiSelector().text(\"Mock gemalto token\"));"));
+
+        botaoTogleMockTokenGemalto = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Mock gemalto token\"]/android.view.ViewGroup");
+
+    }
+
+    public void clicarBotaoMockTokenGemalto(){
+        botaoTogleMockTokenGemalto.click();
+    }
+
     public AppiumDriver getDriver() {
         return driver;
     }
 
-    public void buscarBotaoBilhetes() {
-        WebDriverWait espera = new WebDriverWait(driver, 10);
+    public void buscarBotaoBilhetes(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Bilhetes\n" +
                 "QR Code\"]")));
 
@@ -109,6 +141,19 @@ public class Home {
                 "QR Code\"]");
     }
 
+    public void buscarBotaoCartaoTop(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão\n" +
+                "TOP\"]")));
+
+        botaoCartaoTop = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão\n" +
+                "TOP\"]");
+    }
+
+    public void clicarBotaoCartaoTop(){
+        botaoCartaoTop.click();
+    }
+      
     public void clicarBotaoBilhetes() {
         botaoBilhetes.click();
     }
@@ -147,6 +192,7 @@ public class Home {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public MobileElement getMsgBoaViagem() {

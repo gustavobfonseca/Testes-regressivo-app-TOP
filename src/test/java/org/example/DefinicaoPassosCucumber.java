@@ -343,8 +343,14 @@ public class DefinicaoPassosCucumber {
 
     }
 
-    @E("reseto o app")
+    @Quando("reseto o app")
     public void resetoOApp() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Celular.resetApp(driver);
+    }
+
+    @Dado("que reseto o app")
+    public void queResetoOApp() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Celular.resetApp(driver);
     }
@@ -392,6 +398,8 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Home telaHome = new Home(driver);
 
+        //Celular.resetApp(driver);
+
         telaHome.buscarBotaoBilhetes();
         telaHome.clicarBotaoBilhetes();
     }
@@ -406,12 +414,14 @@ public class DefinicaoPassosCucumber {
     }
 
     @E("clico na opçao Comprar Bilhetes")
-    public void clicoNaOpçaoComprarBilhetes() {
+    public void clicoNaOpçaoComprarBilhetes() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
 
-        paginaMeusBilhetes.buscarElementos();
+        paginaMeusBilhetes.buscarElementosTentativasMaximas();
+        //paginaMeusBilhetes.buscarElementos();
         //paginaMeusBilhetes.clicarFormasDePgto();
+        Thread.sleep(2000);
         paginaMeusBilhetes.clicarBotaoComprarBilhetes();
     }
 
@@ -518,6 +528,7 @@ public class DefinicaoPassosCucumber {
         assertTrue(telaMeusBilhetes.getMensagemCompraRealizadaComSucesso().isDisplayed());
         telaMeusBilhetes.buscarBotaoVoltarParaHome();
         telaMeusBilhetes.clicarBotaoVoltarParaHome();
+
     }
 
     @E("confirmo o pagamento informando o CVV {string}")
@@ -714,7 +725,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
 
-        paginaMeusBilhetes.buscarElementos();
+        paginaMeusBilhetes.buscarBotaoFormasDePagamento();
         paginaMeusBilhetes.clicarFormasDePgto();
     }
 
@@ -791,6 +802,148 @@ public class DefinicaoPassosCucumber {
 
     }
 
+    @E("clico na opção Cartão de débito")
+    public void clicoNaOpçãoCartãoDeDébito() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
+
+        paginaMeusBilhetes.buscarFormasDePagamento();
+        paginaMeusBilhetes.clicarBotaoCartaoDeDebitoFormaPgto();
+    }
+
+    @Entao("visualizo a tela de falha no cadastro")
+    public void visualizoATelaDeFalhaNoCadastro() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarElementosTelaFalhaCadastro();
+        assertTrue(telaMeusBilhetes.getMsgFalhaCadastroCartao().isDisplayed());
+        telaMeusBilhetes.buscarBotaoVoltarParaOInicio();
+        telaMeusBilhetes.clicarBotaoVoltarParaHome();
+    }
+
+    @E("eu desligo a conexão de internet do dispositivo")
+    public void euDesligoAConexãoDeInternetDoDispositivo() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        driver.executeScript("mobile: shell", ImmutableMap.of("command", "svc wifi disable"));
+        driver.executeScript("mobile: shell", ImmutableMap.of("command", "svc data disable"));
+    }
+
+    @E("clico na opção Acessar meus bilhetes Offline")
+    public void clicoNaOpçãoAcessarMeusBilhetesOffline() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarElementosTelaSemConexao();
+        telaMeusBilhetes.clicarBotaoAcessarBilhetesOffline();
+
+    }
+
+    @E("submeto as seguintes credenciais validas para login, cpf {string}, senha {string}")
+    public void submetoAsSeguintesCredenciaisValidasParaLoginCpfSenha(String arg0, String arg1) throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+
+
+        telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
+        telaLogin.preencherFormulario(arg0, arg1);
+        telaLogin.logar();
+    }
+
+    @Entao("visualizo a lista de bilhetes disponiveis para uso")
+    public void visualizoAListaDeBilhetesDisponiveisParaUso() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarMensagemListaDeBilhetes();
+        assertTrue(telaMeusBilhetes.getMsgListaDeBilhetes().isDisplayed());
+
+    }
+
+    @E("reestabeleço a conexão com a internet")
+    public void reestabeleçoAConexãoComAInternet() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        driver.executeScript("mobile: shell", ImmutableMap.of("command", "svc wifi enable"));
+        driver.executeScript("mobile: shell", ImmutableMap.of("command", "svc data enable"));
+    }
+
+    @E("clico em tentar novamente")
+    public void clicoEmTentarNovamente() throws InterruptedException {
+        Thread.sleep(7000);
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarElementosTelaSemConexao();
+        telaMeusBilhetes.clicarBotaoTentarNovamente();
+    }
+
+    @Entao("visualizo a tela de formas de pagamento")
+    public void visualizoATelaDeFormasDePagamento() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarCartoesEmFormasDePgto();
+        assertTrue(telaMeusBilhetes.getCartaoDeCredito().isDisplayed());
+    }
+
+    @E("clico no ultimo registro de compra no historico")
+    public void clicoNoUltimoRegistroDeCompraNoHistorico() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarUltimaCompraDeBilhete();
+        telaMeusBilhetes.clicarUltimaCompraDeBilhete();
+    }
+
+    @Entao("visualizo o modal com os detalhes da compra")
+    public void visualizoOModalComOsDetalhesDaCompra() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarModalDetalhesCompra();
+        Assert.assertTrue(telaMeusBilhetes.getModalDetalhesCompra().isDisplayed());
+    }
+
+    @E("eu habilito o mock do token no perfil do usuario")
+    public void euHabilitoOMockDoTokenNoPerfilDoUsuario() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Home telaHome = new Home(driver);
+
+        telaHome.buscarFotoDePerfil();
+        telaHome.clicarFotoDePerfil();
+        telaHome.scrolAteOpcaoMock();
+        telaHome.clicarBotaoMockTokenGemalto();
+        Thread.sleep(1000);
+        driver.navigate().back();
+    }
+
+    @E("confirmo saldo disponível como forma de pagamento")
+    public void confirmoSaldoDisponívelComoFormaDePagamento() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarOpcaoSaldoEmConta();
+        telaMeusBilhetes.clicarSaldoEmConta();
+        telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
+
+    }
+
+    @E("confirmo o pagamento informando a senha correta {string}")
+    public void confirmoOPagamentoInformandoASenhaCorreta(String arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarInputSenhaSaldoEmConta();
+        telaMeusBilhetes.clicarInput0SenhaSaldoEmConta();
+        telaMeusBilhetes.inserirSenhaConta(arg0);
+        telaMeusBilhetes.clicarBotaoConfirmarCompra();
+    }
+
+    @Dado("que eu reseto o driver")
+    public void queEuResetoODriver() {
+        AppiumDriverConfig.Instance().driver = null;
+      
     @E("clico em 'Continuar' informando todos os dados pessoais corretamente")
     public void clicoEmInformandoTodosOsDadosPessoaisCorretamente() throws Exception {
         AppiumDriver appiumDriver = AppiumDriverConfig.Instance().driver;
@@ -938,6 +1091,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Cadastro cadastro = new Cadastro(driver);
         cadastro.cadastrarSenhaTesteCriterioDeAceite();
+
     }
 }
 
