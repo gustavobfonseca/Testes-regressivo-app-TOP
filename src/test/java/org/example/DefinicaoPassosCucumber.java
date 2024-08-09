@@ -112,23 +112,23 @@ public class DefinicaoPassosCucumber {
         esqueciMinhaSenha.buscarModalErroSms();
     }
 
-    @After
-    public void after(Scenario scenario) throws IOException {
-        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-
-        if (scenario.isFailed()) {
-            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
-            scenario.attach(fileContent, "image/png", "image1");
-        } else {
-            try {
-                Celular.resetApp(driver);
-            } catch (Exception e) {
-                System.out.println("tentando resetar o app dnv");
-                Celular.resetApp(driver);
-            }
-        }
-    }
+//    @After
+//    public void after(Scenario scenario) throws IOException {
+//        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+//
+//        if (scenario.isFailed()) {
+//            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
+//            scenario.attach(fileContent, "image/png", "image1");
+//        } else {
+//            try {
+//                Celular.resetApp(driver);
+//            } catch (Exception e) {
+//                System.out.println("tentando resetar o app dnv");
+//                Celular.resetApp(driver);
+//            }
+//        }
+//    }
 
     @Quando("submeto minhas credenciais bloqueadas para login")
     public void submetoMinhasCredenciaisBloqueadasParaLogin() throws InterruptedException {
@@ -418,10 +418,10 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
 
+        Thread.sleep(10000);
         paginaMeusBilhetes.buscarElementosTentativasMaximas();
         //paginaMeusBilhetes.buscarElementos();
         //paginaMeusBilhetes.clicarFormasDePgto();
-        Thread.sleep(2000);
         paginaMeusBilhetes.clicarBotaoComprarBilhetes();
     }
 
@@ -941,8 +941,9 @@ public class DefinicaoPassosCucumber {
     }
 
     @Dado("que eu reseto o driver")
-    public void queEuResetoODriver() {
+    public void queEuResetoODriver() throws Exception {
         AppiumDriverConfig.Instance().driver = null;
+    }
       
     @E("clico em 'Continuar' informando todos os dados pessoais corretamente")
     public void clicoEmInformandoTodosOsDadosPessoaisCorretamente() throws Exception {
