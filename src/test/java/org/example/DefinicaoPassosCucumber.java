@@ -120,13 +120,12 @@ public class DefinicaoPassosCucumber {
 //            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 //            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
 //            scenario.attach(fileContent, "image/png", "image1");
-//        } else {
+//        }
 //            try {
 //                Celular.resetApp(driver);
 //            } catch (Exception e) {
 //                System.out.println("tentando resetar o app dnv");
 //                Celular.resetApp(driver);
-//            }
 //        }
 //    }
 
