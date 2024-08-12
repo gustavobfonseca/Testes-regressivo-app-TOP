@@ -6,6 +6,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.cucumber.core.gherkin.Feature;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.*;
 import io.cucumber.java.en.Then;
@@ -30,8 +31,6 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class DefinicaoPassosCucumber {
-
-
 
     @Dado("que estou na área não logada do app")
     public void anExampleScenario() throws InterruptedException {
@@ -112,22 +111,40 @@ public class DefinicaoPassosCucumber {
         esqueciMinhaSenha.buscarModalErroSms();
     }
 
-//    @After
-//    public void after(Scenario scenario) throws IOException {
-//        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-//
-//        if (scenario.isFailed()) {
-//            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
-//            scenario.attach(fileContent, "image/png", "image1");
-//        }
-//            try {
-//                Celular.resetApp(driver);
-//            } catch (Exception e) {
-//                System.out.println("tentando resetar o app dnv");
-//                Celular.resetApp(driver);
-//        }
-//    }
+    @After
+    public void after(Scenario scenario) throws IOException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        // Pega o caminho do arquivo da feature
+        String nomeFeature = scenario.getUri().getPath();
+//        System.out.println(nomeFeature);
+
+        if (scenario.isFailed()) {
+            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
+            scenario.attach(fileContent, "image/png", "image1");
+            System.out.println("\n alguns cenários precisam que o driver seja inicializado com 'appium --allow-insecure=adb_shell'\n");
+        }
+
+        if (nomeFeature.toLowerCase().contains("login")) {
+//            System.out.println("É cenário da feature de login");
+            try {
+                Celular.limparCache(driver);
+                Celular.resetApp(driver);
+            } catch (Exception e) {
+                System.out.println("Tentando resetar o app novamente, feature de login");
+                Celular.limparCache(driver);
+                Celular.resetApp(driver);
+            }
+        } else {
+            try {
+                Celular.resetApp(driver);
+            } catch (Exception e) {
+                System.out.println("Tentando resetar o app novamente");
+                Celular.resetApp(driver);
+            }
+        }
+    }
 
     @Quando("submeto minhas credenciais bloqueadas para login")
     public void submetoMinhasCredenciaisBloqueadasParaLogin() throws InterruptedException {
@@ -943,7 +960,7 @@ public class DefinicaoPassosCucumber {
     public void queEuResetoODriver() throws Exception {
         AppiumDriverConfig.Instance().driver = null;
     }
-      
+
     @E("clico em 'Continuar' informando todos os dados pessoais corretamente")
     public void clicoEmInformandoTodosOsDadosPessoaisCorretamente() throws Exception {
         AppiumDriver appiumDriver = AppiumDriverConfig.Instance().driver;

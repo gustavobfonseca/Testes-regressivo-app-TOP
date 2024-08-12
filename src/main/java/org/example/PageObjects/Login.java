@@ -31,7 +31,7 @@ public class Login {
     }
 
     public void buscarElementos() throws InterruptedException {
-        WebDriverWait espera = new WebDriverWait(driver, 15);
+        WebDriverWait espera = new WebDriverWait(driver, 30);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]")));
 
         campoUsuario = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]");
