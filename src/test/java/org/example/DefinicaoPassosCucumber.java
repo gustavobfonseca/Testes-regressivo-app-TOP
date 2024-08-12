@@ -388,8 +388,11 @@ public class DefinicaoPassosCucumber {
 
         telaHome.esperarBotaoBiometria();
         telaHome.clicarBotaoAtivarBiometria();
-
-        telaHome.arrastarModalParaBaixo();
+        try {
+            telaHome.arrastarModalParaBaixo();
+        } catch (Exception e) {
+            telaHome.clicarBotaoModalQueroConhecer();
+        }
     }
 
     @E("redefino a senha")

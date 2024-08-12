@@ -256,9 +256,9 @@ public class MeusBilhetes {
 
     public void buscarOpcaoCartaoDeCredito(){
         WebDriverWait espera = new WebDriverWait(driver, 30);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão de Crédito\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Crédito\"]")));
 
-        opcaoCartaoDeCredito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão de Crédito\"]");
+        opcaoCartaoDeCredito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Crédito\"]");
         botaoConfirmarFormaPagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]");
     }
 
