@@ -21,9 +21,9 @@ public class InserirDadosCartao {
 
     public void buscarElementos(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Nome escrito no Cartão\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Nome do titular\"]")));
 
-        this.inputNomeCartao = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Nome escrito no Cartão\"]");
+        this.inputNomeCartao = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Nome do titular\"]");
         this.inputNumeroCartao = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Número do Cartão\"]");
         this.inputValidadeCartao = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Validade\"]");
         this.inputCvvCartao = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"CVV do Cartão\"]");

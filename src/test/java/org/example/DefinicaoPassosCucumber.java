@@ -81,6 +81,7 @@ public class DefinicaoPassosCucumber {
 
         Home telaHome = new Home(driver);
 
+        Thread.sleep(1000);
         telaHome.esperarBotaoBiometria();
         telaHome.clicarBotaoAtivarBiometria();
         try {
@@ -441,6 +442,18 @@ public class DefinicaoPassosCucumber {
         paginaMeusBilhetes.clicarBotaoComprarBilhetes();
     }
 
+    @E("clico na opçao Comprar Bilhetes estando offline")
+    public void clicoNaOpçaoComprarBilhetesEstandoOffline() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
+
+        Thread.sleep(10000);
+//        paginaMeusBilhetes.buscarElementosTentativasMaximas();
+        paginaMeusBilhetes.buscarElementos();
+        //paginaMeusBilhetes.clicarFormasDePgto();
+        paginaMeusBilhetes.clicarBotaoComprarBilhetes();
+    }
+
     @E("informo um CPF válido ainda não cadastrado")
     public void cpfValidoNaoCadastrado() throws Exception {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -764,7 +777,7 @@ public class DefinicaoPassosCucumber {
     }
 
 
-    @Entao("visualizo a tela de Cartão cadastro com sucesso")
+    @Entao("visualizo a tela de Cartão cadastrado com sucesso")
     public void visualizoATelaDeCartãoCadastroComSucesso() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
@@ -805,8 +818,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         //Thread.sleep(10000);
         WebDriverWait espera = new WebDriverWait(driver, 50);
-        espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@content-desc=\"ADICIONAR FORMA DE PAGAMENTO\"]")));
-
+        espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@text=\"ADICIONAR CARTÃO\"]")));
 
     }
 
