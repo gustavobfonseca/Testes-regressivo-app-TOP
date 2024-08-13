@@ -439,8 +439,8 @@ public class DefinicaoPassosCucumber {
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
 
         Thread.sleep(10000);
-        paginaMeusBilhetes.buscarElementosTentativasMaximas();
-        //paginaMeusBilhetes.buscarElementos();
+//        paginaMeusBilhetes.buscarElementosTentativasMaximas();
+        paginaMeusBilhetes.buscarElementos();
         //paginaMeusBilhetes.clicarFormasDePgto();
         paginaMeusBilhetes.clicarBotaoComprarBilhetes();
     }

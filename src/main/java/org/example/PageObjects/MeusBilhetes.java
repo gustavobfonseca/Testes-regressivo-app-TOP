@@ -105,8 +105,8 @@ public class MeusBilhetes {
 
     public void buscarElementos(){
         WebDriverWait espera = new WebDriverWait(driver, 120);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\\\"Comprar \\n\" +\n" +
-                "                \"Bilhetes\\\"]\"")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Comprar \n" +
+                                "Bilhetes\"]")));
 
         botaoComprarBilhetes = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Comprar \n" +
                 "Bilhetes\"]");
