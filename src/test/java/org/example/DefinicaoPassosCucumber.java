@@ -584,7 +584,7 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.clicarBotaoVoltarParaHome();
     }
 
-    @Quando("informo o seguinte CPF {string} que possui o email 'lucas.kuroda@devires.com.br' e o telefone '+5514996237865'")
+    @Quando("informo o seguinte CPF {string} que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'")
     public void informoOSeguinteCPF(String arg0) throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
@@ -601,7 +601,7 @@ public class DefinicaoPassosCucumber {
         Thread.sleep(2000);
         telaEsqueciminhaSenha.buscarInput0Sms();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5514996237865");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5511922334456");
         telaEsqueciminhaSenha.inserirInputs(token);
         Thread.sleep(2000);
     }
@@ -626,7 +626,7 @@ public class DefinicaoPassosCucumber {
         Thread.sleep(1000);
         telaEsqueciminhaSenha.buscarInput0Email();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("testecav8@gmail.com");
         telaEsqueciminhaSenha.inserirInputs(token);
     }
 
@@ -1014,7 +1014,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Cadastro cadastro = new Cadastro(driver);
         Thread.sleep(2000);
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("testecav8@gmail.com");
         System.out.println("primeiro código e-mail: " + token);
         cadastro.esperarReenviarCodigo("//android.widget.TextView[@content-desc=\"REENVIAR CÓDIGO\"]");
     }
@@ -1040,7 +1040,7 @@ public class DefinicaoPassosCucumber {
     @Então("recebo um novo código atualizado via e-mail")
     public void receboUmNovoCódigoAtualizadoViaEmail() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("testecav8@gmail.com");
 
         if (token.isEmpty()) {
             throw new AssertionError("token vazio");
