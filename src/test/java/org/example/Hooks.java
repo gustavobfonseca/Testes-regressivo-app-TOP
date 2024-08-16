@@ -36,7 +36,7 @@ public class Hooks {
 
         // Cria um diretório específico para cada cenário
         String scenarioDirectoryName = "target/screenshots/" + scenario.getName().replaceAll("[^a-zA-Z0-9]", "_");
-        String screenshotName = timestamp + "-ERRO" + ".png";
+        String screenshotName = timestamp + ".png";
         String screenshotPath = scenarioDirectoryName + "/" + screenshotName;
 
         // Cria o diretório de destino se não existir
@@ -48,7 +48,7 @@ public class Hooks {
 
         // Salva o screenshot no sistema de arquivos
         try {
-            System.out.println("Teste falhou");
+//            System.out.println("Teste falhou");
             Files.write(Paths.get(screenshotPath), screenshotBytes);
         } catch (IOException e) {
             e.printStackTrace();

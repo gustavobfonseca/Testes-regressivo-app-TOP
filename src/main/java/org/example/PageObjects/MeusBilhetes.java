@@ -65,9 +65,9 @@ public class MeusBilhetes {
 
     public void buscarCartoesEmFormasDePgto(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão de Crédito\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Crédito\"]")));
 
-        cartaoDeCredito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão de Crédito\"]") ;
+        cartaoDeCredito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Crédito\"]") ;
     }
 
     public void buscarElementosTelaSemConexao(){
@@ -105,7 +105,8 @@ public class MeusBilhetes {
 
     public void buscarElementos(){
         WebDriverWait espera = new WebDriverWait(driver, 120);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Histórico de atividades\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Comprar \n" +
+                                "Bilhetes\"]")));
 
         botaoComprarBilhetes = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Comprar \n" +
                 "Bilhetes\"]");
@@ -164,17 +165,17 @@ public class MeusBilhetes {
 
     public void buscarElementosFormasDePagamento(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"ADICIONAR FORMA DE PAGAMENTO\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.widget.TextView[@text=\"\uE87A\"])[1]")));
 
-        botaoAdicionarFormaPagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"ADICIONAR FORMA DE PAGAMENTO\"]");
-        botaoVoltarPagina = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"ADICIONAR FORMA DE PAGAMENTO\"]");
+        botaoAdicionarFormaPagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"ADICIONAR CARTÃO\"]");
+//        botaoVoltarPagina = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"ADICIONAR FORMA DE PAGAMENTO\"]");
     }
 
     public void buscarLixeiraExcluirCartao(){
         WebDriverWait espera = new WebDriverWait(driver, 50);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.widget.TextView[@text=\"\uE87A\"])[3]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.widget.TextView[@text=\"\uE87A\"])[1]")));
 
-        botaoExcluirCartaoDeCredito = (MobileElement) driver.findElementByXPath("(//android.widget.TextView[@text=\"\uE87A\"])[3]");
+        botaoExcluirCartaoDeCredito = (MobileElement) driver.findElementByXPath("(//android.widget.TextView[@text=\"\uE87A\"])[1]");
     }
 
     public void clicarLixeiraExcluirCartao(){
@@ -183,9 +184,9 @@ public class MeusBilhetes {
 
     public void buscarBotaoConfirmarExclusaoCartao(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"EXCLUIR\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para excluir o cartão\"]")));
 
-        botaoConfirmarExclusaoCartao = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"EXCLUIR\"]");
+        botaoConfirmarExclusaoCartao = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para excluir o cartão\"]");
     }
 
     public void clicarBotaoConfirmarExclusaoCartao(){
@@ -194,10 +195,10 @@ public class MeusBilhetes {
 
     public void buscarFormasDePagamento(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Cartão de Crédito\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Crédito\"]")));
 
-        botaoCartaoDeCreditoFormaPagto = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Cartão de Crédito\"]");
-        botaoCartaoDeDebitoFormaPagto = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Cartão de Débito\"]");
+        botaoCartaoDeCreditoFormaPagto = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Crédito\"]");
+        botaoCartaoDeDebitoFormaPagto = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Débito\"]");
     }
 
     public void clicarBotaoCartaoDeCreditoFormaPgto(){
@@ -256,9 +257,9 @@ public class MeusBilhetes {
 
     public void buscarOpcaoCartaoDeCredito(){
         WebDriverWait espera = new WebDriverWait(driver, 30);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão de Crédito\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Crédito\"]")));
 
-        opcaoCartaoDeCredito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão de Crédito\"]");
+        opcaoCartaoDeCredito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Crédito\"]");
         botaoConfirmarFormaPagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]");
     }
 
@@ -333,7 +334,7 @@ public class MeusBilhetes {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]")));
 
-        input0InserirSenhaSaldoEmConta = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup[1]");
+        input0InserirSenhaSaldoEmConta = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup[1]");
         botaoConfirmarCompra = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]");
     }
 
@@ -351,9 +352,9 @@ public class MeusBilhetes {
 
     public void buscarOpcaoCartaoDebito(){
         WebDriverWait espera = new WebDriverWait(driver, 30);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão de Débito\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Débito\"]")));
 
-        opcaoCartaoDebito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão de Débito\"]");
+        opcaoCartaoDebito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Débito\"]");
         botaoConfirmarFormaPagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]");
     }
 

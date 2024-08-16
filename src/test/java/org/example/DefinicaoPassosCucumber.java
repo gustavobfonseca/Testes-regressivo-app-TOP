@@ -6,6 +6,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.cucumber.core.gherkin.Feature;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.*;
 import io.cucumber.java.en.Then;
@@ -30,8 +31,6 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class DefinicaoPassosCucumber {
-
-
 
     @Dado("que estou na área não logada do app")
     public void anExampleScenario() throws InterruptedException {
@@ -82,6 +81,7 @@ public class DefinicaoPassosCucumber {
 
         Home telaHome = new Home(driver);
 
+        Thread.sleep(1000);
         telaHome.esperarBotaoBiometria();
         telaHome.clicarBotaoAtivarBiometria();
         try {
@@ -112,22 +112,40 @@ public class DefinicaoPassosCucumber {
         esqueciMinhaSenha.buscarModalErroSms();
     }
 
-//    @After
-//    public void after(Scenario scenario) throws IOException {
-//        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-//
-//        if (scenario.isFailed()) {
-//            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-//            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
-//            scenario.attach(fileContent, "image/png", "image1");
-//        }
-//            try {
-//                Celular.resetApp(driver);
-//            } catch (Exception e) {
-//                System.out.println("tentando resetar o app dnv");
-//                Celular.resetApp(driver);
-//        }
-//    }
+    @After
+    public void after(Scenario scenario) throws IOException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        // Pega o caminho do arquivo da feature
+        String nomeFeature = scenario.getUri().getPath();
+//        System.out.println(nomeFeature);
+
+        if (scenario.isFailed()) {
+            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
+            scenario.attach(fileContent, "image/png", "image1");
+            System.out.println("\n alguns cenários precisam que o driver seja inicializado com 'appium --allow-insecure=adb_shell'\n");
+        }
+
+        if (nomeFeature.toLowerCase().contains("login")) {
+//            System.out.println("É cenário da feature de login");
+            try {
+                Celular.limparCache(driver);
+                Celular.resetApp(driver);
+            } catch (Exception e) {
+                System.out.println("Tentando resetar o app novamente, feature de login");
+                Celular.limparCache(driver);
+                Celular.resetApp(driver);
+            }
+        } else {
+            try {
+                Celular.resetApp(driver);
+            } catch (Exception e) {
+                System.out.println("Tentando resetar o app novamente");
+                Celular.resetApp(driver);
+            }
+        }
+    }
 
     @Quando("submeto minhas credenciais bloqueadas para login")
     public void submetoMinhasCredenciaisBloqueadasParaLogin() throws InterruptedException {
@@ -371,8 +389,11 @@ public class DefinicaoPassosCucumber {
 
         telaHome.esperarBotaoBiometria();
         telaHome.clicarBotaoAtivarBiometria();
-
-        telaHome.arrastarModalParaBaixo();
+        try {
+            telaHome.arrastarModalParaBaixo();
+        } catch (Exception e) {
+            telaHome.clicarBotaoModalQueroConhecer();
+        }
     }
 
     @E("redefino a senha")
@@ -418,8 +439,20 @@ public class DefinicaoPassosCucumber {
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
 
         Thread.sleep(10000);
-        paginaMeusBilhetes.buscarElementosTentativasMaximas();
-        //paginaMeusBilhetes.buscarElementos();
+//        paginaMeusBilhetes.buscarElementosTentativasMaximas();
+        paginaMeusBilhetes.buscarElementos();
+        //paginaMeusBilhetes.clicarFormasDePgto();
+        paginaMeusBilhetes.clicarBotaoComprarBilhetes();
+    }
+
+    @E("clico na opçao Comprar Bilhetes estando offline")
+    public void clicoNaOpçaoComprarBilhetesEstandoOffline() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
+
+        Thread.sleep(10000);
+//        paginaMeusBilhetes.buscarElementosTentativasMaximas();
+        paginaMeusBilhetes.buscarElementos();
         //paginaMeusBilhetes.clicarFormasDePgto();
         paginaMeusBilhetes.clicarBotaoComprarBilhetes();
     }
@@ -551,7 +584,7 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.clicarBotaoVoltarParaHome();
     }
 
-    @Quando("informo o seguinte CPF {string} que possui o email 'lucas.kuroda@devires.com.br' e o telefone '+5514996237865'")
+    @Quando("informo o seguinte CPF {string} que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'")
     public void informoOSeguinteCPF(String arg0) throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
@@ -568,7 +601,7 @@ public class DefinicaoPassosCucumber {
         Thread.sleep(2000);
         telaEsqueciminhaSenha.buscarInput0Sms();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5514996237865");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5511922334456");
         telaEsqueciminhaSenha.inserirInputs(token);
         Thread.sleep(2000);
     }
@@ -593,7 +626,7 @@ public class DefinicaoPassosCucumber {
         Thread.sleep(1000);
         telaEsqueciminhaSenha.buscarInput0Email();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("testecav8@gmail.com");
         telaEsqueciminhaSenha.inserirInputs(token);
     }
 
@@ -747,7 +780,7 @@ public class DefinicaoPassosCucumber {
     }
 
 
-    @Entao("visualizo a tela de Cartão cadastro com sucesso")
+    @Entao("visualizo a tela de Cartão cadastrado com sucesso")
     public void visualizoATelaDeCartãoCadastroComSucesso() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
@@ -788,8 +821,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         //Thread.sleep(10000);
         WebDriverWait espera = new WebDriverWait(driver, 50);
-        espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@content-desc=\"ADICIONAR FORMA DE PAGAMENTO\"]")));
-
+        espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@text=\"ADICIONAR CARTÃO\"]")));
 
     }
 
@@ -943,7 +975,7 @@ public class DefinicaoPassosCucumber {
     public void queEuResetoODriver() throws Exception {
         AppiumDriverConfig.Instance().driver = null;
     }
-      
+
     @E("clico em 'Continuar' informando todos os dados pessoais corretamente")
     public void clicoEmInformandoTodosOsDadosPessoaisCorretamente() throws Exception {
         AppiumDriver appiumDriver = AppiumDriverConfig.Instance().driver;
@@ -982,7 +1014,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Cadastro cadastro = new Cadastro(driver);
         Thread.sleep(2000);
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("testecav8@gmail.com");
         System.out.println("primeiro código e-mail: " + token);
         cadastro.esperarReenviarCodigo("//android.widget.TextView[@content-desc=\"REENVIAR CÓDIGO\"]");
     }
@@ -1008,7 +1040,7 @@ public class DefinicaoPassosCucumber {
     @Então("recebo um novo código atualizado via e-mail")
     public void receboUmNovoCódigoAtualizadoViaEmail() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("lucas.kuroda@devires.com.br");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("testecav8@gmail.com");
 
         if (token.isEmpty()) {
             throw new AssertionError("token vazio");

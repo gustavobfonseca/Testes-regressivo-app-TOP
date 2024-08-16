@@ -44,7 +44,7 @@ public class Home {
     }
 
     public void esperarBotaoBiometria() {
-        WebDriverWait espera = new WebDriverWait(driver, 10);
+        WebDriverWait espera = new WebDriverWait(driver, 20);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para ativar biometria.\"]/android.view.ViewGroup")));
 
         botaoBiometria = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para ativar biometria.\"]/android.view.ViewGroup");
@@ -177,14 +177,14 @@ public class Home {
     }
 
     public void clicarBotaoModalQueroConhecer() {
-        WebDriverWait espera = new WebDriverWait(driver, 10);
+        WebDriverWait espera = new WebDriverWait(driver, 15);
         By botaoModalQueroConhecerLocator = By.xpath("//android.view.ViewGroup[@content-desc=\"Botão de navegação tela de vantagens.\"]/android.view.ViewGroup");
 
         try {
             espera.until(ExpectedConditions.presenceOfElementLocated(botaoModalQueroConhecerLocator));
             MobileElement botaoModalQueroConhecer = (MobileElement) driver.findElement(botaoModalQueroConhecerLocator);
             botaoModalQueroConhecer.click();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             driver.navigate().back();
             buscarMensagemBemVindo();
         } catch (TimeoutException e) {

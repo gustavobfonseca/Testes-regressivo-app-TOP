@@ -113,7 +113,7 @@ public class Cadastro {
     }
 
     public void preencherEmailPadrao() {
-        inputEmail.sendKeys("lucas.kuroda@devires.com.br");
+        inputEmail.sendKeys("testecav8@gmail.com");
     }
 
     public void preencherTelefone(String telefone) {
@@ -125,7 +125,7 @@ public class Cadastro {
     }
 
     public void preencherTelefonePadrao() {
-        inputTelefone.sendKeys("14996237865");
+        inputTelefone.sendKeys("11922334456");
     }
 
     public void clicarBotaoContinuar() {
@@ -309,8 +309,8 @@ public class Cadastro {
 
     public void buscarTextoComNumeroAlterado() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (14) *****-7865\"]")));
-        textoComNumeroAlterado = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (14) *****-7865\"]");
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (11) *****-4456\"]")));
+        textoComNumeroAlterado = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (11) *****-4456\"]");
     }
 
     public void clicarEditarEmail() {
@@ -337,16 +337,16 @@ public class Cadastro {
 //        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar email de cadastro\"]")));
 //        inputAlterarEmail.clear();
 
-        inputAlterarEmail.sendKeys("lucas.kuroda@devires.com.br");
+        inputAlterarEmail.sendKeys("testecav8@gmail.com");
 
         espera.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Erro Campo para alterar email de cadastro\"]")));
     }
 
     public void buscarTextoComEmailAlterado() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Um e-mail com um código de 6 dígitos acaba de ser enviado para: lucas.kuroda@devires.com.br\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Um e-mail com um código de 6 dígitos acaba de ser enviado para: testecav8@gmail.com\"]")));
 
-        textoComEmailAlterado = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Um e-mail com um código de 6 dígitos acaba de ser enviado para: lucas.kuroda@devires.com.br\"]");
+        textoComEmailAlterado = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Um e-mail com um código de 6 dígitos acaba de ser enviado para: testecav8@gmail.com\"]");
     }
 
     public void preencherInputSuaSenha(String senhaNova) {
