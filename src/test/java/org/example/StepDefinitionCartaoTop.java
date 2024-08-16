@@ -8,6 +8,7 @@ import io.cucumber.java.pt.Quando;
 import org.example.PageObjects.CartaoTop;
 import org.example.PageObjects.Celular;
 import org.example.PageObjects.Home;
+import org.example.PageObjects.MeusBilhetes;
 
 import static org.junit.Assert.assertTrue;
 
@@ -145,5 +146,14 @@ public class StepDefinitionCartaoTop {
 
         tela2CartaoTop.buscarTelaInformativoMeiaTarifa();
         assertTrue(tela2CartaoTop.getTextoBeneficioEscolar().isDisplayed());
+    }
+
+    @Então("visualizo a tela de confirmação de pagamento via pix")
+    public void visualizoATelaDeConfirmaçãoDePagamentoViaPix() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarFormaDePagamentoTelaConfirmacaoPix();
+        assertTrue(telaMeusBilhetes.getTextoPixCopiaECola().isDisplayed());
     }
 }

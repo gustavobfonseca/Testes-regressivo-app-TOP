@@ -38,6 +38,8 @@ public class MeusBilhetes {
     private MobileElement modalDetalhesCompra;
     private MobileElement opcaoSaldoEmConta;
     private MobileElement input0InserirSenhaSaldoEmConta;
+    private MobileElement opcaoPix;
+    private MobileElement textoPixCopiaECola;
 
     public MeusBilhetes(AppiumDriver driver){
         this.driver = driver;
@@ -45,9 +47,9 @@ public class MeusBilhetes {
 
     public void buscarUltimaCompraDeBilhete(){
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.widget.TextView[@text=\"Compra de Bilhetes\"])[1]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.view.ViewGroup[@content-desc=\"null  null no valor de 5 reais\"])[1]")));
 
-        ultimaCompraDeBilhete = (MobileElement) driver.findElementByXPath("(//android.widget.TextView[@text=\"Compra de Bilhetes\"])[1]") ;
+        ultimaCompraDeBilhete = (MobileElement) driver.findElementByXPath("(//android.view.ViewGroup[@content-desc=\"null  null no valor de 5 reais\"])[1]") ;
 
     }
 
@@ -64,7 +66,7 @@ public class MeusBilhetes {
     }
 
     public void buscarCartoesEmFormasDePgto(){
-        WebDriverWait espera = new WebDriverWait(driver, 10);
+        WebDriverWait espera = new WebDriverWait(driver, 30);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Crédito\"]")));
 
         cartaoDeCredito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Crédito\"]") ;
@@ -164,7 +166,7 @@ public class MeusBilhetes {
     }
 
     public void buscarElementosFormasDePagamento(){
-        WebDriverWait espera = new WebDriverWait(driver, 10);
+        WebDriverWait espera = new WebDriverWait(driver, 30);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.widget.TextView[@text=\"\uE87A\"])[1]")));
 
         botaoAdicionarFormaPagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"ADICIONAR CARTÃO\"]");
@@ -271,6 +273,19 @@ public class MeusBilhetes {
         botaoConfirmarFormaPagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]");
     }
 
+    public void buscarOpcaoPix(){
+        WebDriverWait espera = new WebDriverWait(driver, 30);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Pix\"]")));
+
+        opcaoPix = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Pix\"]");
+        botaoConfirmarFormaPagamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]");
+
+    }
+
+    public void clicarOpcaoPix(){
+        opcaoPix.click();
+    }
+
 
     public void clicarSaldoEmConta(){
         opcaoSaldoEmConta.click();
@@ -367,6 +382,14 @@ public class MeusBilhetes {
 
     }
 
+    public void buscarFormaDePagamentoTelaConfirmacaoPix(){
+        WebDriverWait espera = new WebDriverWait(driver, 120);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Pix copia e cola\"]")));
+
+        textoPixCopiaECola = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Pix copia e cola\"]");
+
+    }
+
     public void clicarBotaoVoltarParaInicio(){
         botaoVoltarParaInicio.click();
     }
@@ -405,5 +428,9 @@ public class MeusBilhetes {
 
     public MobileElement getModalDetalhesCompra() {
         return modalDetalhesCompra;
+    }
+
+    public MobileElement getTextoPixCopiaECola() {
+        return textoPixCopiaECola;
     }
 }
