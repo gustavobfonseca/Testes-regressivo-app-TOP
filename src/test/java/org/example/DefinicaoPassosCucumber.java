@@ -81,7 +81,7 @@ public class DefinicaoPassosCucumber {
 
         Home telaHome = new Home(driver);
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         telaHome.esperarBotaoBiometria();
         telaHome.clicarBotaoAtivarBiometria();
         try {
@@ -1124,6 +1124,17 @@ public class DefinicaoPassosCucumber {
         Cadastro cadastro = new Cadastro(driver);
         cadastro.cadastrarSenhaTesteCriterioDeAceite();
 
+    }
+
+    @E("confirmo pix como forma de pagamento")
+    public void confirmoPixComoFormaDePagamento() {
+
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+
+        telaMeusBilhetes.buscarOpcaoPix();
+        telaMeusBilhetes.clicarOpcaoPix();
+        telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
     }
 }
 
