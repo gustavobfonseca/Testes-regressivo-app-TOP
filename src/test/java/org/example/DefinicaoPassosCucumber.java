@@ -99,6 +99,7 @@ public class DefinicaoPassosCucumber {
         Home telaHome = new Home(driver);
 
         telaHome.clicarBotaoModalQueroConhecer();
+
         Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
