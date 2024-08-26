@@ -10,6 +10,7 @@ import org.example.PageObjects.Celular;
 import org.example.PageObjects.Home;
 import org.example.PageObjects.MeusBilhetes;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class StepDefinitionCartaoTop {
@@ -155,5 +156,22 @@ public class StepDefinitionCartaoTop {
 
         telaMeusBilhetes.buscarFormaDePagamentoTelaConfirmacaoPix();
         assertTrue(telaMeusBilhetes.getTextoPixCopiaECola().isDisplayed());
+    }
+
+    @E("aguardo por mais de {int} minuto e meio na tela")
+    public void aguardoPorMaisDeMinutoEMeioNaTela(int arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela4CartaoTop = new CartaoTop(driver);
+
+        tela4CartaoTop.buscarTelaPixExpirado();
+    }
+
+    @Então("visualizo a tela de {string}")
+    public void visualizoATelaDe(String arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela4CartaoTop = new CartaoTop(driver);
+
+        tela4CartaoTop.buscarTelaPixExpirado();
+        assertTrue(tela4CartaoTop.getMensagemPixExpirado().isDisplayed());
     }
 }

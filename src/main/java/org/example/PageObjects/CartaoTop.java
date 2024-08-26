@@ -22,6 +22,7 @@ public class CartaoTop {
     private MobileElement botaoExpandirModalSaldo;
     private MobileElement botaoSaibaMaisEscolar;
     private MobileElement textoBeneficioEscolar;
+    private MobileElement mensagemPixExpirado;
 
     public CartaoTop(AppiumDriver driver){
         this.driver = driver;
@@ -69,7 +70,7 @@ public class CartaoTop {
 
     public void inputarValorDeCredito(String credito){
         WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc=\"COMPRAR\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]")));
 
         inputValorCredito = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Informe o valor de crédito desejado\"]");
         inputValorCredito.sendKeys(credito);
@@ -87,9 +88,9 @@ public class CartaoTop {
 
     public void buscarBotaoComprarTela2(){
         WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc=\"COMPRAR\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]")));
 
-        botaoComprarTela2 = (MobileElement) driver.findElementByXPath("//*[@content-desc=\"COMPRAR\"]");
+        botaoComprarTela2 = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]");
 
     }
 
@@ -140,6 +141,13 @@ public class CartaoTop {
         textoCopiarCodigoPix = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Copie o código Pix:\"]");
     }
 
+    public void buscarTelaPixExpirado(){
+        WebDriverWait espera = new WebDriverWait(driver, 180);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Parece que o tempo para pagamento do código PIX foi excedido. Por favor, realize sua compra novamente.\"]")));
+
+        mensagemPixExpirado = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Parece que o tempo para pagamento do código PIX foi excedido. Por favor, realize sua compra novamente.\"]");
+    }
+
     //Açoes de Clique
     public void clicarBotaoComprarCreditos(){
         botaoComprarCreditos.click();
@@ -187,5 +195,9 @@ public class CartaoTop {
 
     public MobileElement getTextoBeneficioEscolar() {
         return textoBeneficioEscolar;
+    }
+
+    public MobileElement getMensagemPixExpirado() {
+        return mensagemPixExpirado;
     }
 }

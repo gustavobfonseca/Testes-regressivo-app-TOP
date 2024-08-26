@@ -1136,6 +1136,7 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.clicarOpcaoPix();
         telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
     }
+
 }
 
 
