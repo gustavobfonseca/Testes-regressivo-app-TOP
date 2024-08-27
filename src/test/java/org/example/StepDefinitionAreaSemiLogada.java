@@ -27,7 +27,7 @@ public class StepDefinitionAreaSemiLogada {
         Home telaHome = new Home(driver);
 
         telaHome.esperarBotaoBiometria();
-        telaHome.clicarBotaoAtivarBiometria();
+//        telaHome.clicarBotaoAtivarBiometria();
 
         try {
             telaHome.arrastarModalParaBaixo();
@@ -38,6 +38,7 @@ public class StepDefinitionAreaSemiLogada {
 
         telaHome.deslogar();
     }
+
     @Dado("que realizo o logout para a área semi logada do app, estando com a biometria desabilitada")
     public void queRealizoOLogoutParaAÁreaSemiLogadaDoAppEstandoComABiometriaDesabilitada() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -50,7 +51,7 @@ public class StepDefinitionAreaSemiLogada {
         Home telaHome = new Home(driver);
 
         telaHome.esperarBotaoBiometria();
-        telaHome.clicarBotaoAtivarBiometria();
+//        telaHome.clicarBotaoAtivarBiometria();
 
         try {
             telaHome.arrastarModalParaBaixo();
@@ -87,7 +88,7 @@ public class StepDefinitionAreaSemiLogada {
 
         Thread.sleep(3000);
         telaHome.esperarBotaoBiometria();
-        telaHome.clicarBotaoAtivarBiometria();
+//        telaHome.clicarBotaoAtivarBiometria();
 
         telaHome.buscarMensagemBemVindo();
 //        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
@@ -104,11 +105,27 @@ public class StepDefinitionAreaSemiLogada {
     }
 
     @Dado("que acesso a área semi logada do aplicativo")
-    public void queAcessoAÁreaSemiLogadaDoAplicativo() {
+    public void queAcessoAÁreaSemiLogadaDoAplicativo() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        SemiLogado semiLogado = new SemiLogado(driver);
+        Login telaLogin = new Login(driver);
+        telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
+        telaLogin.preencherFormulario("659.989.520-49", "Laura107");
+        telaLogin.logar();
 
-        semiLogado.buscarElementos();
+        Home telaHome = new Home(driver);
+
+        telaHome.esperarBotaoBiometria();
+//        telaHome.clicarBotaoAtivarBiometria();
+
+        try {
+            telaHome.arrastarModalParaBaixo();
+        } catch (Exception e) {
+            telaHome.clicarBotaoModalQueroConhecer();
+        }
+        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+
+        telaHome.desativarBiometria();
     }
 
 
@@ -142,5 +159,140 @@ public class StepDefinitionAreaSemiLogada {
 
         SemiLogado semiLogado = new SemiLogado(driver);
         semiLogado.buscarElementos();
+    }
+
+    @Dado("que acesso a área semi logada do aplicativo tendo bilhetes QR Code disponíveis para utilização,")
+    public void queAcessoAÁreaSemiLogadaDoAplicativoTendoBilhetesQRCodeDisponíveisParaUtilização() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+        telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
+        telaLogin.preencherFormulario("659.989.520-49", "Laura107");
+        telaLogin.logar();
+
+        Home telaHome = new Home(driver);
+
+        telaHome.esperarBotaoBiometria();
+//        telaHome.clicarBotaoAtivarBiometria();
+
+        try {
+            telaHome.arrastarModalParaBaixo();
+        } catch (Exception e) {
+            telaHome.clicarBotaoModalQueroConhecer();
+        }
+        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+
+        telaHome.desativarBiometria();
+    }
+
+
+    @Quando("acesso a opção \"Bilhetes Offline\"")
+    public void acessoAOpçãoBilhetesOffline() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+        semiLogado.buscarElementos();
+        semiLogado.clicarBilhetes();
+    }
+
+
+    @Quando("clico em \"Trocar de conta\"")
+    public void clicoEmTrocarDeConta() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+        semiLogado.buscarElementos();
+        semiLogado.trocarDeConta();
+    }
+
+    @E("confirmo no modal")
+    public void confirmoNoModal() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+        semiLogado.confirmarTrocaDeConta();
+    }
+
+    @Então("sou direcionado para a tela da área não logada")
+    public void souDirecionadoParaATelaDaÁreaNãoLogada() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        Login login = new Login(driver);
+        login.buscarElementos();
+
+    }
+
+    @Quando("acesso a opção Mapa das Estações")
+    public void acessoAOpçãoMapaDasEstações() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+
+        semiLogado.clicarMapaEstacao();
+    }
+
+    @Então("visualizo o Mapa do Transporte Metropolitano de SP")
+    public void visualizoOMapaDoTransporteMetropolitanoDeSP() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+
+        semiLogado.buscarMapa();
+    }
+
+    @Quando("acesso a opção \"Central de Ajuda\"")
+    public void acessoAOpçãoCentralDeAjuda() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+        semiLogado.buscarElementos();
+        semiLogado.clicarCentralAjuda();
+    }
+
+    @Então("visualizo a página inicial da Central de Ajuda Autopass")
+    public void visualizoAPáginaInicialDaCentralDeAjudaAutopass() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+        semiLogado.buscarCentralDeAjuda();
+    }
+
+    @Dado("que acesso o menu \"Bilhetes QR Code\" tendo bilhetes disponíveis para utilização")
+    public void queAcessoOMenuBilhetesQRCodeTendoBilhetesDisponíveisParaUtilização() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Login telaLogin = new Login(driver);
+        telaLogin.buscarElementos();
+        telaLogin.limparCamposLogin();
+        telaLogin.preencherFormulario("365.369.350-04", "Devires@123");
+        telaLogin.logar();
+
+        Home telaHome = new Home(driver);
+
+        telaHome.esperarBotaoBiometria();
+//        telaHome.clicarBotaoAtivarBiometria();
+
+        try {
+            telaHome.arrastarModalParaBaixo();
+        } catch (Exception e) {
+            telaHome.clicarBotaoModalQueroConhecer();
+        }
+        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+
+        telaHome.buscarBotaoBilhetes();
+        telaHome.clicarBotaoBilhetes();
+
+        MeusBilhetes meusBilhetes = new MeusBilhetes(driver);
+        meusBilhetes.buscarElementos();
+        meusBilhetes.verificarQtdDeBilhete();
+        meusBilhetes.clicarSetaVoltar();
+    }
+
+    @E("faço o logoff do app para a área semi logada")
+    public void façoOLogoffDoAppParaAÁreaSemiLogada() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Home home = new Home(driver);
+
+        home.deslogar();
+
+    }
+
+    @Então("visualizo meus bilhetes disponíveis para utilização")
+    public void visualizoMeusBilhetesDisponíveisParaUtilização() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+        semiLogado.buscarBilhetes();
     }
 }

@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -47,11 +48,11 @@ public class Home {
         fotoDePerfil = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]");
     }
 
-    public void esperarBotaoBiometria() {
+    public void esperarBotaoBiometria() throws InterruptedException {
         WebDriverWait espera = new WebDriverWait(driver, 20);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para ativar biometria.\"]/android.view.ViewGroup")));
-
         botaoBiometria = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@resource-id=\"Botão para ativar biometria.\"]/android.view.ViewGroup");
+        botaoBiometria.click();
 //        botaoNaoAtivarBiometria = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@resource-id=\"Botão para não ativar biometria.\"]/android.view.ViewGroup");
 
     }
@@ -86,9 +87,9 @@ public class Home {
     }
 
 
-    public void clicarBotaoAtivarBiometria() {
-        botaoBiometria.click();
-    }
+//    public void clicarBotaoAtivarBiometria() throws InterruptedException {
+//        botaoBiometria.click();
+//    }
 
     public void clicarBotaoNaoAtivarBiometria() {
         botaoNaoAtivarBiometria.click();
