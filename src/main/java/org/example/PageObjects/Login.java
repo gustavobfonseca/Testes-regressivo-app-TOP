@@ -22,6 +22,8 @@ public class Login {
     private MobileElement centralDeAjuda;
     private MobileElement enviarMensagem;
     private MobileElement criarConta;
+
+
     private MobileElement modalErro;
 
     public Login(AppiumDriver driver) {
