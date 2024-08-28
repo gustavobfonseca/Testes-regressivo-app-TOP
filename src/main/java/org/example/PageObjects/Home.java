@@ -4,11 +4,16 @@ import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Home {
     private AppiumDriver driver;
@@ -205,5 +210,19 @@ public class Home {
 
     public MobileElement getModal() {
         return modal;
+    }
+
+    public void buscarMapaMobilidade() {
+        MobileElement mapaMobilidade = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true).className(\"android.widget.HorizontalScrollView\"))" +
+                        ".setAsHorizontalList()" +
+                        ".scrollIntoView(new UiSelector().text(\"Mobilidade\"))"
+        ));
+
+        if (mapaMobilidade != null) {
+            mapaMobilidade.click();
+        } else {
+            System.out.println("Elemento 'Mobilidade' não encontrado.");
+        }
     }
 }
