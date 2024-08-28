@@ -83,7 +83,7 @@ public class DefinicaoPassosCucumber {
 
         Thread.sleep(3000);
         telaHome.esperarBotaoBiometria();
-//        telaHome.clicarBotaoAtivarBiometria();
+        telaHome.clicarBotaoAtivarBiometria();
         try {
             telaHome.arrastarModalParaBaixo();
         } catch (Exception e) {
@@ -99,7 +99,6 @@ public class DefinicaoPassosCucumber {
         Home telaHome = new Home(driver);
 
         telaHome.clicarBotaoModalQueroConhecer();
-
         Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
@@ -389,7 +388,7 @@ public class DefinicaoPassosCucumber {
         Home telaHome = new Home(driver);
 
         telaHome.esperarBotaoBiometria();
-//        telaHome.clicarBotaoAtivarBiometria();
+        telaHome.clicarBotaoAtivarBiometria();
         try {
             telaHome.arrastarModalParaBaixo();
         } catch (Exception e) {
