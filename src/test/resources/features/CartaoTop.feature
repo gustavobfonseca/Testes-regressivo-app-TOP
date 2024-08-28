@@ -152,7 +152,6 @@ Funcionalidade: Cartão Top
     E clico em Comprar
     E submeto pix como forma de pagamento
     Então visualizo a tela de codigo pix gerado para pagamento
-    E reseto o app
 
   Cenario: Compra de crédito escolar - Pagamento via saldo em conta
     Dado que estou na área não logada do app
@@ -194,3 +193,18 @@ Funcionalidade: Cartão Top
     E submeto pix como forma de pagamento
     E aguardo por mais de 1 minuto e meio na tela
     Então visualizo a tela de "Código Pix Expirado"
+
+  Cenário: Comunicar Perda ou Roubo de Cartão Híbrido
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E clico no botão "Comunicar Perda / Roubo"
+    E clico em "Prosseguir com o cancelamento"
+    Então sou direcionado para o chatbot da Pefisa via WhatsApp
+
+  Cenário: Direcionamento para as dúvidas sobre o benefício passe escolar
+
+    Quando eu clico em Cartão TOP
+    E clico no botao de expandir o modal de benefícios
+

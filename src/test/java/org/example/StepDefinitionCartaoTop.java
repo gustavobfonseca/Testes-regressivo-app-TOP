@@ -174,4 +174,46 @@ public class StepDefinitionCartaoTop {
         tela4CartaoTop.buscarTelaPixExpirado();
         assertTrue(tela4CartaoTop.getMensagemPixExpirado().isDisplayed());
     }
+
+    @E("clico no ícone informativo \\(i) no texto de {string} no modal de saldo")
+    public void clicoNoÍconeInformativoINoTextoDeNoModalDeSaldo(String arg0) throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela1CartaoTop = new CartaoTop(driver);
+        Thread.sleep(5000);
+        tela1CartaoTop.buscarIconeInformativoAtualizacaoSaldo();
+//        tela1CartaoTop.clicarIconeInformativoAtualizacaoSaldo();
+    }
+
+    @E("clico no botão {string}")
+    public void clicoNoBotão(String arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela1CartaoTop = new CartaoTop(driver);
+
+        tela1CartaoTop.buscarBotaoComunicarPerdaCartao();
+        tela1CartaoTop.clicarBotaoComunicarPerdaCartao();
+    }
+
+    @E("clico em {string}")
+    public void clicoEm(String arg0) throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela1CartaoTop = new CartaoTop(driver);
+
+        tela1CartaoTop.buscarBotaoProsseguirComCancelamento();
+        Thread.sleep(2000);
+        tela1CartaoTop.clicarBotaoProsseguirComCancelamento();
+    }
+
+    @Então("sou direcionado para o chatbot da Pefisa via WhatsApp")
+    public void souDirecionadoParaOChatbotDaPefisaViaWhatsApp() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela3CartaoTop = new CartaoTop(driver);
+
+        tela3CartaoTop.buscarNomeContatoChatbotPefisa();
+        assertTrue(tela3CartaoTop.getNomeChatbotPefisa().isDisplayed());
+    }
+
+    @E("clico no botao de expandir o modal de benefícios")
+    public void clicoNoBotaoDeExpandirOModalDeBenefícios() {
+
+    }
 }

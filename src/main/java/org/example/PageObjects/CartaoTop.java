@@ -1,8 +1,10 @@
 package org.example.PageObjects;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,6 +25,10 @@ public class CartaoTop {
     private MobileElement botaoSaibaMaisEscolar;
     private MobileElement textoBeneficioEscolar;
     private MobileElement mensagemPixExpirado;
+    private MobileElement iconeInformativoAtualizacaoSaldo;
+    private MobileElement botaoComunicarPerdaCartao;
+    private MobileElement botaoProsseguirComCancelamento;
+    private MobileElement nomeChatbotPefisa;
 
     public CartaoTop(AppiumDriver driver){
         this.driver = driver;
@@ -51,6 +57,28 @@ public class CartaoTop {
 
         botaoSaibaMaisEscolar = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Saiba mais\"]");
     }
+
+    public void buscarIconeInformativoAtualizacaoSaldo() throws InterruptedException {
+//        Thread.sleep(10000);
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.TextView[@index='0']")));
+
+        //android.widget.TextView[@text="Última atualização em: 27/08/2024 - 11:53"]
+        driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.TextView[@index='0']").click();
+    }
+
+    public void buscarBotaoComunicarPerdaCartao() {
+//        Thread.sleep(10000);
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@text=\"Comunicar \n" +
+                "Perda/Roubo\"]")));
+
+        //android.widget.TextView[@text="Última atualização em: 27/08/2024 - 11:53"]
+        botaoComunicarPerdaCartao = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Comunicar \n" +
+                "Perda/Roubo\"]");
+    }
+
+    
 
     //Tela 2 cartão TOP
     public void buscarBotaoComum(){
@@ -102,6 +130,17 @@ public class CartaoTop {
 
     }
 
+    public void buscarBotaoProsseguirComCancelamento(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"2. Digite seu CPF;\"]")));
+
+        botaoProsseguirComCancelamento = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" +
+                ".scrollIntoView(new UiSelector().text(\"PROSSEGUIR COM O CANCELAMENTO\"));"));
+
+        botaoProsseguirComCancelamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"PROSSEGUIR COM O CANCELAMENTO\"]");
+
+    }
+
     //Tela 3
     public void buscarBotaoCartaoDeCredito(){
         WebDriverWait espera = new WebDriverWait(driver, 20);
@@ -130,6 +169,13 @@ public class CartaoTop {
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Pix\"]")));
 
         botaoPix = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Pix\"]");
+    }
+
+    public void buscarNomeContatoChatbotPefisa(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@resource-id=\"com.whatsapp:id/conversation_contact_name\"]")));
+
+        nomeChatbotPefisa = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@resource-id=\"com.whatsapp:id/conversation_contact_name\"]");
     }
 
     //Tela 4
@@ -189,6 +235,31 @@ public class CartaoTop {
         botaoSaibaMaisEscolar.click();
     }
 
+    public MobileElement clicarIconeInformativoAtualizacaoSaldo() throws InterruptedException { final int maxTentativas = 10;
+        int tentativas = 0;
+
+        while (tentativas < maxTentativas){
+            try {
+                iconeInformativoAtualizacaoSaldo.click();
+                return iconeInformativoAtualizacaoSaldo;
+            }catch (StaleElementReferenceException e) {
+                tentativas++;
+                buscarIconeInformativoAtualizacaoSaldo();
+                if(tentativas == maxTentativas){
+                    throw e;
+                }
+            }
+            throw new RuntimeException("Element not found after maximum retries");
+        }
+        return null;
+    }
+
+    public void clicarBotaoComunicarPerdaCartao(){ botaoComunicarPerdaCartao.click();}
+
+    public void clicarBotaoProsseguirComCancelamento(){
+        botaoProsseguirComCancelamento.click();
+    }
+
     public MobileElement getTextoCopiarCodigoPix() {
         return textoCopiarCodigoPix;
     }
@@ -199,5 +270,9 @@ public class CartaoTop {
 
     public MobileElement getMensagemPixExpirado() {
         return mensagemPixExpirado;
+    }
+
+    public MobileElement getNomeChatbotPefisa() {
+        return nomeChatbotPefisa;
     }
 }

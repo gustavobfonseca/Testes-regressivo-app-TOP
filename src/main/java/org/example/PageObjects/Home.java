@@ -43,7 +43,8 @@ public class Home {
         fotoDePerfil = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]");
     }
 
-    public void esperarBotaoBiometria() {
+    public void esperarBotaoBiometria() throws InterruptedException {
+        Thread.sleep(5000);
         WebDriverWait espera = new WebDriverWait(driver, 20);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para ativar biometria.\"]/android.view.ViewGroup")));
 
