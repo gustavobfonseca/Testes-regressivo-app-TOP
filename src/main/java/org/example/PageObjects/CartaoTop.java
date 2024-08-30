@@ -29,6 +29,9 @@ public class CartaoTop {
     private MobileElement botaoComunicarPerdaCartao;
     private MobileElement botaoProsseguirComCancelamento;
     private MobileElement nomeChatbotPefisa;
+    private MobileElement iconeExpancaoModalBeneficios;
+    private MobileElement linkSaibaMaisMeiaTarifa;
+    private MobileElement textoBeneficioEscolarPasseLivre;
 
     public CartaoTop(AppiumDriver driver){
         this.driver = driver;
@@ -78,7 +81,20 @@ public class CartaoTop {
                 "Perda/Roubo\"]");
     }
 
-    
+    public void buscarIconeExpansaoModalBeneficios(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.elementToBeClickable(By.xpath("(//android.widget.TextView[@text=\"\uE8B4\"])[2]")));
+
+        iconeExpancaoModalBeneficios = (MobileElement) driver.findElementByXPath("(//android.widget.TextView[@text=\"\uE8B4\"])[2]");
+    }
+
+    public void buscarLinkSaibaMaisMeiaTarifa(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.TextView[@text=\"Saiba mais\"]")));
+
+        linkSaibaMaisMeiaTarifa = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Saiba mais\"]");
+
+    }
 
     //Tela 2 cartão TOP
     public void buscarBotaoComum(){
@@ -138,6 +154,14 @@ public class CartaoTop {
                 ".scrollIntoView(new UiSelector().text(\"PROSSEGUIR COM O CANCELAMENTO\"));"));
 
         botaoProsseguirComCancelamento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"PROSSEGUIR COM O CANCELAMENTO\"]");
+
+    }
+
+    public void buscarTextoBeneficioEscolarPasseLivre(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Benefício Escolar (,Passe Livre,)\"]")));
+
+        textoBeneficioEscolarPasseLivre = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Benefício Escolar (,Passe Livre,)\"]");
 
     }
 
@@ -260,6 +284,14 @@ public class CartaoTop {
         botaoProsseguirComCancelamento.click();
     }
 
+    public void clicarIconeExpansaoModalBeneficios(){
+        iconeExpancaoModalBeneficios.click();
+    }
+
+    public void clicarLinkSaibaMaisMeiaTarifa(){
+        linkSaibaMaisMeiaTarifa.click();
+    }
+
     public MobileElement getTextoCopiarCodigoPix() {
         return textoCopiarCodigoPix;
     }
@@ -274,5 +306,9 @@ public class CartaoTop {
 
     public MobileElement getNomeChatbotPefisa() {
         return nomeChatbotPefisa;
+    }
+
+    public MobileElement getTextoBeneficioEscolarPasseLivre() {
+        return textoBeneficioEscolarPasseLivre;
     }
 }

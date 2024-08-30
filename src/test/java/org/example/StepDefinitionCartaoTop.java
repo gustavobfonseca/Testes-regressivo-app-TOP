@@ -213,7 +213,30 @@ public class StepDefinitionCartaoTop {
     }
 
     @E("clico no botao de expandir o modal de benefícios")
-    public void clicoNoBotaoDeExpandirOModalDeBenefícios() {
+    public void clicoNoBotaoDeExpandirOModalDeBenefícios() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela1CartaoTop = new CartaoTop(driver);
+        Thread.sleep(5000);
+        tela1CartaoTop.buscarIconeExpansaoModalBeneficios();
+        tela1CartaoTop.clicarIconeExpansaoModalBeneficios();
+    }
+
+    @E("clico em Saiba Mais")
+    public void clicoEmSaibaMais() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela1CartaoTop = new CartaoTop(driver);
+
+        tela1CartaoTop.buscarLinkSaibaMaisMeiaTarifa();
+        tela1CartaoTop.clicarLinkSaibaMaisMeiaTarifa();
+    }
+
+    @Então("sou direcionado para a pagina da EMTU de beneficio escolar")
+    public void souDirecionadoParaAPaginaDaEMTUDeBeneficioEscolar() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela3CartaoTop = new CartaoTop(driver);
+
+        tela3CartaoTop.buscarTextoBeneficioEscolarPasseLivre();
+        assertTrue(tela3CartaoTop.getTextoBeneficioEscolarPasseLivre().isDisplayed());
 
     }
 }

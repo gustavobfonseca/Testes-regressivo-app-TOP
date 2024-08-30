@@ -204,7 +204,11 @@ Funcionalidade: Cartão Top
     Então sou direcionado para o chatbot da Pefisa via WhatsApp
 
   Cenário: Direcionamento para as dúvidas sobre o benefício passe escolar
-
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "51168429242", senha "Devires@123"
+    E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico no botao de expandir o modal de benefícios
+    E clico em Saiba Mais
+    Então sou direcionado para a pagina da EMTU de beneficio escolar
 
