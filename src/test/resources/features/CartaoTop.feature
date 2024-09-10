@@ -242,3 +242,11 @@ Funcionalidade: Cartão Top
     E expando o modal de beneficios
     E clico no icone Saiba Mais no item Passe Livre
     Então visualizo a tela informativa do beneficio Passe Livre
+
+  Cenário: Beneficio escolar passe livre
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E expando o modal de beneficios
+    Então visualizo a informação do benefício Passe Livre com a data de validade

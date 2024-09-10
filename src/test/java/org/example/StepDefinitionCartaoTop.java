@@ -291,6 +291,16 @@ public class StepDefinitionCartaoTop {
         Tela tela = new Tela(driver);
 
         MobileElement textoBeneficioPasseLivre = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Benefício Escolar (,Passe Livre,)\"]", 20);
-        tela.clicarEmElemento(textoBeneficioPasseLivre);
+        assertTrue(textoBeneficioPasseLivre.isDisplayed());
+    }
+
+
+    @Então("visualizo a informação do benefício Passe Livre com a data de validade")
+    public void visualizoAInformaçãoDoBenefícioPasseLivreComADataDeValidade() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement textoValidadeBeneficio = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"VALID.\"]", 20);
+        assertTrue(textoValidadeBeneficio.isDisplayed());
     }
 }
