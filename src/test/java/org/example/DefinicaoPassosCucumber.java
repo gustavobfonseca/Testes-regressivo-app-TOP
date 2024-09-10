@@ -949,6 +949,20 @@ public class DefinicaoPassosCucumber {
         driver.navigate().back();
     }
 
+    @E("eu clico no botao do mock gemalto token")
+    public void euClicoNoBotaoMockGemaltoToken() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+        Home telaHome = new Home(driver);
+
+        telaHome.buscarFotoDePerfil();
+        telaHome.clicarFotoDePerfil();
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]", 20, "new UiSelector().text(\"Mock gemalto token\")");
+        telaHome.clicarBotaoMockTokenGemalto();
+        Thread.sleep(1000);
+        driver.navigate().back();
+    }
+
     @E("confirmo saldo disponível como forma de pagamento")
     public void confirmoSaldoDisponívelComoFormaDePagamento() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;

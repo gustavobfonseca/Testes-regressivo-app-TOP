@@ -32,6 +32,11 @@ public class CartaoTop {
     private MobileElement iconeExpancaoModalBeneficios;
     private MobileElement linkSaibaMaisMeiaTarifa;
     private MobileElement textoBeneficioEscolarPasseLivre;
+    private MobileElement filtroDeHistorico;
+    private MobileElement filtroDePeriodo;
+    private MobileElement filtroDeTipoDeTransacao;
+    private MobileElement botaoAplicarFiltro;
+    private MobileElement registroDeUso;
 
     public CartaoTop(AppiumDriver driver){
         this.driver = driver;
@@ -94,6 +99,20 @@ public class CartaoTop {
 
         linkSaibaMaisMeiaTarifa = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Saiba mais\"]");
 
+    }
+
+    public void buscarIconeFiltro(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"\uE9AE\"]")));
+
+        filtroDeHistorico = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"\uE9AE\"]");
+    }
+
+    public void buscarRegistroDeUso(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Utilizado em:\"]")));
+
+        registroDeUso = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Utilizado em:\"]");
     }
 
     //Tela 2 cartão TOP
@@ -163,6 +182,15 @@ public class CartaoTop {
 
         textoBeneficioEscolarPasseLivre = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Benefício Escolar (,Passe Livre,)\"]");
 
+    }
+
+    public void buscarElementosFiltro(){
+        WebDriverWait espera = new WebDriverWait(driver, 20);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"6 meses\"]")));
+
+        filtroDePeriodo = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"6 meses\"]");
+        filtroDeTipoDeTransacao = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Uso\"]");
+        botaoAplicarFiltro = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"APLICAR FILTROS\"]");
     }
 
     //Tela 3
@@ -259,6 +287,22 @@ public class CartaoTop {
         botaoSaibaMaisEscolar.click();
     }
 
+    public void clicarFiltroDeHistorico(){
+        filtroDeHistorico.click();
+    }
+
+    public void clicarFiltroDePeriodo(){
+        filtroDePeriodo.click();
+    }
+
+    public void clicarFiltroDeTipoDeTransacao(){
+        filtroDeTipoDeTransacao.click();
+    }
+
+    public void clicarBotaoAplicarFiltros(){
+        botaoAplicarFiltro.click();
+    }
+
     public MobileElement clicarIconeInformativoAtualizacaoSaldo() throws InterruptedException { final int maxTentativas = 10;
         int tentativas = 0;
 
@@ -310,5 +354,9 @@ public class CartaoTop {
 
     public MobileElement getTextoBeneficioEscolarPasseLivre() {
         return textoBeneficioEscolarPasseLivre;
+    }
+
+    public MobileElement getRegistroDeUso() {
+        return registroDeUso;
     }
 }

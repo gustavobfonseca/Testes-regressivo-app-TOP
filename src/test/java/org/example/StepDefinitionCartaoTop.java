@@ -239,4 +239,33 @@ public class StepDefinitionCartaoTop {
         assertTrue(tela3CartaoTop.getTextoBeneficioEscolarPasseLivre().isDisplayed());
 
     }
+
+    @E("clico no icone de filtro")
+    public void clicoNoIconeDeFiltro() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela1CartaoTop = new CartaoTop(driver);
+
+        tela1CartaoTop.buscarIconeFiltro();
+        tela1CartaoTop.clicarFiltroDeHistorico();
+    }
+
+    @E("filtro por periodo e uso")
+    public void filtroPorPeriodoEUso() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela2CartaoTop = new CartaoTop(driver);
+
+        tela2CartaoTop.buscarElementosFiltro();
+        tela2CartaoTop.clicarFiltroDePeriodo();
+        tela2CartaoTop.clicarFiltroDeTipoDeTransacao();
+        tela2CartaoTop.clicarBotaoAplicarFiltros();
+    }
+
+    @Então("visualizo o registro de uso do cartao")
+    public void visualizoORegistroDeUsoDoCartao() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        CartaoTop tela1CartaoTop = new CartaoTop(driver);
+
+        tela1CartaoTop.buscarRegistroDeUso();
+        assertTrue(tela1CartaoTop.getRegistroDeUso().isDisplayed());
+    }
 }

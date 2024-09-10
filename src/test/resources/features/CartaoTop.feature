@@ -55,7 +55,7 @@ Funcionalidade: Cartão Top
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
     E vou para a minha home do aplicativo
-    E eu habilito o mock do token no perfil do usuario
+    E eu clico no botao do mock gemalto token
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
     E clico na opção Comum
@@ -212,3 +212,24 @@ Funcionalidade: Cartão Top
     E clico em Saiba Mais
     Então sou direcionado para a pagina da EMTU de beneficio escolar
 
+  Cenário: Filtro de histórico
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "40302598472", senha "Laura107"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E clico no icone de filtro
+    E filtro por periodo e uso
+    Então visualizo o registro de uso do cartao
+
+  Cenário: Código PIX expirado para recarga comum
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "65998952049", senha "Laura107"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E clico em Comprar Créditos
+    E clico na opção Comum
+    E insiro o valor de R$ "400"
+    E clico em Comprar
+    E submeto pix como forma de pagamento
+    E aguardo por mais de 1 minuto e meio na tela
+    Então visualizo a tela de "Código Pix Expirado"
