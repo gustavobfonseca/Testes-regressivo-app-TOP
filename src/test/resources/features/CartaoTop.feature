@@ -260,3 +260,11 @@ Funcionalidade: Cartão Top
     E clico no icone Saiba Mais no item Passe Livre
     E clico na label de Dúvidas sobre seu benefício escolar?
     Então sou direcionado para a pagina de beneficio escolar EMTU
+
+  Cenário: Beneficio sênior
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "79964771088", senha "Laura107"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E expando o modal de beneficios
+    Então visualizo a informação do benefício Sênior com a data de validade
