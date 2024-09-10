@@ -1,14 +1,12 @@
 package org.example;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
-import org.example.PageObjects.CartaoTop;
-import org.example.PageObjects.Celular;
-import org.example.PageObjects.Home;
-import org.example.PageObjects.MeusBilhetes;
+import org.example.PageObjects.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -267,5 +265,32 @@ public class StepDefinitionCartaoTop {
 
         tela1CartaoTop.buscarRegistroDeUso();
         assertTrue(tela1CartaoTop.getRegistroDeUso().isDisplayed());
+    }
+
+    @E("expando o modal de beneficios")
+    public void expandoOModalDeBeneficios() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement elementoExpandirModalBeneficio = tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"\uE8B4\"])[2]", 20);
+        tela.clicarEmElemento(elementoExpandirModalBeneficio);
+    }
+
+    @E("clico no icone Saiba Mais no item Passe Livre")
+    public void clicoNoIconeSaibaMaisNoItemPasseLivre() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement elementoSaibaMais = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Saiba mais\"]", 20);
+        tela.clicarEmElemento(elementoSaibaMais);
+    }
+
+    @Então("visualizo a tela informativa do beneficio Passe Livre")
+    public void visualizoATelaInformativaDoBeneficioPasseLivre() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement textoBeneficioPasseLivre = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Benefício Escolar (,Passe Livre,)\"]", 20);
+        tela.clicarEmElemento(textoBeneficioPasseLivre);
     }
 }
