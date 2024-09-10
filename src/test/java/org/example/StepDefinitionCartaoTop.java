@@ -332,4 +332,22 @@ public class StepDefinitionCartaoTop {
         MobileElement textoBeneficioSenior = tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"Senior\"])[2]", 20);
         assertTrue(textoBeneficioSenior.isDisplayed());
     }
+
+    @E("clico no icone Saiba Mais no item Senior")
+    public void clicoNoIconeSaibaMaisNoItemSenior() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement elementoSaibaMaisSenior = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Saiba mais\"]", 20);
+        tela.clicarEmElemento(elementoSaibaMaisSenior);
+    }
+
+    @Então("visualizo a tela informativa do beneficio Senior")
+    public void visualizoATelaInformativaDoBeneficioSenior() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement textoBeneficioSenior = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Benefício Senior\"]", 20);
+        assertTrue(textoBeneficioSenior.isDisplayed());
+    }
 }

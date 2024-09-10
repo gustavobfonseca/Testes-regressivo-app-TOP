@@ -268,3 +268,12 @@ Funcionalidade: Cartão Top
     Quando eu clico em Cartão TOP
     E expando o modal de beneficios
     Então visualizo a informação do benefício Sênior com a data de validade
+
+  Cenário: Informativo sênior
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "79964771088", senha "Laura107"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E expando o modal de beneficios
+    E clico no icone Saiba Mais no item Senior
+    Então visualizo a tela informativa do beneficio Senior
