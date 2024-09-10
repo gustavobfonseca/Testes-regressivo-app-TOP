@@ -303,4 +303,22 @@ public class StepDefinitionCartaoTop {
         MobileElement textoValidadeBeneficio = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"VALID.\"]", 20);
         assertTrue(textoValidadeBeneficio.isDisplayed());
     }
+
+    @E("clico na label de Dúvidas sobre seu benefício escolar?")
+    public void clicoNaLabelDeDúvidasSobreSeuBenefícioEscolar() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoDuvidasSobreBeneficioEscolar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Dúvidas sobre seu Benefício Escolar?\"]", 20);
+        tela.clicarEmElemento(botaoDuvidasSobreBeneficioEscolar);
+    }
+
+    @Então("sou direcionado para a pagina de beneficio escolar EMTU")
+    public void souDirecionadoParaAPaginaDeBeneficioEscolarEMTU() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement textoEmtu = tela.buscarElementoNaTela("//android.widget.Image[@text=\"Home EMTU\"]", 20);
+        assertTrue(textoEmtu.isDisplayed());
+    }
 }

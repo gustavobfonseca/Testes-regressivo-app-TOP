@@ -250,3 +250,13 @@ Funcionalidade: Cartão Top
     Quando eu clico em Cartão TOP
     E expando o modal de beneficios
     Então visualizo a informação do benefício Passe Livre com a data de validade
+
+  Cenário: Direcionamento para as dúvidas sobre beneficio passe livre
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E expando o modal de beneficios
+    E clico no icone Saiba Mais no item Passe Livre
+    E clico na label de Dúvidas sobre seu benefício escolar?
+    Então sou direcionado para a pagina de beneficio escolar EMTU
