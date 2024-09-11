@@ -277,3 +277,13 @@ Funcionalidade: Cartão Top
     E expando o modal de beneficios
     E clico no icone Saiba Mais no item Senior
     Então visualizo a tela informativa do beneficio Senior
+
+  Cenário: Direcionamento dúvidas sobre benefício sênior
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "79964771088", senha "Laura107"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E expando o modal de beneficios
+    E clico no icone Saiba Mais no item Senior
+    E clico no texto Central de Ajuda
+    Então sou direcionado para a página do TOP Sênior na Central de Ajuda Autopass
