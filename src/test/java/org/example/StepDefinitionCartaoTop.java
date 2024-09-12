@@ -368,4 +368,20 @@ public class StepDefinitionCartaoTop {
         MobileElement textoTopSenior = tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"TOP Senior\"])[1]", 20);
         assertTrue(textoTopSenior.isDisplayed());
     }
+
+    @Então("visualizo a informação de ambos os benefícios com suas datas de validade")
+    public void visualizoAInformaçãoDeAmbosOsBenefíciosComSuasDatasDeValidade() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement textoValidadeBeneficioSenior = tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"VALID.\"])[1]", 20);
+        assertTrue(textoValidadeBeneficioSenior.isDisplayed());
+        MobileElement textoBeneficioSenior = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Senior\"]", 20);
+        assertTrue(textoBeneficioSenior.isDisplayed());
+
+        MobileElement textoValidadeBeneficioPasseLivre = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Escolar Passe Livre\"]", 20);
+        assertTrue(textoValidadeBeneficioPasseLivre.isDisplayed());
+        MobileElement textoBeneficioPasseLivre = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Escolar Passe Livre\"]", 20);
+        assertTrue(textoBeneficioPasseLivre.isDisplayed());
+    }
 }

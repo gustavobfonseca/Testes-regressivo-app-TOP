@@ -287,3 +287,13 @@ Funcionalidade: Cartão Top
     E clico no icone Saiba Mais no item Senior
     E clico no texto Central de Ajuda
     Então sou direcionado para a página do TOP Sênior na Central de Ajuda Autopass
+
+  Cenário: Beneficio sênior + escolar passe livre
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "61425883303", senha "Devires@123"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E expando o modal de beneficios
+    Então visualizo a informação de ambos os benefícios com suas datas de validade
+
+    
