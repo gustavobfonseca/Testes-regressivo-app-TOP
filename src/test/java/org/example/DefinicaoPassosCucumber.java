@@ -1137,6 +1137,13 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.clicarOpcaoPix();
         telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
     }
+
+    @E("não possua foto de perfil")
+    public void nãoPossuaFotoDePerfil() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Home home = new Home(driver);
+        home.buscarFotoDePerfil();
+    }
 }
 
 

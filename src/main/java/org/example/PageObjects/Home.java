@@ -35,14 +35,25 @@ public class Home {
     private MobileElement senhaNovaRedefinir;
     private MobileElement confirmarSenhaNovaRedefinir;
     private MobileElement botaoEnviarRedefinirSenha;
+    private MobileElement fotoDePerfilAdicionada;
 
 
     public Home(AppiumDriver driver) {
         this.driver = driver;
     }
 
-    public void buscarFotoDePerfil() {
+    public void perfilPelaApresentacao() {
+        MobileElement apresentacao = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]");
+        apresentacao.click();
+    }
+
+    public void buscarFotoDePerfilAdicionada() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.ImageView")));
+    }
+
+    public void buscarFotoDePerfil() {
+        WebDriverWait espera = new WebDriverWait(driver, 40);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]")));
 
         fotoDePerfil = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]");
@@ -118,9 +129,7 @@ public class Home {
     public void arrastarModalParaBaixo() throws InterruptedException {
         Thread.sleep(10000);
         buscarModal();
-        driver.executeScript("gesture: swipe", ImmutableMap.of("elementId", modal.getId(),
-                "percentage", 100,
-                "direction", "down"));
+        driver.executeScript("gesture: swipe", ImmutableMap.of("elementId", modal.getId(), "percentage", 100, "direction", "down"));
         Thread.sleep(500);
         buscarMensagemBemVindo();
     }
@@ -129,8 +138,7 @@ public class Home {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]")));
 
-        textoMockTokenGemalto = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" +
-                ".scrollIntoView(new UiSelector().text(\"Mock gemalto token\"));"));
+        textoMockTokenGemalto = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" + ".scrollIntoView(new UiSelector().text(\"Mock gemalto token\"));"));
 
         botaoTogleMockTokenGemalto = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Mock gemalto token\"]/android.view.ViewGroup");
 
@@ -146,20 +154,16 @@ public class Home {
 
     public void buscarBotaoBilhetes() {
         WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Bilhetes\n" +
-                "QR Code\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Bilhetes\n" + "QR Code\"]")));
 
-        botaoBilhetes = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Bilhetes\n" +
-                "QR Code\"]");
+        botaoBilhetes = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Bilhetes\n" + "QR Code\"]");
     }
 
     public void buscarBotaoCartaoTop() {
         WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão\n" +
-                "TOP\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão\n" + "TOP\"]")));
 
-        botaoCartaoTop = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão\n" +
-                "TOP\"]");
+        botaoCartaoTop = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão\n" + "TOP\"]");
     }
 
     public void clicarBotaoCartaoTop() {
@@ -183,8 +187,7 @@ public class Home {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]")));
 
-        campoSenhaDoAplicativo = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" +
-                ".scrollIntoView(new UiSelector().text(\"Senha do aplicativo\"));"));
+        campoSenhaDoAplicativo = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" + ".scrollIntoView(new UiSelector().text(\"Senha do aplicativo\"));"));
 
         campoSenhaDoAplicativo = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Clique para editar a senha\"]/android.view.ViewGroup");
         campoSenhaDoAplicativo.click();
@@ -224,8 +227,7 @@ public class Home {
     public void clicarSair() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
 
-        botaoSair = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" +
-                ".scrollIntoView(new UiSelector().text(\"Sair do Aplicativo\"));"));
+        botaoSair = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" + ".scrollIntoView(new UiSelector().text(\"Sair do Aplicativo\"));"));
 
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Sair do Aplicativo\"]")));
         botaoSair = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Sair do Aplicativo\"]");
@@ -247,7 +249,7 @@ public class Home {
         clicarSair();
     }
 
-    private void clicarMenuBiometria() throws InterruptedException {
+    public void clicarMenuBiometria() throws InterruptedException {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         menuBiometria = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" + ".scrollIntoView(new UiSelector().resourceId(\"Autenticação biométrica\"));"));
 
@@ -257,4 +259,42 @@ public class Home {
         Thread.sleep(3000);
     }
 
+    public void buscarMapa() {
+        MobileElement mapaMobilidade = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).className(\"android.widget.HorizontalScrollView\"))" + ".setAsHorizontalList()" + ".scrollIntoView(new UiSelector().text(\"Mapa das\n" + "Estações\"))"));
+
+        if (mapaMobilidade != null) {
+            mapaMobilidade.click();
+        } else {
+            System.out.println("Elemento 'mapa' não encontrado.");
+        }
+    }
+
+    public void buscarMobilidade() {
+        try {
+            MobileElement viewGroup = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).className(\"android.widget.HorizontalScrollView\"))" + ".setAsHorizontalList()" + ".scrollIntoView(new UiSelector().text(\"Mobilidade\"))"));
+
+            MobileElement mapaMobilidade = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup");
+
+            if (mapaMobilidade != null) {
+                mapaMobilidade.click();
+            } else {
+                System.out.println("Elemento 'Mobilidade' não encontrado.");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Elemento 'Mobilidade' não encontrado: " + e.getMessage());
+        }
+    }
+
+    public void buscarDisponivelEmBreve() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Disponível em breve\"]")));
+    }
+
+    public void buscarApelidoNomeSocialModificado() {
+        String nomeAtualizado = PerfilDoUsuario.getNomeAtualizado();
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        MobileElement apelidoNomeSocial = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Olá, " + nomeAtualizado + "!\"]")));
+
+
+    }
 }

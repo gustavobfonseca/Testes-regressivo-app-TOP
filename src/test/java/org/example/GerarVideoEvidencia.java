@@ -35,7 +35,6 @@ public class GerarVideoEvidencia {
             screenRecordProcess.destroy();
             Thread.sleep(2000);
             screenRecordProcess.waitFor();
-            Thread.sleep(3000);
         }
 
         String caminho = System.getProperty("user.dir") + File.separator + "target" + File.separator + "evidencias";
