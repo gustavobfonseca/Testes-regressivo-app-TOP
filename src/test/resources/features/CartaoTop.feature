@@ -296,4 +296,21 @@ Funcionalidade: Cartão Top
     E expando o modal de beneficios
     Então visualizo a informação de ambos os benefícios com suas datas de validade
 
-    
+  Cenário: Comunicar Perda ou Roubo de Cartão Puro Transporte
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "18167741974", senha "Devires@123"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E clico no botão "Comunicar Perda / Roubo"
+    E clico em Perdi meu cartão
+    E clico em continuar o cancelamento
+    E clico em quero cancelar meu cartao
+
+  Cenário: Onboarding puro transporte
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "63317982004", senha "Devires@123"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E clico no botão Eu Quero
+    E seleciono a opção receber em casa
+    Então sou direcionado para o serviço de cartão da Pacman

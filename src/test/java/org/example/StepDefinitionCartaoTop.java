@@ -384,4 +384,70 @@ public class StepDefinitionCartaoTop {
         MobileElement textoBeneficioPasseLivre = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Escolar Passe Livre\"]", 20);
         assertTrue(textoBeneficioPasseLivre.isDisplayed());
     }
+
+    @E("clico em Perdi meu cartão")
+    public void clicoEmPerdiMeuCartão() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement cartaoPerdiMeuCartao = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Perdi meu Cartão\"]", 20);
+        tela.clicarEmElemento(cartaoPerdiMeuCartao);
+
+        MobileElement botaoContinuar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONTINUAR\"]", 20);
+        tela.clicarEmElemento(botaoContinuar);
+    }
+
+    @E("clico em continuar o cancelamento")
+    public void clicoEmContinuarOCancelamento() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoContinuarCancelamento = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONTINUAR\"]", 20);
+        tela.clicarEmElemento(botaoContinuarCancelamento);
+    }
+
+
+    @E("clico em quero cancelar meu cartao")
+    public void clicoEmQueroCancelarMeuCartao() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoQueroCancelarMeuCartao = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"MANTER MEU CARTÃO TRANSPORTE\"]", 20);
+        tela.clicarEmElemento(botaoQueroCancelarMeuCartao);
+    }
+
+    @E("clico no botão Eu Quero")
+    public void clicoNoBotãoEuQuero() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"Facilidade no embarque\"]",
+                20,
+                "new UiSelector().text(\"EU QUERO\")");
+
+        MobileElement botaoEuQuero = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"EU QUERO\"]", 20);
+        tela.clicarEmElemento(botaoEuQuero);
+    }
+
+    @E("seleciono a opção receber em casa")
+    public void selecionoAOpçãoReceberEmCasa() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoReceberEmCasa = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Receber em casa (R$ 28,50)\"]", 20);
+        tela.clicarEmElemento(botaoReceberEmCasa);
+        MobileElement botaoContinuar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONTINUAR\"]", 20);
+        tela.clicarEmElemento(botaoContinuar);
+        MobileElement botaoContinuarParaPagamento = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONTINUAR\"]", 20);
+        tela.clicarEmElemento(botaoContinuarParaPagamento);
+    }
+
+    @Então("sou direcionado para o serviço de cartão da Pacman")
+    public void souDirecionadoParaOServiçoDeCartãoDaPacman() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoSolicitarPacman = tela.buscarElementoNaTela("//android.widget.Button[@text=\"Solicitar\"]", 20);
+        assertTrue(botaoSolicitarPacman.isDisplayed());
+    }
 }

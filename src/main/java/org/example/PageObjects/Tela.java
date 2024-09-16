@@ -30,7 +30,7 @@ public class Tela {
         elementoInput.sendKeys(input);
     }
 
-    public MobileElement scrollAteElemento(String xPathElementoDeEspera, int tempoEspera, String xPathElementoBuscavel){
+    public void scrollAteElemento(String xPathElementoDeEspera, int tempoEspera, String xPathElementoBuscavel){
         WebDriverWait espera = new WebDriverWait(driver, tempoEspera);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xPathElementoDeEspera)));
 
@@ -38,6 +38,5 @@ public class Tela {
                 ".scrollIntoView(" + xPathElementoBuscavel + ");"));
 
 //        elementoBuscado = (MobileElement) driver.findElementByXPath(xPathElementoBuscavel);
-        return elementoBuscado;
     }
 }
