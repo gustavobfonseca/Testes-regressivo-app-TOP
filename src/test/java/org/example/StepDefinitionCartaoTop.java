@@ -7,6 +7,9 @@ import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import org.example.PageObjects.*;
+import org.junit.Assert;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -449,5 +452,46 @@ public class StepDefinitionCartaoTop {
 
         MobileElement botaoSolicitarPacman = tela.buscarElementoNaTela("//android.widget.Button[@text=\"Solicitar\"]", 20);
         assertTrue(botaoSolicitarPacman.isDisplayed());
+    }
+
+    @E("clico em Continuar")
+    public void clicoEmContinuar() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoContinuar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONTINUAR\"]", 20);
+        tela.clicarEmElemento(botaoContinuar);
+    }
+
+
+    @E("clico em retirar nas Pernambucanas")
+    public void clicoEmRetirarNasPernambucanas() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoRetirarPernambucanas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Retirar nas Pernambucanas (grátis)\"]", 20);
+        tela.clicarEmElemento(botaoRetirarPernambucanas);
+
+        MobileElement botaoContinuar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONTINUAR\"]", 20);
+        tela.clicarEmElemento(botaoContinuar);
+    }
+
+
+    @E("concluo o agendamento")
+    public void concluoOAgendamento() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Thread.sleep(20000);
+        driver.navigate().back();
+    }
+
+    @Então("so devo visualizar o elemento de retirar na loja")
+    public void soDevoVisualizarOElementoDeRetirarNaLoja() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Retirar nas Pernambucanas (grátis)\"]", 20);
+
+        List elementos = driver.findElementsByXPath("//android.widget.TextView[@text=\"Receber em casa (R$ 28,50)\"]");
+        assertTrue(elementos.isEmpty());
     }
 }

@@ -314,3 +314,12 @@ Funcionalidade: Cartão Top
     E clico no botão Eu Quero
     E seleciono a opção receber em casa
     Então sou direcionado para o serviço de cartão da Pacman
+
+  Cenário: Opção de recebimento do cartão para usuário 60+
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "63362736017", senha "Devires@123"
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E clico no botão Eu Quero
+    E clico em Continuar
+    Então so devo visualizar o elemento de retirar na loja
