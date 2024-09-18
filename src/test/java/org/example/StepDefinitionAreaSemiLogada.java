@@ -1,6 +1,7 @@
 package org.example;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
@@ -281,10 +282,17 @@ public class StepDefinitionAreaSemiLogada {
     @E("faço o logoff do app para a área semi logada")
     public void façoOLogoffDoAppParaAÁreaSemiLogada() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        Home home = new Home(driver);
+//        Home home = new Home(driver);
+//
+//        home.deslogar();
 
-        home.deslogar();
+        Tela tela = new Tela(driver);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]", 20, "//android.widget.TextView[@text=\"Sair do Aplicativo\"]");
+        MobileElement botaoSairDoApp = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Sair do Aplicativo\"]", 20);
+        tela.clicarEmElemento(botaoSairDoApp);
 
+        MobileElement botaoSairModal = tela.buscarElementoNaTela("//android.widget.Button[@resource-id=\"android:id/button1\"]", 20);
+        tela.clicarEmElemento(botaoSairModal);
     }
 
     @Então("visualizo meus bilhetes disponíveis para utilização")
