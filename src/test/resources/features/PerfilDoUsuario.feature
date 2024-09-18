@@ -50,7 +50,7 @@ Funcionalidade: Perfil do usuário
     Dado que acesso o perfil de usuário tendo produtos de banking ativos
     Quando clico na opção "Seus telefones de contato"
     E seleciono a opção Celular (Cadastro Conta Digital | Crédito)
-    E seleciono a opção Celular (Cadastro Conta Digital | Crédito)
+    E seleciono a opção Celular (Cadastro Conta Digital|Crédito)
     Então sou direcionado para o chatbot Pefisa via WhatsApp
 
 
@@ -78,15 +78,17 @@ Funcionalidade: Perfil do usuário
 
 
   Cenário: Meu telefone de contato Autopass
-    #        Dado que eu acesso a tela home do aplicativo
-    Dado que acesso o perfil de usuário
+    Dado que acesso o perfil de usuário tendo produtos de banking ativos
+#    Dado que acesso o perfil de usuário
     Quando clico na opção "Seus telefones de contato"
     E seleciono a opção "Celular (Transporte)"
     E seleciono a opção "Celular (Transporte)"
     Então sou direcionado para o atendimento Autopass via WhatsApp
 
   Cenário: Autenticação biométrica ativa
-    #        Dado que eu acesso a tela home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E vou para a minha home do aplicativo
     Dado que acesso o perfil de usuário com biometria ativa
     Quando faço o logoff do app para a área semi logada
     E clico em "Entrar" na área semi logada

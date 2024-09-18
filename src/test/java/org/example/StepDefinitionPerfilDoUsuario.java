@@ -135,7 +135,11 @@ public class StepDefinitionPerfilDoUsuario {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Home home = new Home(driver);
         home.buscarMensagemBemVindo();
-        home.perfilPelaApresentacao();
+
+        home.buscarFotoDePerfil();
+        home.clicarFotoDePerfil();
+
+//        home.perfilPelaApresentacao();
     }
 
     @Quando("insiro dados com mais de 2 caracteres no campo \"Apelido ou nome social\"")
@@ -426,5 +430,12 @@ public class StepDefinitionPerfilDoUsuario {
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
         perfilDoUsuario.inserirNovaSenha(arg0);
         perfilDoUsuario.inserirConfirmarNovaSenha(arg1);
+    }
+
+    @E("seleciono a opção Celular \\(Cadastro Conta Digital|Crédito)")
+    public void selecionoAOpçãoCelularCadastroContaDigitalCrédito2() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
+        perfilDoUsuario.clicarCelularCadastroContaDigitalCreditoTelaAtualizar();
     }
 }
