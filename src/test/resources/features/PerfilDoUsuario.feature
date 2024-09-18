@@ -97,10 +97,13 @@ Funcionalidade: Perfil do usuário
 
   Cenário: Biométrica desativada
     #        Dado que eu acesso a tela home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E vou para a minha home do aplicativo
     Dado que acesso o perfil de usuário com biometria ativa
     Quando desabilito o Touch ID ou Face ID no campo "Autenticação biométrica"
     E faço o logoff do app para a área semi logada
-    E submeto a senha correta do CPF "Teste@123"
+    E submeto a senha correta do CPF "Devires@123"
     E clico em "Entrar" na área semi logada
     Então sou logado para a home do aplicativo com o modal de ativação de biometria
 

@@ -378,9 +378,13 @@ public class StepDefinitionPerfilDoUsuario {
     public void desabilitoOTouchIDOuFaceIDNoCampo() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
+        Tela tela = new Tela(driver);
 
         perfilDoUsuario.buscarElementos();
         perfilDoUsuario.clicarMenuBiometria();
+
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"Autenticação biométrica\"]",
+                20, "new UiSelector().text(\"DADOS PESSOAIS\")");
     }
 
     @Quando("clico na opção \"Termos de uso\"")

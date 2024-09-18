@@ -88,7 +88,14 @@ public class StepDefinitionAreaSemiLogada {
         Home telaHome = new Home(driver);
 
         Thread.sleep(3000);
+
         telaHome.esperarBotaoBiometria();
+//        telaHome.clicarBotaoAtivarBiometria();
+        try {
+            telaHome.arrastarModalParaBaixo();
+        } catch (Exception e) {
+            telaHome.clicarBotaoModalQueroConhecer();
+        }
 
         telaHome.buscarMensagemBemVindo();
     }
@@ -287,7 +294,7 @@ public class StepDefinitionAreaSemiLogada {
 //        home.deslogar();
 
         Tela tela = new Tela(driver);
-        tela.scrollAteElemento("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]", 20, "//android.widget.TextView[@text=\"Sair do Aplicativo\"]");
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]", 20, "new UiSelector().text(\"Sair do Aplicativo\")");
         MobileElement botaoSairDoApp = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Sair do Aplicativo\"]", 20);
         tela.clicarEmElemento(botaoSairDoApp);
 
