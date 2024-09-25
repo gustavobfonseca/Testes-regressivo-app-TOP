@@ -33,8 +33,8 @@ public class GerarVideoEvidencia {
 //            System.out.println("video maior que 0");
             Thread.sleep(3000);
             screenRecordProcess.destroy();
+            Thread.sleep(2000);
             screenRecordProcess.waitFor();
-            Thread.sleep(3000);
         }
 
         String caminho = System.getProperty("user.dir") + File.separator + "target" + File.separator + "evidencias";
