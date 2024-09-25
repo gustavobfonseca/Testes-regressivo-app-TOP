@@ -88,10 +88,8 @@ public class StepDefinitionAreaSemiLogada {
 
         Thread.sleep(3000);
         telaHome.esperarBotaoBiometria();
-//        telaHome.clicarBotaoAtivarBiometria();
 
         telaHome.buscarMensagemBemVindo();
-//        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
     @Então("visualizo a solicitação de biometria para login")
@@ -294,5 +292,43 @@ public class StepDefinitionAreaSemiLogada {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         SemiLogado semiLogado = new SemiLogado(driver);
         semiLogado.buscarBilhetes();
+    }
+
+
+    @E("retorno a senha para a senha alterada não atrapalhe na continuação dos outros testes do regressivo")
+    public void retornoASenhaParaASenhaAlteradaNãoAtrapalheNaContinuaçãoDoRegressivo() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
+        perfilDoUsuario.inserirNovaSenha("Teste@123");
+        perfilDoUsuario.inserirConfirmarNovaSenha("Teste@123");
+        perfilDoUsuario.enviarNovaSenha();
+        perfilDoUsuario.buscarConfirmacaoSenhaAlteradaSucesso();
+        perfilDoUsuario.buscarSenhaDoAplicativo();
+
+
+    }
+
+    @E("submeto a senha correta do CPF {string}")
+    public void submetoASenhaCorretaDoCPF(String senha) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+
+        semiLogado.buscarElementos();
+        semiLogado.preencherSenha(senha);
+    }
+
+    @Então("sou direcionado para a página dos termos de uso na Central de Ajuda Autopass")
+    public void souDirecionadoParaAPáginaDosTermosDeUsoNaCentralDeAjudaAutopass() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+        semiLogado.buscarSiteTermosUso();
+    }
+
+    @Então("sou direcionado à área semi logada do aplicativo TOP")
+    public void souDirecionadoÀÁreaSemiLogadaDoAplicativoTOP() {
+
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        SemiLogado semiLogado = new SemiLogado(driver);
+        semiLogado.buscarElementos();
     }
 }

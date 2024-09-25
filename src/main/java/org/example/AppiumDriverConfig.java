@@ -25,9 +25,16 @@ public class AppiumDriverConfig {
         config.setCapability("appActivity", "br.com.autopass.top.MainActivity");
         config.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
         config.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
-        config.setCapability(MobileCapabilityType.UDID, "RQ8NA0A9GYW");
-        config.setCapability(MobileCapabilityType.UDID, "RQ8R507XXTX");
-        config.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13");
+//        config.setCapability(MobileCapabilityType.UDID, "RQ8NA0A9GYW");
+//        config.setCapability(MobileCapabilityType.UDID, "RQ8R507XXTX");
+
+//        motorola gustavo
+        config.setCapability(MobileCapabilityType.UDID, "0030523335");
+
+
+//        config.setCapability(MobileCapabilityType.PLATFORM_VERSION, "13");
+        //motorola gustavo
+        config.setCapability(MobileCapabilityType.PLATFORM_VERSION, "8.1.0");
         config.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "3000");
 
 

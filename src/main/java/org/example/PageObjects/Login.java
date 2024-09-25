@@ -2,6 +2,7 @@ package org.example.PageObjects;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -31,13 +32,17 @@ public class Login {
     public void buscarElementos() throws InterruptedException {
         WebDriverWait espera = new WebDriverWait(driver, 30);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]")));
-
-        campoUsuario = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]");
-        criarConta = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Crie uma conta.\"]");
-        campoSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]");
-        botaoLogin = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
-
-        linkEsqueciMinhaSenha = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Esqueci minha senha.\"]");
+        try {
+            campoUsuario = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]");
+            criarConta = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Crie uma conta.\"]");
+            campoSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]");
+            botaoLogin = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
+            linkEsqueciMinhaSenha = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Esqueci minha senha.\"]");
+        } catch (Exception e) {
+            criarConta = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" +
+                    ".scrollIntoView(new UiSelector().text(\"Crie uma conta.\"));"));
+            buscarElementos();
+        }
     }
 
     public void preencherFormulario(String usuario, String senha) {
@@ -54,7 +59,6 @@ public class Login {
     }
 
 
-
     public void logar() {
         botaoLogin.click();
     }
@@ -67,15 +71,17 @@ public class Login {
         modalErro = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"CPF e/ou senha inválidos.\"]");
 
     }
-    public void clicarEsqueciMinhaSenha(){
+
+    public void clicarEsqueciMinhaSenha() {
         linkEsqueciMinhaSenha.click();
     }
-    public void buscarModalContaBloqueada(){
+
+    public void buscarModalContaBloqueada() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@resource-id=\"modal_bloqueio\"]")));
     }
 
-    public void  buscarMensagemContaBloqueada(){
+    public void buscarMensagemContaBloqueada() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Para sua segurança o acesso ao Aplicativo foi\n" +
                 "temporariamente bloqueado.\n" +
@@ -92,7 +98,7 @@ public class Login {
                 "Ligue para (11) 3888-2200 ou chame-nos no WhatsApp.\"]");
     }
 
-    public void arrastarModalContaBloqueadaBaixo(){
+    public void arrastarModalContaBloqueadaBaixo() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]")));
 
@@ -110,14 +116,14 @@ public class Login {
                 "speed", 500));
     }
 
-    public void buscarBotaoFecharModalCPFSenha(){
+    public void buscarBotaoFecharModalCPFSenha() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Fechar\"]/android.view.ViewGroup")));
 
         botaoFecharModalErroCPFSenha = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Fechar\"]/android.view.ViewGroup");
     }
 
-    public void clicarBotaoFecharModalCPFSenha(){
+    public void clicarBotaoFecharModalCPFSenha() {
         botaoFecharModalErroCPFSenha.click();
     }
 
@@ -137,11 +143,12 @@ public class Login {
     public void clicarCriarConta() {
         criarConta.click();
     }
+
     public void clicarEnviarMensagem() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"ENVIAR MENSAGEM\"]")));
 
-        enviarMensagem=(MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"ENVIAR MENSAGEM\"]");
+        enviarMensagem = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"ENVIAR MENSAGEM\"]");
         enviarMensagem.click();
     }
 
@@ -151,9 +158,9 @@ public class Login {
 
         MobileElement elemento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@resource-id=\"com.whatsapp:id/conversation_contact_name\"]");
 
-        if (elemento.getText().equals("Autopass") ){
+        if (elemento.getText().equals("Autopass")) {
             System.out.println(elemento.getText());
-        }else {
+        } else {
             throw new AssertionError("Nome do contato não é Autopass.");
         }
 
@@ -169,7 +176,6 @@ public class Login {
         campoUsuario.clear();
         campoSenha.clear();
     }
-
 
 
     public MobileElement getCampoUsuario() {
@@ -206,5 +212,5 @@ public class Login {
 
     public MobileElement getTextoModalContaBloqueada() {
         return textoModalContaBloqueada;
-}
+    }
 }

@@ -1,6 +1,7 @@
 package org.example.PageObjects;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,21 +24,28 @@ public class SemiLogado {
     }
 
     public void buscarElementos() {
-        WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Esqueci minha senha.\"]")));
-        inputSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]");
-        botaoEntrar = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
-        linkEsqueciMinhaSenha = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Esqueci minha senha.\"]");
-        mapa = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Mapa das ,\n" + ",Estações\"]");
-        bilhete = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Bilhetes Offline\"]");
-        centralDeAjuda = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Central de,\n" +
-                ",Ajuda\"]");
+        try {
+            WebDriverWait espera = new WebDriverWait(driver, 20);
+            espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Esqueci minha senha.\"]")));
+            inputSenha = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]");
+            botaoEntrar = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
+            linkEsqueciMinhaSenha = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Esqueci minha senha.\"]");
+            mapa = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Mapa das ,\n" + ",Estações\"]");
+            bilhete = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Bilhetes Offline\"]");
+            centralDeAjuda = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Central de,\n" +
+                    ",Ajuda\"]");
 
-        linkTrocarDeConta = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Trocar de conta\"]");
+            linkTrocarDeConta = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Trocar de conta\"]");
+        } catch (Exception e) {
+            botaoEntrar = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" +
+                    ".scrollIntoView(new UiSelector().text(\"ENTRAR\"));"));
+            buscarElementos();
+        }
     }
 
     public void preencherSenha(String senha) {
         buscarElementos();
+        inputSenha.clear();
         inputSenha.sendKeys(senha);
     }
 
@@ -51,8 +59,8 @@ public class SemiLogado {
         espera.until(ExpectedConditions.elementToBeClickable(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup")));
 
         botaoEntrar = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Botão para acessar o aplicativo\"]/android.view.ViewGroup");
-        System.out.println("tentando clicar");
         botaoEntrar.click();
+        System.out.println("clicar botão de entrar na área semi logada");
     }
 
 
@@ -89,18 +97,19 @@ public class SemiLogado {
 
         MeusBilhetes meusBilhetes = new MeusBilhetes(driver);
 
-            System.out.println(meusBilhetes.getNumeroDeBilhetes());
-        try{
-        MobileElement txtQtdBilheteOff = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"1, de ,"+meusBilhetes.getNumeroDeBilhetes()+"\"]");
-        }catch (RuntimeException runtimeException){
+        System.out.println(meusBilhetes.getNumeroDeBilhetes());
+        try {
+            MobileElement txtQtdBilheteOff = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"1, de ," + meusBilhetes.getNumeroDeBilhetes() + "\"]");
+        } catch (RuntimeException runtimeException) {
             System.out.println("não encontramos o elemneto");
         }
     }
 
-    public void trocarDeConta(){
+    public void trocarDeConta() {
         linkTrocarDeConta.click();
     }
-    public void confirmarTrocaDeConta(){
+
+    public void confirmarTrocaDeConta() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.Button[@resource-id=\"android:id/button1\"]")));
 
@@ -116,5 +125,24 @@ public class SemiLogado {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.webkit.WebView")));
 
+    }
+
+    public void buscarApelidoNomeSocialModificado() {
+        String nomeAtualizado = PerfilDoUsuario.getNomeAtualizado();
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        MobileElement apelidoNomeSocial = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Olá, " + nomeAtualizado + ".\"]")));
+
+
+    }
+
+    public void buscarSiteTermosUso() {
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        MobileElement termoUso = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.EditText[@resource-id=\"com.android.chrome:id/url_bar\"]")));
+        if (termoUso.getText().equals("ajuda.boradetop.com.br/hc/pt-br/articles/15126520483611-Termos-de-Uso-do-Aplicativo-TOP")) {
+            System.out.println("url ok");
+        }else {
+            System.out.println("url não ok");
+        }
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.View")));
     }
 }
