@@ -138,6 +138,10 @@ public class DefinicaoPassosCucumber {
                 Celular.resetApp(driver);
             }
         } else {
+            String nomeCenario = scenario.getName();
+            if(nomeCenario.toLowerCase().contains("reseto o app")){
+                Celular.limparCache(driver);
+            }
             try {
                 Celular.resetApp(driver);
             } catch (Exception e) {
@@ -958,7 +962,10 @@ public class DefinicaoPassosCucumber {
         telaHome.buscarFotoDePerfil();
         telaHome.clicarFotoDePerfil();
         tela.scrollAteElemento("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]", 20, "new UiSelector().text(\"Mock gemalto token\")");
-        telaHome.clicarBotaoMockTokenGemalto();
+        MobileElement botaoMockGemalto = tela.buscarElementoNaTela("//android.view.ViewGroup[@content-desc=\"Mock gemalto token\"]/android.view.ViewGroup", 20);
+        tela.clicarEmElemento(botaoMockGemalto);
+
+//        telaHome.clicarBotaoMockTokenGemalto();
         Thread.sleep(1000);
         driver.navigate().back();
     }

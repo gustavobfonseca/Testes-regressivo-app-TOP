@@ -133,7 +133,7 @@ public class CartaoTop {
 
     public void inputarValorDeCredito(String credito){
         WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Comum\"]")));
 
         inputValorCredito = (MobileElement) driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Informe o valor de crédito desejado\"]");
         inputValorCredito.sendKeys(credito);
@@ -196,9 +196,9 @@ public class CartaoTop {
     //Tela 3
     public void buscarBotaoCartaoDeCredito(){
         WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Cartão de Crédito\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Crédito\"]")));
 
-        botaoCartaoDeCredito = (MobileElement) driver.findElementByXPath("//*[@text=\"Cartão de Crédito\"]");
+        botaoCartaoDeCredito = (MobileElement) driver.findElementByXPath("//*[@text=\"Crédito\"]");
     }
 
     public void buscarBotaoConfirmarTela3(){

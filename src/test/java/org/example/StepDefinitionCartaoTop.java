@@ -51,6 +51,7 @@ public class StepDefinitionCartaoTop {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         CartaoTop tela2CartaoTop = new CartaoTop(driver);
 
+        driver.navigate().back();
         tela2CartaoTop.inputarValorDeCredito(arg0);
 
     }
@@ -493,5 +494,20 @@ public class StepDefinitionCartaoTop {
 
         List elementos = driver.findElementsByXPath("//android.widget.TextView[@text=\"Receber em casa (R$ 28,50)\"]");
         assertTrue(elementos.isEmpty());
+    }
+
+    @E("excluo o cache do app")
+    public void excluoOCacheDoApp() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        try {
+            Celular.limparCache(driver);
+        } catch (Exception e) {
+            System.out.println("Tentando resetar o app novamente, feature Cartão TOP");
+            Celular.limparCache(driver);
+        }
+    }
+
+    @E("logo com uma conte recem criada")
+    public void logoComUmaConteRecemCriada() {
     }
 }
