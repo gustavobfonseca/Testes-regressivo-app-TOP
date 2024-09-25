@@ -25,6 +25,9 @@ Funcionalidade: BilhetesQrCode
     Então visualizo a tela de Erro no pagamento
 
   Cenario:03 Compra bilhete CPTM ou Metro com pagamento via cartão de crédito com o cvv preenchido corretamente
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E acesso a home do aplicativo
     Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
     E clico na opçao Comprar Bilhetes
     E clico na opção CPTM, Metrô
@@ -46,9 +49,9 @@ Funcionalidade: BilhetesQrCode
     Então visualizo a tela de Erro no pagamento
 
   Cenario:05 Compra de bilhete via cartão de débito
-#    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
-#    E vou para a minha home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E vou para a minha home do aplicativo
     Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
     E clico na opçao Comprar Bilhetes
     E clico na opção CPTM, Metrô
@@ -58,9 +61,9 @@ Funcionalidade: BilhetesQrCode
     Então visualizo a tela de Pagamento efetuado com sucesso
 
   Cenario:06 Compra de bilhete CPTM, Metro com pagamento via saldo em conta
-#    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
-#    E vou para a minha home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E vou para a minha home do aplicativo
     E eu habilito o mock do token no perfil do usuario
     Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
     E clico na opçao Comprar Bilhetes

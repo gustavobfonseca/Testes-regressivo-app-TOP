@@ -139,6 +139,10 @@ public class DefinicaoPassosCucumber {
                 Celular.resetApp(driver);
             }
         } else {
+            String nomeCenario = scenario.getName();
+            if(nomeCenario.toLowerCase().contains("reseto o app")){
+                Celular.limparCache(driver);
+            }
             try {
                 Celular.resetApp(driver);
             } catch (Exception e) {
@@ -950,6 +954,23 @@ public class DefinicaoPassosCucumber {
         driver.navigate().back();
     }
 
+    @E("eu clico no botao do mock gemalto token")
+    public void euClicoNoBotaoMockGemaltoToken() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+        Home telaHome = new Home(driver);
+
+        telaHome.buscarFotoDePerfil();
+        telaHome.clicarFotoDePerfil();
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]", 20, "new UiSelector().text(\"Mock gemalto token\")");
+        MobileElement botaoMockGemalto = tela.buscarElementoNaTela("//android.view.ViewGroup[@content-desc=\"Mock gemalto token\"]/android.view.ViewGroup", 20);
+        tela.clicarEmElemento(botaoMockGemalto);
+
+//        telaHome.clicarBotaoMockTokenGemalto();
+        Thread.sleep(1000);
+        driver.navigate().back();
+    }
+
     @E("confirmo saldo disponível como forma de pagamento")
     public void confirmoSaldoDisponívelComoFormaDePagamento() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -1137,13 +1158,14 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.clicarOpcaoPix();
         telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
     }
-
+  
     @E("não possua foto de perfil")
     public void nãoPossuaFotoDePerfil() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Home home = new Home(driver);
         home.buscarFotoDePerfil();
     }
+
 }
 
 
