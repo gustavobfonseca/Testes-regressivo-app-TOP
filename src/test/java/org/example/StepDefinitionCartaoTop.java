@@ -8,6 +8,7 @@ import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import org.example.PageObjects.*;
 import org.junit.Assert;
+import org.openqa.selenium.StaleElementReferenceException;
 
 import java.util.List;
 
@@ -28,10 +29,10 @@ public class StepDefinitionCartaoTop {
     public void clicoEmComprarCréditos() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         CartaoTop tela1CartaoTop = new CartaoTop(driver);
+        Tela tela = new Tela(driver);
 
-        tela1CartaoTop.buscarBotaoComprarCreditos();
-        Thread.sleep(2000);
-        tela1CartaoTop.clicarBotaoComprarCreditos();
+        MobileElement botaoComprarCreditos = tela.buscarElementoNaTela("//*[@text=\"Comprar \n" + "Créditos\"]", 20);
+        tela.clicarEmElemento("//*[@text=\"Comprar \n" + "Créditos\"]", "//android.widget.TextView[@text=\"Comum\"]");
 
     }
 
@@ -126,10 +127,9 @@ public class StepDefinitionCartaoTop {
     @E("expando o modal de saldo")
     public void expandoOModalDeSaldo() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        CartaoTop tela1CartaoTop = new CartaoTop(driver);
+        Tela tela = new Tela(driver);
 
-        tela1CartaoTop.buscarBotaoExpandirModalSaldo();
-        tela1CartaoTop.clicarBotaoExpandirModalSaldo();
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"\uE8B4\"]", "//android.widget.TextView[@text=\"Saldo Detalhado:\"]");
 
     }
 
@@ -276,8 +276,9 @@ public class StepDefinitionCartaoTop {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
 
-        MobileElement elementoExpandirModalBeneficio = tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"\uE8B4\"])[2]", 20);
-        tela.clicarEmElemento(elementoExpandirModalBeneficio);
+//        MobileElement elementoExpandirModalBeneficio = tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"\uE8B4\"])[2]", 20);
+        tela.clicarEmElemento("(//android.widget.TextView[@text=\"\uE8B4\"])[2]", "//android.widget.TextView[@text=\"Benefícios Detalhados:\"]");
+
     }
 
     @E("clico no icone Saiba Mais no item Passe Livre")
@@ -285,8 +286,17 @@ public class StepDefinitionCartaoTop {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
 
-        MobileElement elementoSaibaMais = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Saiba mais\"]", 20);
-        tela.clicarEmElemento(elementoSaibaMais);
+        for(int i = 0; i < 10;){
+            try{
+                MobileElement elementoSaibaMais = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Saiba mais\"]", 20);
+                tela.clicarEmElemento(elementoSaibaMais);
+                break;
+            }catch (Exception e){
+                i++;
+                expandoOModalDeBeneficios();
+            }
+        }
+
     }
 
     @Então("visualizo a tela informativa do beneficio Passe Livre")
@@ -342,8 +352,16 @@ public class StepDefinitionCartaoTop {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
 
-        MobileElement elementoSaibaMaisSenior = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Saiba mais\"]", 20);
-        tela.clicarEmElemento(elementoSaibaMaisSenior);
+        for(int i = 0; i < 10;){
+            try{
+                MobileElement elementoSaibaMaisSenior = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Saiba mais\"]", 20);
+                tela.clicarEmElemento(elementoSaibaMaisSenior);
+                break;
+            }catch (Exception e){
+                i++;
+                expandoOModalDeBeneficios();
+            }
+        }
     }
 
     @Então("visualizo a tela informativa do beneficio Senior")
@@ -507,7 +525,46 @@ public class StepDefinitionCartaoTop {
         }
     }
 
-    @E("logo com uma conte recem criada")
-    public void logoComUmaConteRecemCriada() {
+    @E("logo com uma conta recem criada")
+    public void logoComUmaConteRecemCriada() throws Exception {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        String senha ="Devires@123";
+        String cpf = PostUser.criarUser(senha, "2000-12-30");
+
+        MobileElement inputCpf = tela.buscarElementoNaTela("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]", 40);
+        MobileElement inputSenha = tela.buscarElementoNaTela("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]", 40);
+        MobileElement botaoEntrar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"ENTRAR\"]", 40);
+
+        tela.inputNoElemento(inputCpf, cpf);
+        tela.inputNoElemento(inputSenha, senha);
+        tela.clicarEmElemento(botaoEntrar);
+
+    }
+
+    @E("autorizo o aplicativo a acessar a localizacao")
+    public void autorizoOAplicativoAAcessarALocalizacao() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+
+        Celular.autorizarLocalizacao(driver);
+    }
+
+
+    @E("logo com uma conta recem criada com mais de sessenta anos")
+    public void logoComUmaContaRecemCriadaComMaisDeSessentaAnos() throws Exception {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        String senha ="Devires@123";
+        String cpf = PostUser.criarUser(senha, "1960-12-30");
+
+        MobileElement inputCpf = tela.buscarElementoNaTela("//android.widget.EditText[@content-desc=\"Espaço para digitar o cpf \"]", 40);
+        MobileElement inputSenha = tela.buscarElementoNaTela("//android.widget.EditText[@content-desc=\"Espaço para digitar senha\"]", 40);
+        MobileElement botaoEntrar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"ENTRAR\"]", 40);
+
+        tela.inputNoElemento(inputCpf, cpf);
+        tela.inputNoElemento(inputSenha, senha);
+        tela.clicarEmElemento(botaoEntrar);
     }
 }

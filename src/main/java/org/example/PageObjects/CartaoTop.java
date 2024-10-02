@@ -195,7 +195,7 @@ public class CartaoTop {
 
     //Tela 3
     public void buscarBotaoCartaoDeCredito(){
-        WebDriverWait espera = new WebDriverWait(driver, 20);
+        WebDriverWait espera = new WebDriverWait(driver, 60);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text=\"Crédito\"]")));
 
         botaoCartaoDeCredito = (MobileElement) driver.findElementByXPath("//*[@text=\"Crédito\"]");
@@ -210,10 +210,10 @@ public class CartaoTop {
     }
 
     public void buscarBotaoCartaoDeDebito(){
-        WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão de Débito\"]")));
+        WebDriverWait espera = new WebDriverWait(driver, 60);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Débito\"]")));
 
-        botaoCartaoDeDebito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão de Débito\"]");
+        botaoCartaoDeDebito = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Débito\"]");
     }
 
     public void buscarOpcaoPix(){

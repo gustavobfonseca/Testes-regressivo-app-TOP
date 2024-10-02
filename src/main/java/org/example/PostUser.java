@@ -21,7 +21,7 @@ public class PostUser {
     }
 
 
-    public static String criarUser(String senha) throws Exception {
+    public static String criarUser(String senha, String nascimento) throws Exception {
 
         String cpf = gerarCpf();
 
@@ -45,7 +45,7 @@ public class PostUser {
                     + "},"
                     + "\"name\": \"Post Teste\","
                     + "\"gender\": \"male\","
-                    + "\"birthday\": \"2000-05-02\","
+                    + "\"birthday\": \"" + nascimento + "\","
                     + "\"email\": {"
                     + "\"email\": \"postTeste.teste@example.com\""
                     + "},"
@@ -97,7 +97,7 @@ public class PostUser {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(criarUser("Teste@123"));
+        System.out.println(criarUser("Teste@123", "1999-12-05"));
     }
 }
 
