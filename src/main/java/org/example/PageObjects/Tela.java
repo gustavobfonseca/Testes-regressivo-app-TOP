@@ -6,6 +6,7 @@ import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.util.Assert;
 
 public class Tela {
 
@@ -24,6 +25,31 @@ public class Tela {
 
     public void clicarEmElemento(MobileElement elementoClicavel){
         elementoClicavel.click();
+    }
+
+    public void clicarEmElemento(String xPathElementoClicavel, String xPathElementoVisivel){
+        int tentativas = 0;
+        int tentativasMaximas = 10;
+
+        while (tentativas <= tentativasMaximas){
+            try{
+                MobileElement elementoClicável = buscarElementoNaTela(xPathElementoClicavel, 5);
+                elementoClicável.click();
+                MobileElement elementoVisivel = buscarElementoNaTela(xPathElementoVisivel, 5);
+                Thread.sleep(2000);
+                Assert.isTrue(elementoVisivel.isDisplayed());
+                break;
+            }catch (RuntimeException e){
+                tentativas++;
+                if(tentativas==tentativasMaximas){
+                    throw e;
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
     }
 
     public void inputNoElemento(MobileElement elementoInput, String input){

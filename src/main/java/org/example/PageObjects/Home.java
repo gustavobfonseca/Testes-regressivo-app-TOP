@@ -6,10 +6,13 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class Home {
     private AppiumDriver driver;
@@ -60,12 +63,30 @@ public class Home {
     }
 
     public void esperarBotaoBiometria() throws InterruptedException {
+        int tentativa = 0;
+        int tentativaMax = 10;
+        Tela tela = new Tela(this.driver);
+        while(tentativa < tentativaMax){
+            try{
+                WebDriverWait espera = new WebDriverWait(driver, 20);
+                espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para ativar biometria.\"]/android.view.ViewGroup")));
+                botaoBiometria = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@resource-id=\"Botão para ativar biometria.\"]/android.view.ViewGroup");
+                botaoBiometria.click();
+                Thread.sleep(3000);
+                List elementos = driver.findElementsByXPath("//android.widget.TextView[@text=\"Ativar biometria\"]");
+                if(elementos.isEmpty()){
+                    break;
+                }
+                driver.findElementByXPath("//android.widget.EditText[@content-desc=\"Digite a senha atual\"]");
+            }catch (Exception e){
+                tentativa++;
+                if(tentativa==tentativaMax){
+                    throw e;
+                }
+            }
+        }
 
-        Thread.sleep(5000);
-        WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para ativar biometria.\"]/android.view.ViewGroup")));
-        botaoBiometria = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@resource-id=\"Botão para ativar biometria.\"]/android.view.ViewGroup");
-        botaoBiometria.click();
+//        Thread.sleep(5000);
 //        botaoNaoAtivarBiometria = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@resource-id=\"Botão para não ativar biometria.\"]/android.view.ViewGroup");
 
     }
@@ -162,7 +183,7 @@ public class Home {
     }
 
     public void buscarBotaoCartaoTop() {
-        WebDriverWait espera = new WebDriverWait(driver, 20);
+        WebDriverWait espera = new WebDriverWait(driver, 50);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Cartão\n" + "TOP\"]")));
 
         botaoCartaoTop = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Cartão\n" + "TOP\"]");

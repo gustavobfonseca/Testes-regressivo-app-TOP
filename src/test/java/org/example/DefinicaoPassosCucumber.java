@@ -36,6 +36,7 @@ public class DefinicaoPassosCucumber {
     public void anExampleScenario() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
+        Celular.autorizarLocalizacao(driver);
         telaLogin.buscarElementos();
     }
 
