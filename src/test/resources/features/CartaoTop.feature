@@ -3,7 +3,7 @@ Funcionalidade: Cartão Top
 
   Cenario:01 Compra de crédito comum - Erro no pagamento via cartão de crédito
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
@@ -63,7 +63,7 @@ Funcionalidade: Cartão Top
     E submeto pix como forma de pagamento
     Então visualizo a tela de codigo pix gerado para pagamento
 
-  Cenário:06 Código PIX expirado para recarga comum
+  Cenário:06 Código PIX expirado para recarga comum e reseto o app
 #    Dado que estou na área não logada do app
 #    E submeto as seguintes credenciais validas para login, cpf "65998952049", senha "Laura107"
 #    E vou para a minha home do aplicativo
@@ -78,9 +78,9 @@ Funcionalidade: Cartão Top
 
   Cenario:07 Compra de crédito comum - Erro no pagamento via saldo em conta
 #    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+#    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Devires@123"
 #    E vou para a minha home do aplicativo
-    E eu clico no botao do mock gemalto token
+#    E eu clico no botao do mock gemalto token
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
     E clico na opção Comum
@@ -92,21 +92,21 @@ Funcionalidade: Cartão Top
 
   Cenario:08 Compra de crédito comum - Pagamento via saldo em conta e reseto o app
 #    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+#    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Devires@123"
 #    E vou para a minha home do aplicativo
-#    E eu habilito o mock do token no perfil do usuario
+    E eu clico no botao do mock gemalto token
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
     E clico na opção Comum
     E insiro o valor de R$ "400"
     E clico em Comprar
     E confirmo saldo disponível como forma de pagamento
-    E confirmo o pagamento informando a senha correta "7734"
+    E confirmo o pagamento informando a senha correta "1571"
     Então visualizo a tela de Pagamento efetuado com sucesso
 
   Cenario:09 Compra de crédito escolar - Erro no pagamento via cartão de crédito
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "65998952049", senha "Laura107"
+    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
@@ -118,9 +118,9 @@ Funcionalidade: Cartão Top
     Então visualizo a tela de Erro no pagamento
 
   Cenario:10 Compra de crédito escolar - Pagamento via cartão de crédito
-#    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "65998952049", senha "Laura107"
-#    E vou para a minha home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
+    E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
     E clico na opção Escolar
@@ -132,7 +132,7 @@ Funcionalidade: Cartão Top
 
   Cenario:11 Compra de crédito escolar - Erro no pagamento via cartão de débito
 #    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "65998952049", senha "Laura107"
+#    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
 #    E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos

@@ -262,7 +262,7 @@ public class Home {
     }
 
     public void deslogar() {
-        clicarIconePerfil();
+//        clicarIconePerfil();
         clicarSair();
     }
 

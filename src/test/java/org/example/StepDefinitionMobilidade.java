@@ -51,7 +51,7 @@ public class StepDefinitionMobilidade {
         Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
-    @Então("visualizo a tela de \"Disponível em breve\"")
+    @Então("visualizo a tela de Disponível em breve")
     public void visualizoATelaDeDisponivelEmBreve() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Home home = new Home(driver);

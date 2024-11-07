@@ -309,8 +309,8 @@ public class Cadastro {
 
     public void buscarTextoComNumeroAlterado() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (11) *****-4456\"]")));
-        textoComNumeroAlterado = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (11) *****-4456\"]");
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (14) *****-7865\"]")));
+        textoComNumeroAlterado = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Enviamos um código de 6 dígitos via SMS para o número: (14) *****-7865\"]");
     }
 
     public void clicarEditarEmail() {
