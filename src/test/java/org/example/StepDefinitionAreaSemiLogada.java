@@ -127,7 +127,7 @@ public class StepDefinitionAreaSemiLogada {
     }
 
 
-    @Quando("clico em \"Esqueci minha senha.\"")
+    @Quando("clico em Esqueci minha senha.")
     public void clicoEmEsqueciMinhaSenha() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         SemiLogado semiLogado = new SemiLogado(driver);
@@ -193,7 +193,7 @@ public class StepDefinitionAreaSemiLogada {
     }
 
 
-    @Quando("clico em \"Trocar de conta\"")
+    @Quando("clico em Trocar de conta")
     public void clicoEmTrocarDeConta() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         SemiLogado semiLogado = new SemiLogado(driver);

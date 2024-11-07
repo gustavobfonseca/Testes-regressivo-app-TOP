@@ -223,7 +223,7 @@ public class DefinicaoPassosCucumber {
         login.clicarCentralDeAjuda();
     }
 
-    @E("clico no botão \"Enviar mensagem\"")
+    @E("clico no botão Enviar mensagem")
     public void enviarMensagem() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login login = new Login(driver);
@@ -1078,7 +1078,7 @@ public class DefinicaoPassosCucumber {
 
     }
 
-    @E("clico em \"Editar meu número de celular\"")
+    @E("clico em Editar meu número de celular")
     public void editarNumeroDeCelular() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Cadastro cadastro = new Cadastro(driver);
@@ -1110,7 +1110,7 @@ public class DefinicaoPassosCucumber {
         cadastro.buscarTextoComNumeroAlterado();
     }
 
-    @E("clico em \"Editar meu endereço de e-mail\"")
+    @E("clico em Editar meu endereço de e-mail")
     public void clicoEmEditarMeuEndereçoDeEMail() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Cadastro cadastro = new Cadastro(driver);

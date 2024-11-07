@@ -96,7 +96,7 @@ Funcionalidade: BilhetesQrCode
     E confirmo a exclusão
     Entao o cartão não deverá estar listado
 
-  Cenario:09 Adicionar cartão de crédito como forma de pagamento tendo menos que 3 cartõe scadastrados
+  Cenario:09 Adicionar cartão de crédito como forma de pagamento tendo menos que 3 cartões cadastrados
 #    Dado que estou na área não logada do app
 #    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
 #    E vou para a minha home do aplicativo

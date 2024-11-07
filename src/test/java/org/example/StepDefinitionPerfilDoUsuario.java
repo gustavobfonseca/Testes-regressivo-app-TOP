@@ -1,6 +1,7 @@
 package org.example;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Então;
@@ -203,9 +204,11 @@ public class StepDefinitionPerfilDoUsuario {
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
 
         perfilDoUsuario.inserirSenhaAtual("Teste@123");
+        Tela tela = new Tela(driver);
+        tela.clicarEmElemento(tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"\uE91C\"])[1]", 10));
     }
 
-    @E("clico em \"Editar\"")
+    @E("clico em Editar")
     public void clicoEmEditar() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
@@ -222,7 +225,7 @@ public class StepDefinitionPerfilDoUsuario {
 
     }
 
-    @E("clico em \"Enviar\"")
+    @E("clico em Enviar")
     public void clicoEmEnviar() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
@@ -426,5 +429,13 @@ public class StepDefinitionPerfilDoUsuario {
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
         perfilDoUsuario.inserirNovaSenha(arg0);
         perfilDoUsuario.inserirConfirmarNovaSenha(arg1);
+    }
+
+    @E("seleciono a opção Celular \\(Cadastro Conta Digital | Crédito) novamente")
+    public void selecionoAOpçãoCelularCadastroContaDigitalCréditoNovamente() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+        MobileElement celularContaDigital = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Celular (Cadastro Conta Digital/Crédito)\"]", 10);
+        tela.clicarEmElemento(celularContaDigital);
     }
 }

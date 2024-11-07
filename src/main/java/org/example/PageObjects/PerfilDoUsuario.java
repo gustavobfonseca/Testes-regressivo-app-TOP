@@ -273,7 +273,7 @@ public class PerfilDoUsuario {
 
     public void clicarCelularCadastroContaDigitalCredito() {
         WebDriverWait espera = new WebDriverWait(driver, 15);
-        MobileElement celularCadastroContaDigitalCredito = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Celular (Cadastro Conta Digital/Crédito)\"]")));
+        MobileElement celularCadastroContaDigitalCredito = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Celular (Cadastro Conta Digital / Crédito)\"]")));
         celularCadastroContaDigitalCredito.click();
     }
 
@@ -283,7 +283,7 @@ public class PerfilDoUsuario {
 
         MobileElement elemento = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@resource-id=\"com.whatsapp:id/conversation_contact_name\"]");
 
-        if (elemento.getText().equals("chatbot Pefisa TOP")) {
+        if (elemento.getText().equals("Chatbot Pefisa TOP")) {
             System.out.println(elemento.getText());
         } else {
             throw new AssertionError("Nome do contato não é chatbot Pefisa TOP.");
