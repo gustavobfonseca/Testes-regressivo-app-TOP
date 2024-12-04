@@ -3,7 +3,7 @@ Funcionalidade: Cartão Top
 
   Cenario:01 Compra de crédito comum - Erro no pagamento via cartão de crédito
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Devires@123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
@@ -170,7 +170,7 @@ Funcionalidade: Cartão Top
 
   Cenario:14 Informativo escolar - meia tarifa e depois reseto o app
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "65998952049", senha "Laura107"
+    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E expando o modal de saldo

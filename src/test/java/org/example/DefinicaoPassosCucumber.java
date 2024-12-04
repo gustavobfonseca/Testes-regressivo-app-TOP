@@ -7,6 +7,7 @@ import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.cucumber.core.gherkin.Feature;
+import io.cucumber.core.gherkin.Step;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.*;
 import io.cucumber.java.en.Then;
@@ -15,6 +16,7 @@ import org.example.PageObjects.*;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -36,7 +38,19 @@ public class DefinicaoPassosCucumber {
     public void anExampleScenario() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
+        Tela tela = new Tela(driver);
         Celular.autorizarLocalizacao(driver);
+        Thread.sleep(3000);
+        try{
+            MobileElement confirmarNotificacoes = tela.buscarElementoNaTela("//android.widget.Button[@resource-id=\"com.android.permissioncontroller:id/permission_allow_button\"]", 10);
+            tela.clicarEmElemento(confirmarNotificacoes);
+            System.out.println("Confirmação de notificações presente");
+
+        }catch (Exception e){
+            System.out.println("Confirmação de notificações não está presente, seguindo fluxo");
+        }
+
+
         telaLogin.buscarElementos();
     }
 
@@ -53,6 +67,7 @@ public class DefinicaoPassosCucumber {
 
     @Entao("visualizo o modal de CPF e, ou Senha inválidos")
     public void theScenarioPasses() throws InterruptedException {
+
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
 
@@ -834,8 +849,10 @@ public class DefinicaoPassosCucumber {
     @E("volto para o menu")
     public void voltoParaOMenu() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
+        Tela tela = new Tela(driver);
 
+        tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"VOLTAR PARA A HOME\"]",10);
+        tela.clicarEmElemento("//android.widget.TextView[@content-desc=\"VOLTAR PARA A HOME\"]", 10);
 
     }
 
@@ -984,7 +1001,7 @@ public class DefinicaoPassosCucumber {
     }
 
     @E("confirmo o pagamento informando a senha correta {string}")
-    public void confirmoOPagamentoInformandoASenhaCorreta(String arg0) {
+    public void                                                                                                                                                                                                                                                                                                                         confirmoOPagamentoInformandoASenhaCorreta(String arg0) {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
 
@@ -1167,6 +1184,14 @@ public class DefinicaoPassosCucumber {
         home.buscarFotoDePerfil();
     }
 
+    @E("que autorizo as notificações")
+    public void autorizoAsNotificações() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoConfirmarNotificacoes = tela.buscarElementoNaTela("//android.widget.Button[@resource-id=\"com.android.permissioncontroller:id/permission_allow_button\"]", 10);
+        tela.clicarEmElemento(botaoConfirmarNotificacoes);
+    }
 }
 
 

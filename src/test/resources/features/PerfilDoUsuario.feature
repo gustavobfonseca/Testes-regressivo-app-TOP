@@ -3,7 +3,7 @@ Funcionalidade: Perfil do usuário
 
   Cenário:01 Inclusão de foto de perfil via câmera
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "54926406829", senha "Teste@123"
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
     E acesso a home do aplicativo
     E não possua foto de perfil
     E sem ter a permissão de acesso à câmera habilitada para o aplicativo TOP

@@ -36,6 +36,11 @@ public class Tela {
         elementoClicavel.click();
     }
 
+    public void clicarEmElemento(String xpathElemento, int espera){
+        MobileElement elemento = buscarElementoNaTela(xpathElemento, espera);
+        elemento.click();
+    }
+
     public void clicarEmElemento(String xPathElementoClicavel, String xPathElementoVisivel){
         int tentativas = 0;
         int tentativasMaximas = 10;
@@ -63,6 +68,11 @@ public class Tela {
 
     public void inputNoElemento(MobileElement elementoInput, String input){
         elementoInput.sendKeys(input);
+    }
+
+    public void inputNoElemento(String xpathElemento, String input){
+        MobileElement elemento = buscarElementoNaTela(xpathElemento, 10);
+        inputNoElemento(elemento, input);
     }
 
     public void scrollAteElemento(String xPathElementoDeEspera, int tempoEspera, String xPathElementoBuscavel){

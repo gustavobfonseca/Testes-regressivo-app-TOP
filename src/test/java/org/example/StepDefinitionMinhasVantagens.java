@@ -238,4 +238,10 @@ public class StepDefinitionMinhasVantagens {
                 "Favoritos\"]", 20);
         Assert.assertTrue(topMaisRecompensas.getLocation().getX() < personalizarFavoritos.getLocation().getX());
     }
+
+    @E("assino meu nome")
+    public void assinoMeuNome() {
+        tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Receber em casa (R$ 28,50)\"]", 120);
+
+    }
 }

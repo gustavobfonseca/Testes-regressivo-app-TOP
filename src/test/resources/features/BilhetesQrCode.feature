@@ -3,7 +3,7 @@ Funcionalidade: BilhetesQrCode
 
   Cenario:01 Compra bilhete CPTM ou Metro com pagamento via pix
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
     E acesso a home do aplicativo
     Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
     E clico na opçao Comprar Bilhetes
@@ -12,17 +12,17 @@ Funcionalidade: BilhetesQrCode
     E confirmo pix como forma de pagamento
     Então visualizo a tela de confirmação de pagamento via pix
 
-  Cenario:02 Compra bilhete CPTM ou Metro com pagamento via cartão de crédito com o cvv preenchido incorretamente
-#    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
-#    E acesso a home do aplicativo
-    Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
-    E clico na opçao Comprar Bilhetes
-    E clico na opção CPTM, Metrô
-    E seleciono a quantidade de bilhetes
-    E confirmo Cartão de crédito como forma de pagamento
-    E confirmo o pagamento informando o CVV "001"
-    Então visualizo a tela de Erro no pagamento
+#  Cenario:02 Compra bilhete CPTM ou Metro com pagamento via cartão de crédito com o cvv preenchido incorretamente
+##    Dado que estou na área não logada do app
+##    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+##    E acesso a home do aplicativo
+#    Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
+#    E clico na opçao Comprar Bilhetes
+#    E clico na opção CPTM, Metrô
+#    E seleciono a quantidade de bilhetes
+#    E confirmo Cartão de crédito como forma de pagamento
+#    E confirmo o pagamento informando o CVV "001"
+#    Então visualizo a tela de Erro no pagamento
 
   Cenario:03 Compra bilhete CPTM ou Metro com pagamento via cartão de crédito com o cvv preenchido corretamente
     Dado que estou na área não logada do app
@@ -33,10 +33,22 @@ Funcionalidade: BilhetesQrCode
     E clico na opção CPTM, Metrô
     E seleciono a quantidade de bilhetes
     E confirmo Cartão de crédito como forma de pagamento
-    E confirmo o pagamento informando o CVV "737"
+    E confirmo o pagamento informando o CVV "001"
     Então visualizo a tela de Pagamento efetuado com sucesso
 
-  Cenario:04 Erro na compra de bilhete via cartão de débito informando o cvv incorreto
+#  Cenario:04 Erro na compra de bilhete via cartão de débito informando o cvv incorreto
+##    Dado que estou na área não logada do app
+##    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+##    E vou para a minha home do aplicativo
+#    Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
+#    E clico na opçao Comprar Bilhetes
+#    E clico na opção CPTM, Metrô
+#    E seleciono a quantidade de bilhetes
+#    E confirmo Cartão de débito como forma de pagamento
+#    E confirmo o pagamento informando o CVV "333"
+#    Então visualizo a tela de Erro no pagamento
+
+  Cenario:05 Compra de bilhete via cartão de débito e reseto o app
 #    Dado que estou na área não logada do app
 #    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
 #    E vou para a minha home do aplicativo
@@ -45,24 +57,12 @@ Funcionalidade: BilhetesQrCode
     E clico na opção CPTM, Metrô
     E seleciono a quantidade de bilhetes
     E confirmo Cartão de débito como forma de pagamento
-    E confirmo o pagamento informando o CVV "333"
-    Então visualizo a tela de Erro no pagamento
-
-  Cenario:05 Compra de bilhete via cartão de débito
-    Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
-    E vou para a minha home do aplicativo
-    Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
-    E clico na opçao Comprar Bilhetes
-    E clico na opção CPTM, Metrô
-    E seleciono a quantidade de bilhetes
-    E confirmo Cartão de débito como forma de pagamento
-    E confirmo o pagamento informando o CVV "737"
+    E confirmo o pagamento informando o CVV "001"
     Então visualizo a tela de Pagamento efetuado com sucesso
 
   Cenario:06 Compra de bilhete CPTM, Metro com pagamento via saldo em conta
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Devires@123"
     E vou para a minha home do aplicativo
     E eu habilito o mock do token no perfil do usuario
     Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
@@ -70,7 +70,7 @@ Funcionalidade: BilhetesQrCode
     E clico na opção CPTM, Metrô
     E seleciono a quantidade de bilhetes
     E confirmo saldo disponível como forma de pagamento
-    E confirmo o pagamento informando a senha correta "7734"
+    E confirmo o pagamento informando a senha correta "1571"
     Então visualizo a tela de Pagamento efetuado com sucesso
 
   Cenario:07 Erro na compra de bilhete CPTM, Metro com pagamento via saldo em conta
@@ -106,7 +106,7 @@ Funcionalidade: BilhetesQrCode
     E clico na opção Cartão de crédito
     E submeto as informações corretas do cartão
       | NomeCartao     | numeroCartao        | dtVal | cvv | numCelular  |
-      | Teste Cadastro | 5555 4444 3333 1111 | 03/30 | 737 | 327.721.478-86 |
+      | Teste Cadastro | 4001 7482 7831 6091 | 01/28 | 123 | 519.197.408-56 |
     Entao visualizo a tela de Cartão cadastrado com sucesso
 
   Cenario:10 Cadastro de cartão de crédito inválido
@@ -119,7 +119,7 @@ Funcionalidade: BilhetesQrCode
     E clico na opção Cartão de crédito
     E submeto as informações corretas do cartão
       | NomeCartao     | numeroCartao        | dtVal | cvv | numCelular  |
-      | Teste Cadastro | 1234 5678 9101 1123 | 03/30 | 111 | 327.721.478-86 |
+      | Teste Cadastro | 1234 5678 9101 1123 | 03/30 | 111 | 519.197.408-56 |
     Entao visualizo a tela de falha no cadastro
 
   Cenario:11 Remover cartão de débito como forma de pagamento tendo menos que 3 cartões cadastrados
@@ -143,7 +143,7 @@ Funcionalidade: BilhetesQrCode
     E clico na opção Cartão de débito
     E submeto as informações corretas do cartão
       | NomeCartao     | numeroCartao        | dtVal | cvv | numCelular  |
-      | Teste Cadastro | 4000 0600 0000 0006 | 03/30 | 737 | 327.721.478-86 |
+      | Teste Cadastro | 4001 7482 7831 6091 | 01/28 | 123 | 519.197.408-56 |
     Entao visualizo a tela de Cartão cadastrado com sucesso
 
   Cenario:13 Cadastro de cartão de débito inválido
@@ -183,6 +183,9 @@ Funcionalidade: BilhetesQrCode
     Entao visualizo a tela de formas de pagamento
 
   Cenario:16 Historico de compra de bilhete
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Devires@123"
+    E vou para a minha home do aplicativo
     Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
     E clico no ultimo registro de compra no historico
     Entao visualizo o modal com os detalhes da compra

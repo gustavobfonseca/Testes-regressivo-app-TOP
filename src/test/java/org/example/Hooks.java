@@ -3,6 +3,7 @@ package org.example;
 import io.appium.java_client.AppiumDriver;
 import io.cucumber.java.*;
 import io.cucumber.java.AfterStep;
+import io.cucumber.messages.types.Step;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
