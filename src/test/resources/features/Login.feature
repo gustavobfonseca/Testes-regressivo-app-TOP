@@ -12,19 +12,22 @@ Funcionalidade: Login
     Entao visualizo o modal de usuário bloqueado
 
   Cenário:03 Recuperação de senha com CPF bloqueado
-    Dado que acesso a opção esqueci minha senha na área não logada
+    Dado que estou na área não logada do app
+    E que acesso a opção esqueci minha senha na área não logada
     Quando informo um CPF bloqueado
     Entao visualizo o modal de usuário bloqueado na tela de esqueci minha senha
 
 
   Cenário:04 Recuperação de senha com CPF inválido
-    Dado que acesso a opção esqueci minha senha na área não logada
+    Dado que estou na área não logada do app
+    E que acesso a opção esqueci minha senha na área não logada
     Quando informo um CPF inválido
     Entao visualizo a mensagem de Documento inválido
     E clico em cancelar
 
   Cenário:05 Login através da recuperação de senha
-    Dado que acesso a opção esqueci minha senha na área não logada
+    Dado que estou na área não logada do app
+    E que acesso a opção esqueci minha senha na área não logada
     Quando informo o seguinte CPF "06193372067" que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'
     E insiro o token sms
     E clico em confirmar sms
@@ -47,14 +50,16 @@ Funcionalidade: Login
     E redefino a senha
 
   Cenário:08 Recuperacao de senha com token SMS invalido
-    Dado que acesso a opção esqueci minha senha na área não logada
+    Dado que estou na área não logada do app
+    E que acesso a opção esqueci minha senha na área não logada
     Quando informo o seguinte CPF "06193372067" que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'
     E insiro o token sms invalido
     E clico em confirmar sms
     Entao visualizo o modal de codigo invalido
 
   Cenário:09 Recuperacao de senha com token Email invalido
-    Dado que acesso a opção esqueci minha senha na área não logada
+    Dado que estou na área não logada do app
+    E que acesso a opção esqueci minha senha na área não logada
     Quando informo o seguinte CPF "06193372067" que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'
     E insiro o token sms
     E clico em confirmar sms
@@ -63,7 +68,8 @@ Funcionalidade: Login
     Entao visualizo o modal de codigo invalido
 
   Cenário:10 Recuperação de senha com senha inválida
-    Dado que acesso a opção esqueci minha senha na área não logada
+    Dado que estou na área não logada do app
+    E que acesso a opção esqueci minha senha na área não logada
     Quando informo o seguinte CPF "06193372067" que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'
     E insiro o token sms
     E clico em confirmar sms
@@ -72,7 +78,8 @@ Funcionalidade: Login
     Entao verifico os criterios de aceite dos campos "Sua senha" e "Confirmar senha" validando as mensagens exibidas
 
   Cenário:13 Login através da recuperação de senha
-    Dado que acesso a opção esqueci minha senha na área não logada
+    Dado que estou na área não logada do app
+    E que acesso a opção esqueci minha senha na área não logada
     Quando informo o seguinte CPF "06193372067" que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'
     E insiro o token sms
     E clico em confirmar sms
