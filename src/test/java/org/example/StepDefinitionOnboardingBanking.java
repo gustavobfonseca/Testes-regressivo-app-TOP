@@ -216,4 +216,10 @@ public class StepDefinitionOnboardingBanking {
 
         Assert.assertTrue(textoInibicao.isDisplayed());
     }
+
+    @Entao("visualizo o modal de Como Validar Sua Recarga?")
+    public void visualizoOModalDeComoValidarSuaRecarga() {
+        MobileElement textoModalValidar = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Como validar a recarga?\"]", 10);
+        Assert.assertTrue(textoModalValidar.isDisplayed());
+    }
 }
