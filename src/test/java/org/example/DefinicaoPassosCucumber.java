@@ -176,7 +176,7 @@ public class DefinicaoPassosCucumber {
 
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("73040542559", "Devires@123");
+        telaLogin.preencherFormulario("73040542559", "Teste123");
         telaLogin.logar();
     }
 
@@ -618,11 +618,19 @@ public class DefinicaoPassosCucumber {
     public void insiroOTokenSms() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+        Tela tela = new Tela(driver);
+
+        try{
+            MobileElement botaoNegar = tela.buscarElementoNaTela("//android.widget.Button[@resource-id=\"com.google.android.gms:id/negative_button\"]", 10);
+            tela.clicarEmElemento(botaoNegar);
+        } catch (ElementNotVisibleException e){
+            System.out.println("Modal não encontrado, seguindo fluxo");
+        }
 
         Thread.sleep(2000);
         telaEsqueciminhaSenha.buscarInput0Sms();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5511922334456");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5511994787098");
         telaEsqueciminhaSenha.inserirInputs(token);
         Thread.sleep(2000);
     }
@@ -647,7 +655,7 @@ public class DefinicaoPassosCucumber {
         Thread.sleep(1000);
         telaEsqueciminhaSenha.buscarInput0Email();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("testecav8@gmail.com");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("matheusmunari0@gmail.com");
         telaEsqueciminhaSenha.inserirInputs(token);
     }
 

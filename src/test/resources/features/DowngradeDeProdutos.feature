@@ -1,9 +1,11 @@
 # language: pt
 Funcionalidade: Downgrade de Produtos
 
+  #Verificar se a massa do cenário 04 está com cartão cancelado, se sim, recupere este cartão antes de executar a feature
+
   Cenário:01 Cancelamento de cartão de crédito
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "53189161801", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "53189161801", senha "Teste123"
     E acesso a home do aplicativo
     Quando que acesso o perfil de usuário
     E dou scroll até Cancelar Cartao Ou Conta Digital
@@ -15,7 +17,7 @@ Funcionalidade: Downgrade de Produtos
 
   Cenário:02 Cancelamento de conta digital
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Teste123"
     E acesso a home do aplicativo
     Quando que acesso o perfil de usuário
     E dou scroll até Cancelar Cartao Ou Conta Digital
@@ -27,7 +29,7 @@ Funcionalidade: Downgrade de Produtos
 
   Cenário:03 Cancelamento de cartão transporte com pendências
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "90099644002", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "90099644002", senha "Teste123"
     E acesso a home do aplicativo
     Quando que acesso o perfil de usuário
     E dou scroll até Cancelar Cartao Ou Conta Digital
@@ -35,9 +37,11 @@ Funcionalidade: Downgrade de Produtos
     E clico em Cartao Transporte
     Entao visualizo a pendência de saldo existente
 
+  #Recuperar cartão cancelado depois de executado esse cenário
+
   Cenário:04 Cancelamento de cartão transporte
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "32505664544", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "32505664544", senha "Teste123"
     E acesso a home do aplicativo
     Quando que acesso o perfil de usuário
     E dou scroll até Cancelar Cartao Ou Conta Digital
@@ -52,7 +56,7 @@ Funcionalidade: Downgrade de Produtos
 
   Cenário:05 Reportar cartão hibrido perdido ou danificado
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Teste123"
     E acesso a home do aplicativo
     Quando que acesso o perfil de usuário
     E dou scroll até Cancelar Cartao Ou Conta Digital
@@ -63,7 +67,7 @@ Funcionalidade: Downgrade de Produtos
 
   Cenário:06 Comunicar Perda Roubo de cartão Puro transporte
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "32505664544", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "32505664544", senha "Teste123"
     E acesso a home do aplicativo
     Quando que acesso o perfil de usuário
     E dou scroll até Cancelar Cartao Ou Conta Digital
@@ -77,7 +81,7 @@ Funcionalidade: Downgrade de Produtos
 
   Cenário:07 Encerramento de cadastro com pendências
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "53189161801", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "53189161801", senha "Teste123"
     E acesso a home do aplicativo
     E navego ate cartao de credito
     E vou ate conta digital
@@ -91,7 +95,7 @@ Funcionalidade: Downgrade de Produtos
 #    Criar uma conta a partir do 4devs para os cenários 08 e 09
   Cenário:08 Encerramento de cadastro
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "04218095078", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "04218095078", senha "Teste123"
     E acesso a home do aplicativo
     Quando que acesso o perfil de usuário
     E dou scroll até Cancelar Cartao Ou Conta Digital
@@ -106,5 +110,5 @@ Funcionalidade: Downgrade de Produtos
 
   Cenario:09 login apos encerramento de cadastro
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "32241338052", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "32241338052", senha "Teste123"
     Entao visualizo o modal de usuário bloqueado

@@ -68,7 +68,7 @@ Funcionalidade: Vantagens
 
   Cenário:08 Desconto em loja fisica Drogaria São Paulo
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
     E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     E dou scroll até Drogaria São Paulo

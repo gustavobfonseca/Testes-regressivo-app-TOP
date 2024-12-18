@@ -3,7 +3,7 @@ Funcionalidade: Cartão Top
 
   Cenario:01 Compra de crédito comum - Erro no pagamento via cartão de crédito
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Teste123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
@@ -106,7 +106,7 @@ Funcionalidade: Cartão Top
 
   Cenario:09 Compra de crédito escolar - Erro no pagamento via cartão de crédito
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Teste123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
@@ -118,9 +118,9 @@ Funcionalidade: Cartão Top
     Então visualizo a tela de Erro no pagamento
 
   Cenario:10 Compra de crédito escolar - Pagamento via cartão de crédito
-    Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
-    E vou para a minha home do aplicativo
+#    Dado que estou na área não logada do app
+#    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Teste123"
+#    E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico em Comprar Créditos
     E clico na opção Escolar
@@ -169,9 +169,9 @@ Funcionalidade: Cartão Top
     Então visualizo a tela de "Código Pix Expirado"
 
   Cenario:14 Informativo escolar - meia tarifa e depois reseto o app
-    Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Devires@123"
-    E vou para a minha home do aplicativo
+#    Dado que estou na área não logada do app
+#    E submeto as seguintes credenciais validas para login, cpf "05454081051", senha "Teste123"
+#    E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E expando o modal de saldo
     E clico na opção Saiba mais no item escolar
@@ -206,7 +206,7 @@ Funcionalidade: Cartão Top
 
   Cenário:15 Comunicar Perda ou Roubo de Cartão Híbrido
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico no botão "Comunicar Perda / Roubo"
@@ -242,7 +242,7 @@ Funcionalidade: Cartão Top
 
   Cenário:19 Filtro de histórico e depois reseto o app
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "40302598472", senha "Laura107"
+    E submeto as seguintes credenciais validas para login, cpf "40302598472", senha "Teste123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico no icone de filtro
@@ -251,7 +251,7 @@ Funcionalidade: Cartão Top
 
   Cenário:20 Beneficio sênior
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "79964771088", senha "Laura107"
+    E submeto as seguintes credenciais validas para login, cpf "79964771088", senha "Teste123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E expando o modal de beneficios
@@ -278,7 +278,7 @@ Funcionalidade: Cartão Top
 
   Cenário:23 Beneficio sênior + escolar passe livre e reseto o app
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "61425883303", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "61425883303", senha "Teste123"
     E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E expando o modal de beneficios

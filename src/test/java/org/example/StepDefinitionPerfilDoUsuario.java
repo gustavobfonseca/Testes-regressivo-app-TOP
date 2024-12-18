@@ -203,7 +203,7 @@ public class StepDefinitionPerfilDoUsuario {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
 
-        perfilDoUsuario.inserirSenhaAtual("Teste@123");
+        perfilDoUsuario.inserirSenhaAtual("Devires@123");
         Tela tela = new Tela(driver);
         tela.clicarEmElemento(tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"\uE91C\"])[1]", 10));
     }
@@ -220,8 +220,8 @@ public class StepDefinitionPerfilDoUsuario {
     public void insiroSenhaEConfirmarSenhaVálidas() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
-        perfilDoUsuario.inserirNovaSenha("Teste@1234");
-        perfilDoUsuario.inserirConfirmarNovaSenha("Teste@1234");
+        perfilDoUsuario.inserirNovaSenha("Devires@1234");
+        perfilDoUsuario.inserirConfirmarNovaSenha("Devires@1234");
 
     }
 
@@ -249,7 +249,7 @@ public class StepDefinitionPerfilDoUsuario {
 
         SemiLogado semiLogado = new SemiLogado(driver);
         semiLogado.buscarElementos();
-        semiLogado.preencherSenha("Teste@1234");
+        semiLogado.preencherSenha("Devires@1234");
         semiLogado.clicarBotaoEntrar();
 
 //        Login telaLogin = new Login(driver);
@@ -265,7 +265,7 @@ public class StepDefinitionPerfilDoUsuario {
         Home telaHome = new Home(driver);
 
         Thread.sleep(3000);
-//        telaHome.esperarBotaoBiometria();
+        telaHome.esperarBotaoBiometria();
         try {
             telaHome.arrastarModalParaBaixo();
         } catch (Exception e) {
@@ -378,8 +378,9 @@ public class StepDefinitionPerfilDoUsuario {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
 
-        perfilDoUsuario.buscarElementos();
-        perfilDoUsuario.clicarMenuBiometria();
+        Tela tela = new Tela(driver);
+        tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Touch ID ou Face ID\"]", 10);
+        tela.clicarEmElemento("//android.view.ViewGroup[@content-desc=\"Autenticação biométrica\"]/android.view.ViewGroup/android.view.ViewGroup", 10);
     }
 
     @Quando("clico na opção \"Termos de uso\"")

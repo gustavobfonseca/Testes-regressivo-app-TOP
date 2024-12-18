@@ -49,9 +49,9 @@ Funcionalidade: Perfil do usuário
 
 #teste Matheus
   Cenário:04 Meu telefone de contato Pefisa
-    Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "53189161801", senha "Devires@123"
-    E acesso a home do aplicativo
+#    Dado que estou na área não logada do app
+#    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
+#    E acesso a home do aplicativo
     Quando clico em minha apresentação na Home
     E clico na opção "Seus telefones de contato"
     E seleciono a opção Celular (Cadastro Conta Digital | Crédito)
@@ -89,7 +89,7 @@ Funcionalidade: Perfil do usuário
     E seleciono a opção "Celular (Transporte)"
     Então sou direcionado para o atendimento Autopass via WhatsApp
 
-  Cenário:08 Autenticação biométrica ativa
+  Cenário:08 Autenticação biométrica ativa e reseto o app
 #    Dado que eu acesso a tela home do aplicativo
     Dado que acesso o perfil de usuário com biometria ativa
     Quando faço o logoff do app para a área semi logada
@@ -98,11 +98,14 @@ Funcionalidade: Perfil do usuário
 #  Ou a solicitação de Face ID
 
   Cenário:09 Biométrica desativada
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
+    E acesso a home do aplicativo
 #    Dado que eu acesso a tela home do aplicativo
     Dado que acesso o perfil de usuário com biometria ativa
     Quando desabilito o Touch ID ou Face ID no campo "Autenticação biométrica"
     E faço o logoff do app para a área semi logada
-    E submeto a senha correta do CPF "Teste@123"
+    E submeto a senha correta do CPF "Devires@123"
     E clico em "Entrar" na área semi logada
     Então sou logado para a home do aplicativo com o modal de ativação de biometria
 
@@ -113,7 +116,7 @@ Funcionalidade: Perfil do usuário
     Quando clico na opção "Termos de uso"
     Então sou direcionado para a página dos termos de uso na Central de Ajuda Autopass
 
-  Cenário:11 Logout para área semi logada
+  Cenário:11 Logout para área semi logada e reseto o app
 #        Dado que eu acesso a tela home do aplicativo
     Dado que acesso o perfil de usuário
     Quando clico na opção "Sair do Aplicativo" confirmando o modal
@@ -121,14 +124,17 @@ Funcionalidade: Perfil do usuário
 
   Cenário:12 Central de ajuda e reseto o app
 #    Dado que eu acesso a tela home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
+    E acesso a home do aplicativo
     Dado que acesso o perfil de usuário
     Quando clico no "Central de Ajuda"
 #    Ou no ícone (?) no header
     Então sou direcionado para o a página inicial da Central de Ajuda Autopass
 
-  Cenário:13 Alteração de senha
+  Cenário:13 Alteração de senha e reseto o app
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "54926406829", senha "Teste@123"
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
     E acesso a home do aplicativo
     Dado que acesso o perfil de usuário
     Quando clico na opção "Senha do aplicativo"
@@ -143,12 +149,12 @@ Funcionalidade: Perfil do usuário
     Cenário:14 voltar senha padrao
 #      Dado que eu acesso a tela home do aplicativo
       Dado que estou na área não logada do app
-      E submeto as seguintes credenciais validas para login, cpf "54926406829", senha "Teste@1234"
+      E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@1234"
       E acesso a home do aplicativo
       Dado que acesso o perfil de usuário
       Quando clico na opção "Senha do aplicativo"
-      E insiro a senha atual alterada "Teste@1234"
+      E insiro a senha atual alterada "Devires@1234"
       E clico em Editar
-      E insiro Nova senha "Teste@123" e Confirmar nova senha "Teste@123"
+      E insiro Nova senha "Devires@123" e Confirmar nova senha "Devires@123"
       E clico em Enviar
       Então visualizo a mensagem de "Senha alterada com sucesso"

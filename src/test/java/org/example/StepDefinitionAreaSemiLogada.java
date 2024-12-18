@@ -21,7 +21,7 @@ public class StepDefinitionAreaSemiLogada {
         Login telaLogin = new Login(driver);
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("13715099054", "Devires@123");
+        telaLogin.preencherFormulario("13715099054", "Teste123");
         telaLogin.logar();
 
         Home telaHome = new Home(driver);
@@ -45,7 +45,7 @@ public class StepDefinitionAreaSemiLogada {
         Login telaLogin = new Login(driver);
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("13715099054", "Devires@123");
+        telaLogin.preencherFormulario("13715099054", "Teste123");
         telaLogin.logar();
 
         Home telaHome = new Home(driver);
@@ -108,7 +108,7 @@ public class StepDefinitionAreaSemiLogada {
         Login telaLogin = new Login(driver);
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("659.989.520-49", "Laura107");
+        telaLogin.preencherFormulario("659.989.520-49", "Teste123");
         telaLogin.logar();
 
         Home telaHome = new Home(driver);
@@ -254,7 +254,7 @@ public class StepDefinitionAreaSemiLogada {
         Login telaLogin = new Login(driver);
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("365.369.350-04", "Devires@123");
+        telaLogin.preencherFormulario("365.369.350-04", "Teste123");
         telaLogin.logar();
 
         Home telaHome = new Home(driver);

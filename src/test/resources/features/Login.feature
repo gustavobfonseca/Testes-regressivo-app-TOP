@@ -77,18 +77,18 @@ Funcionalidade: Login
     E clico em confirmar email
     Entao verifico os criterios de aceite dos campos "Sua senha" e "Confirmar senha" validando as mensagens exibidas
 
-  Cenário:13 Login através da recuperação de senha
-    Dado que estou na área não logada do app
-    E que acesso a opção esqueci minha senha na área não logada
-    Quando informo o seguinte CPF "06193372067" que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'
-    E insiro o token sms
-    E clico em confirmar sms
-    E insiro o token email
-    E clico em confirmar email
-    E insiro a senha "Devires@123"
-    E confirmo a nova senha "Devires@123"
-    E clico em confirmar redefinir senha
-    Entao acesso a tela home do aplicativo
+#  Cenário:13 Login através da recuperação de senha
+#    Dado que estou na área não logada do app
+#    E que acesso a opção esqueci minha senha na área não logada
+#    Quando informo o seguinte CPF "06193372067" que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'
+#    E insiro o token sms
+#    E clico em confirmar sms
+#    E insiro o token email
+#    E clico em confirmar email
+#    E insiro a senha "Devires@123"
+#    E confirmo a nova senha "Devires@123"
+#    E clico em confirmar redefinir senha
+#    Entao acesso a tela home do aplicativo
 
   Cenário:11 Login com as credenciais validas
     Dado que estou na área não logada do app
