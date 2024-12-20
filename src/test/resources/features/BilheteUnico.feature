@@ -113,6 +113,7 @@ Funcionalidade: Bilhete Unico
     E clico em Recargar
     E clico em Diaria
     E confirmo a opcao Onibus Metro e Trem
+    E adiciono 10 cotas
     E confirmo o numero de cotas entre 1 e 15
     E confirmo pix como forma de pagamento para recarga de BU
     Entao visualizo a tela de codigo pix gerado para recarga de bilhete unico podendo copiar o codigo via icone ou botao Copiar Codigo Pix
@@ -126,6 +127,7 @@ Funcionalidade: Bilhete Unico
     E clico em Recargar
     E clico em Diaria
     E confirmo a opcao Metro e Trem
+    E adiciono 5 cotas
     E confirmo o numero de cotas entre 1 e 15
     E confirmo pix como forma de pagamento para recarga de BU
     Entao visualizo a tela de codigo pix gerado para recarga de bilhete unico podendo copiar o codigo via icone ou botao Copiar Codigo Pix
@@ -139,6 +141,7 @@ Funcionalidade: Bilhete Unico
     E clico em Recargar
     E clico em Diaria
     E confirmo a opcao onibus
+    E adiciono 15 cotas
     E confirmo o numero de cotas entre 1 e 15
     E confirmo pix como forma de pagamento para recarga de BU
     Entao visualizo a tela de codigo pix gerado para recarga de bilhete unico podendo copiar o codigo via icone ou botao Copiar Codigo Pix

@@ -149,7 +149,7 @@ public class StepDefinitionBilheteUnico {
 
     @E("clico no bilhete unico de numero {string}")
     public void clicoNoBilheteUnicoDeNumero(String arg0) {
-        tela.clicarEmElemento("//android.widget.TextView[@text=\"" + arg0 + "\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"" + arg0 + "\"]", 120);
     }
 
     @E("clico em editar bilhete unico")
@@ -275,5 +275,13 @@ public class StepDefinitionBilheteUnico {
     public void visualizoAMensagemDeBilheteÚnicoJáEstáVinculadoAOutroPerfilNoCampoNúmero() throws Throwable {
         MobileElement textoConflito = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Bilhete Único já está vinculado a outro perfil.\"]", 20);
         Assert.assertTrue(textoConflito.isDisplayed());
+    }
+
+    @E("adiciono {int} cotas")
+    public void adicionoCotas(int arg0) {
+        MobileElement addCotas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"+\"]", 10);
+        for (int i = 0; i < arg0-1; i++) {
+            tela.clicarEmElemento(addCotas);
+        }
     }
 }

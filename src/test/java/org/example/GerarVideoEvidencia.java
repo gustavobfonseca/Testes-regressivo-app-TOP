@@ -21,6 +21,7 @@ public class GerarVideoEvidencia {
 
     @Before
     public void gravarEvidencia(Scenario scenario) throws IOException, InterruptedException {
+        Thread.sleep(3000);
         nomeArquivoVideo = scenario.getName().replaceAll(" ", "_") + "_" + timestamp + ".mp4";
 
         // iniciar a gravação
