@@ -410,11 +410,11 @@ public class DefinicaoPassosCucumber {
 
         telaHome.esperarBotaoBiometria();
 //        telaHome.clicarBotaoAtivarBiometria();
-        try {
-            telaHome.arrastarModalParaBaixo();
-        } catch (Exception e) {
-            telaHome.clicarBotaoModalQueroConhecer();
-        }
+//        try {
+//            telaHome.arrastarModalParaBaixo();
+//        } catch (Exception e) {
+//            telaHome.clicarBotaoModalQueroConhecer();
+//        }
     }
 
     @E("redefino a senha")
@@ -623,14 +623,14 @@ public class DefinicaoPassosCucumber {
         try{
             MobileElement botaoNegar = tela.buscarElementoNaTela("//android.widget.Button[@resource-id=\"com.google.android.gms:id/negative_button\"]", 10);
             tela.clicarEmElemento(botaoNegar);
-        } catch (ElementNotVisibleException e){
+        } catch (Exception e){
             System.out.println("Modal não encontrado, seguindo fluxo");
         }
 
         Thread.sleep(2000);
         telaEsqueciminhaSenha.buscarInput0Sms();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5511994787098");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5511922334456");
         telaEsqueciminhaSenha.inserirInputs(token);
         Thread.sleep(2000);
     }
