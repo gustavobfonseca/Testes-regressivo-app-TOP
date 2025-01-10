@@ -655,7 +655,7 @@ public class DefinicaoPassosCucumber {
         Thread.sleep(1000);
         telaEsqueciminhaSenha.buscarInput0Email();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("matheusmunari0@gmail.com");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("testecav8@gmail.com");
         telaEsqueciminhaSenha.inserirInputs(token);
     }
 
