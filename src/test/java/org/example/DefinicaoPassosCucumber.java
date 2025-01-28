@@ -5,8 +5,11 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.cucumber.core.gherkin.Feature;
+import io.cucumber.core.gherkin.Step;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.*;
 import io.cucumber.java.en.Then;
@@ -15,6 +18,7 @@ import org.example.PageObjects.*;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +41,19 @@ public class DefinicaoPassosCucumber {
     public void anExampleScenario() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
+        Tela tela = new Tela(driver);
+        Celular.autorizarLocalizacao(driver);
+        Thread.sleep(3000);
+        try{
+            MobileElement confirmarNotificacoes = tela.buscarElementoNaTela("//android.widget.Button[@resource-id=\"com.android.permissioncontroller:id/permission_allow_button\"]", 10);
+            tela.clicarEmElemento(confirmarNotificacoes);
+            System.out.println("Confirmação de notificações presente");
+
+        }catch (Exception e){
+            System.out.println("Confirmação de notificações não está presente, seguindo fluxo");
+        }
+
+
         telaLogin.buscarElementos();
     }
 
@@ -52,6 +70,7 @@ public class DefinicaoPassosCucumber {
 
     @Entao("visualizo o modal de CPF e, ou Senha inválidos")
     public void theScenarioPasses() throws InterruptedException {
+
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login telaLogin = new Login(driver);
 
@@ -83,7 +102,7 @@ public class DefinicaoPassosCucumber {
 
         Thread.sleep(3000);
         telaHome.esperarBotaoBiometria();
-        telaHome.clicarBotaoAtivarBiometria();
+//        telaHome.clicarBotaoAtivarBiometria();
         try {
             telaHome.arrastarModalParaBaixo();
         } catch (Exception e) {
@@ -99,6 +118,7 @@ public class DefinicaoPassosCucumber {
         Home telaHome = new Home(driver);
 
         telaHome.clicarBotaoModalQueroConhecer();
+
         Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
     }
 
@@ -138,6 +158,10 @@ public class DefinicaoPassosCucumber {
                 Celular.resetApp(driver);
             }
         } else {
+            String nomeCenario = scenario.getName();
+            if(nomeCenario.toLowerCase().contains("reseto o app")){
+                Celular.limparCache(driver);
+            }
             try {
                 Celular.resetApp(driver);
             } catch (Exception e) {
@@ -155,7 +179,7 @@ public class DefinicaoPassosCucumber {
 
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("73040542559", "Devires@123");
+        telaLogin.preencherFormulario("73040542559", "Teste123");
         telaLogin.logar();
     }
 
@@ -217,7 +241,7 @@ public class DefinicaoPassosCucumber {
         login.clicarCentralDeAjuda();
     }
 
-    @E("clico no botão \"Enviar mensagem\"")
+    @E("clico no botão Enviar mensagem")
     public void enviarMensagem() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Login login = new Login(driver);
@@ -388,12 +412,12 @@ public class DefinicaoPassosCucumber {
         Home telaHome = new Home(driver);
 
         telaHome.esperarBotaoBiometria();
-        telaHome.clicarBotaoAtivarBiometria();
-        try {
-            telaHome.arrastarModalParaBaixo();
-        } catch (Exception e) {
-            telaHome.clicarBotaoModalQueroConhecer();
-        }
+//        telaHome.clicarBotaoAtivarBiometria();
+//        try {
+//            telaHome.arrastarModalParaBaixo();
+//        } catch (Exception e) {
+//            telaHome.clicarBotaoModalQueroConhecer();
+//        }
     }
 
     @E("redefino a senha")
@@ -533,6 +557,14 @@ public class DefinicaoPassosCucumber {
 
     }
 
+    @E("clico na opção Metro e Trem")
+    public void clicoNaOpçãoMetroETrem() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Metrô e Trem\"]", 10);
+    }
+
     @E("seleciono a quantidade de bilhetes")
     public void selecionoAQuantidadeDeBilhetes() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -564,25 +596,32 @@ public class DefinicaoPassosCucumber {
     }
 
     @E("confirmo o pagamento informando o CVV {string}")
-    public void confirmoOPagamentoInformandoOCVV(String arg0) {
+    public void confirmoOPagamentoInformandoOCVV(String arg0) throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+        Tela tela = new Tela(driver);
 
-        telaMeusBilhetes.buscarElementosConfirmarCompra();
-        telaMeusBilhetes.inserirCvv(arg0);
-        telaMeusBilhetes.clicarBotaoConfirmarCompra();
+        tela.inputNoElemento("//android.widget.EditText[@content-desc=\"informar cvv\"]", arg0);
+        Thread.sleep(1000);
+        Map<String, Object> keyEvent = new HashMap<>();
+        keyEvent.put("action", "done");
+        driver.executeScript("mobile: performEditorAction", keyEvent);
+//        driver.navigate().back();
+        Thread.sleep(1000);
+        MobileElement confirmar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]", 10);
+        assertTrue(confirmar.isEnabled());
+        System.out.println(confirmar.getCenter());
+
+        tela.clicarEmElemento("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]", 10);
     }
 
     @Então("visualizo a tela de Erro no pagamento")
     public void visualizoATelaDeErroNoPagamento() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+        Tela tela = new Tela(driver);
 
-        telaMeusBilhetes.buscarMensagemFalhaNoPagamento();
-        assertTrue(telaMeusBilhetes.getMensagemFalhaNoPagamento().isDisplayed());
-        telaMeusBilhetes.buscarBotaoVoltarParaHome();
-        telaMeusBilhetes.clicarBotaoVoltarParaHome();
-    }
+        MobileElement erro = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Falha no pagamento!\"]", 10);
+        assertTrue(erro.isDisplayed());
+        }
 
     @Quando("informo o seguinte CPF {string} que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'")
     public void informoOSeguinteCPF(String arg0) throws InterruptedException {
@@ -597,11 +636,19 @@ public class DefinicaoPassosCucumber {
     public void insiroOTokenSms() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+        Tela tela = new Tela(driver);
+
+        try{
+            MobileElement botaoNegar = tela.buscarElementoNaTela("//android.widget.Button[@resource-id=\"com.google.android.gms:id/negative_button\"]", 10);
+            tela.clicarEmElemento(botaoNegar);
+        } catch (Exception e){
+            System.out.println("Modal não encontrado, seguindo fluxo");
+        }
 
         Thread.sleep(2000);
         telaEsqueciminhaSenha.buscarInput0Sms();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5511922334456");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("+5511994787098");
         telaEsqueciminhaSenha.inserirInputs(token);
         Thread.sleep(2000);
     }
@@ -610,6 +657,14 @@ public class DefinicaoPassosCucumber {
     public void insiroOTokenSmsInvalido() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
+        Tela tela = new Tela(driver);
+
+        try{
+            MobileElement botaoNegar = tela.buscarElementoNaTela("//android.widget.Button[@resource-id=\"com.google.android.gms:id/negative_button\"]", 10);
+            tela.clicarEmElemento(botaoNegar);
+        } catch (Exception e){
+            System.out.println("Modal não encontrado, seguindo fluxo");
+        }
 
         telaEsqueciminhaSenha.buscarInput0Sms();
         telaEsqueciminhaSenha.clicarInput0();
@@ -626,7 +681,7 @@ public class DefinicaoPassosCucumber {
         Thread.sleep(1000);
         telaEsqueciminhaSenha.buscarInput0Email();
         telaEsqueciminhaSenha.clicarInput0();
-        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("testecav8@gmail.com");
+        String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("matheusmunari0@gmail.com");
         telaEsqueciminhaSenha.inserirInputs(token);
     }
 
@@ -709,11 +764,12 @@ public class DefinicaoPassosCucumber {
     @E("confirmo Cartão de débito como forma de pagamento")
     public void confirmoCartãoDeDébitoComoFormaDePagamento() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
+        Tela tela = new Tela(driver);
 
-        telaMeusBilhetes.buscarOpcaoCartaoDebito();
-        telaMeusBilhetes.clicarOpcaoDebito();
-        telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10);
+        tela.clicarEmElemento("(//android.widget.TextView[@text=\"Débito\"])[1]", 60);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]");
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
     }
 
 
@@ -828,8 +884,10 @@ public class DefinicaoPassosCucumber {
     @E("volto para o menu")
     public void voltoParaOMenu() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-        MeusBilhetes paginaMeusBilhetes = new MeusBilhetes(driver);
+        Tela tela = new Tela(driver);
 
+        tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"VOLTAR PARA A HOME\"]",10);
+        tela.clicarEmElemento("//android.widget.TextView[@content-desc=\"VOLTAR PARA A HOME\"]", 10);
 
     }
 
@@ -949,6 +1007,23 @@ public class DefinicaoPassosCucumber {
         driver.navigate().back();
     }
 
+    @E("eu clico no botao do mock gemalto token")
+    public void euClicoNoBotaoMockGemaltoToken() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+        Home telaHome = new Home(driver);
+
+        telaHome.buscarFotoDePerfil();
+        telaHome.clicarFotoDePerfil();
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"DADOS PESSOAIS\"]", 20, "new UiSelector().text(\"Mock gemalto token\")");
+        MobileElement botaoMockGemalto = tela.buscarElementoNaTela("//android.view.ViewGroup[@content-desc=\"Mock gemalto token\"]/android.view.ViewGroup", 20);
+        tela.clicarEmElemento(botaoMockGemalto);
+
+//        telaHome.clicarBotaoMockTokenGemalto();
+        Thread.sleep(1000);
+        driver.navigate().back();
+    }
+
     @E("confirmo saldo disponível como forma de pagamento")
     public void confirmoSaldoDisponívelComoFormaDePagamento() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
@@ -961,7 +1036,7 @@ public class DefinicaoPassosCucumber {
     }
 
     @E("confirmo o pagamento informando a senha correta {string}")
-    public void confirmoOPagamentoInformandoASenhaCorreta(String arg0) {
+    public void                                                                                                                                                                                                                                                                                                                         confirmoOPagamentoInformandoASenhaCorreta(String arg0) {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
 
@@ -1055,7 +1130,7 @@ public class DefinicaoPassosCucumber {
 
     }
 
-    @E("clico em \"Editar meu número de celular\"")
+    @E("clico em Editar meu número de celular")
     public void editarNumeroDeCelular() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Cadastro cadastro = new Cadastro(driver);
@@ -1087,7 +1162,7 @@ public class DefinicaoPassosCucumber {
         cadastro.buscarTextoComNumeroAlterado();
     }
 
-    @E("clico em \"Editar meu endereço de e-mail\"")
+    @E("clico em Editar meu endereço de e-mail")
     public void clicoEmEditarMeuEndereçoDeEMail() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Cadastro cadastro = new Cadastro(driver);
@@ -1135,6 +1210,58 @@ public class DefinicaoPassosCucumber {
         telaMeusBilhetes.buscarOpcaoPix();
         telaMeusBilhetes.clicarOpcaoPix();
         telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
+    }
+  
+    @E("não possua foto de perfil")
+    public void nãoPossuaFotoDePerfil() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Home home = new Home(driver);
+        home.buscarFotoDePerfil();
+    }
+
+    @E("que autorizo as notificações")
+    public void autorizoAsNotificações() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoConfirmarNotificacoes = tela.buscarElementoNaTela("//android.widget.Button[@resource-id=\"com.android.permissioncontroller:id/permission_allow_button\"]", 10);
+        tela.clicarEmElemento(botaoConfirmarNotificacoes);
+    }
+
+    @E("seleciono {int} bilhete")
+    public void selecionoBilhete(int arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        if(arg0 > 1){
+            for (int i = 0; i < arg0; i++){
+                tela.clicarEmElemento("//android.widget.TextView[@text=\"+\"]", 10);
+            }
+        }
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR\"]", 10);
+
+    }
+
+    @E("avanço para as formas de pagamento")
+    public void avançoParaAsFormasDePagamento() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"*Conheça os benefícios, programa e regulamento\"]", 10, "new UiSelector().text(\"CONTINUAR COMPRA COM PONTOS\")");
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TALVEZ MAIS TARDE\"]", 10);
+    }
+
+    @E("confirmo Cartão de débito de final {string} como forma de pagamento")
+    public void confirmoCartãoDeDébitoDeFinalComoFormaDePagamento(String arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"•••• " + arg0 + "\"]", 60);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
     }
 }
 

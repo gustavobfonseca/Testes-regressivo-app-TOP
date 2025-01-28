@@ -17,4 +17,14 @@ public class Celular {
         appId = (String) driver.getCapabilities().getCapability(AndroidMobileCapabilityType.APP_PACKAGE);
         driver.executeScript("mobile:shell", ImmutableMap.of("command", "pm clear " + appId));
     }
+
+    public static void limparDadosDeArmazenamento(AppiumDriver driver){
+        appId = (String) driver.getCapabilities().getCapability(AndroidMobileCapabilityType.APP_PACKAGE);
+        driver.executeScript("mobile:shell", ImmutableMap.of("command", "adb shell pm clear " + appId));
+    }
+
+    public static void autorizarLocalizacao(AppiumDriver driver){
+        appId = (String) driver.getCapabilities().getCapability(AndroidMobileCapabilityType.APP_PACKAGE);
+        driver.executeScript("mobile:shell", ImmutableMap.of("command", "pm grant " + appId + " android.permission.ACCESS_FINE_LOCATION"));
+    }
 }

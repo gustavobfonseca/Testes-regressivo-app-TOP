@@ -98,7 +98,7 @@ Funcionalidade: Cadastro
     E informo um CPF válido ainda não cadastrado
     E informo o número de telefone errado "11911234567"
     E clico em "Continuar" com os demais campos preenchidos corretamente, menos o celular
-    E clico em "Editar meu número de celular"
+    E clico em Editar meu número de celular
     E clico em "CONFIRMAR NÚMERO" após inserir um novo número de celular
     Então o modal é fechado exibindo a tela de confirmação com os 4 últimos dígitos do número atualizado
 
@@ -110,7 +110,7 @@ Funcionalidade: Cadastro
     E clico em "Continuar" com os demais campos preenchidos corretamente, menos o e-mail
     E insiro o token sms
     E clico em confirmar sms
-    E clico em "Editar meu endereço de e-mail"
+    E clico em Editar meu endereço de e-mail
     E clico em "CONFIRMAR E-MAIL" após inserir um novo e-mail
     Então o modal é fechado exibindo a tela de confirmação com o e-mail atualizado
 
