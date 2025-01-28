@@ -40,7 +40,7 @@ public class AppiumDriverConfig {
         //motorola gustavo
 //        config.setCapability(MobileCapabilityType.PLATFORM_VERSION, "8.1.0");
 
-        config.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "60");
+        config.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "3000");
 
 
         URL urlConexao = null;

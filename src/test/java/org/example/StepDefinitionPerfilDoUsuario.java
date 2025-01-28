@@ -181,6 +181,8 @@ public class StepDefinitionPerfilDoUsuario {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Home home = new Home(driver);
 
+        home.perfilPelaApresentacao();
+
         home.deslogar();
 
         SemiLogado semiLogado = new SemiLogado(driver);
@@ -436,7 +438,7 @@ public class StepDefinitionPerfilDoUsuario {
     public void selecionoAOpçãoCelularCadastroContaDigitalCréditoNovamente() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
-        MobileElement celularContaDigital = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Celular (Cadastro Conta Digital/Crédito)\"]", 10);
+        MobileElement celularContaDigital = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Celular (Transporte)\"]", 10);
         tela.clicarEmElemento(celularContaDigital);
     }
 }

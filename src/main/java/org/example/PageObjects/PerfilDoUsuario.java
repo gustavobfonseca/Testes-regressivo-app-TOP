@@ -273,7 +273,7 @@ public class PerfilDoUsuario {
 
     public void clicarCelularCadastroContaDigitalCredito() {
         WebDriverWait espera = new WebDriverWait(driver, 15);
-        MobileElement celularCadastroContaDigitalCredito = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Celular (Cadastro Conta Digital / Crédito)\"]")));
+        MobileElement celularCadastroContaDigitalCredito = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Celular (Transporte)\"]")));
         celularCadastroContaDigitalCredito.click();
     }
 

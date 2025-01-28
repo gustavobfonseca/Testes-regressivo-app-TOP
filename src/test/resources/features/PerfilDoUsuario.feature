@@ -40,6 +40,9 @@ Funcionalidade: Perfil do usuário
 
   Cenário:03 Alteração de Apelido ou Nome Social e reseto o app
 #    Dado que eu acesso a tela home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
+    E acesso a home do aplicativo
     Dado que acesso o perfil de usuário
     Quando insiro dados com mais de 2 caracteres no campo "Apelido ou nome social"
     E clico no ícone de edição para salvar
@@ -49,9 +52,9 @@ Funcionalidade: Perfil do usuário
 
 #teste Matheus
   Cenário:04 Meu telefone de contato Pefisa
-#    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
-#    E acesso a home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
+    E acesso a home do aplicativo
     Quando clico em minha apresentação na Home
     E clico na opção "Seus telefones de contato"
     E seleciono a opção Celular (Cadastro Conta Digital | Crédito)

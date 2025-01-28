@@ -24,8 +24,7 @@ public class StepDefinitionMinhasVantagens {
         tela.scrollAteElemento(
                 "//android.widget.TextView[@text=\"Transporte\"]",
                 20,
-                "new UiSelector().text(\"TOP\n" +
-                        "Saúde\")");
+                "new UiSelector().text(\"Minhas Vantagens\")");
 
     }
 
