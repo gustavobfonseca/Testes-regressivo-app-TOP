@@ -50,7 +50,7 @@ public class SemiLogado {
     }
 
     public void preencherSenhaPadrao() {
-        inputSenha.sendKeys("Devires@123");
+        inputSenha.sendKeys("Teste123");
     }
 
     public void clicarBotaoEntrar() {
