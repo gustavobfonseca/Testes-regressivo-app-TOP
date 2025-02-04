@@ -8,6 +8,7 @@ import io.cucumber.java.pt.Quando;
 import org.example.PageObjects.Home;
 import org.example.PageObjects.Login;
 import org.example.PageObjects.PerfilDoUsuario;
+import org.example.PageObjects.Tela;
 import org.junit.Assert;
 
 public class StepDefinitionMobilidade {
@@ -84,5 +85,12 @@ public class StepDefinitionMobilidade {
         home.buscarFotoDePerfil();
     }
 
+    @E("insiro um endereco de origem e destino")
+    public void insiroUmEnderecoDeOrigemEDestino() {
 
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela= new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[contains(text,  \"Brasil\"]", 10);
+    }
 }
