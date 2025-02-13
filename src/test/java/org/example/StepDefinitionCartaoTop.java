@@ -51,9 +51,11 @@ public class StepDefinitionCartaoTop {
     public void insiroOValorDeR$(String arg0) {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         CartaoTop tela2CartaoTop = new CartaoTop(driver);
+        Tela tela = new Tela(driver);
 
         driver.navigate().back();
         tela2CartaoTop.inputarValorDeCredito(arg0);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR\"]", 10);
 
     }
 
@@ -88,11 +90,13 @@ public class StepDefinitionCartaoTop {
     public void submetoAOpçãoCartãoDeDébitoComoFormaDePagamento() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         CartaoTop tela3CartaoTop = new CartaoTop(driver);
+        Tela tela = new Tela(driver);
 
-        tela3CartaoTop.buscarBotaoCartaoDeDebito();
-        tela3CartaoTop.clicarBotaoCartaoDeDebito();
-        tela3CartaoTop.buscarBotaoConfirmarTela3();
-        tela3CartaoTop.clicarBotaoConfirmarTela3();
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"DETALHES DA COMPRA\"]", 10, "new UiSelector().text(\"TROCAR\")");
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"•••• 6091\"]", 10);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
     }
 
     @E("clico na opção Escolar")
@@ -566,5 +570,13 @@ public class StepDefinitionCartaoTop {
         tela.inputNoElemento(inputCpf, cpf);
         tela.inputNoElemento(inputSenha, senha);
         tela.clicarEmElemento(botaoEntrar);
+    }
+
+    @E("clico em Talvez Mais Tarde")
+    public void clicoEmTalvezMaisTarde() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TALVEZ MAIS TARDE\"]", 10);
     }
 }

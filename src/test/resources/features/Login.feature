@@ -1,7 +1,7 @@
 # language: pt
 Funcionalidade: Login
 
-  Cenário:01 Login com credenciais inválidas
+  Cenário:01 Login com credenciais invalidas
     Dado que estou na área não logada do app
     Quando submeto minhas credenciais inválidas para login
     Entao visualizo o modal de CPF e, ou Senha inválidos
@@ -18,14 +18,14 @@ Funcionalidade: Login
     Entao visualizo o modal de usuário bloqueado na tela de esqueci minha senha
 
 
-  Cenário:04 Recuperação de senha com CPF inválido
+  Cenário:04 Recuperacao de senha com CPF invalido
     Dado que estou na área não logada do app
     E que acesso a opção esqueci minha senha na área não logada
     Quando informo um CPF inválido
     Entao visualizo a mensagem de Documento inválido
     E clico em cancelar
 
-  Cenário:05 Login através da recuperação de senha
+  Cenário:05 Login atraves da recuperacao de senha
     Dado que estou na área não logada do app
     E que acesso a opção esqueci minha senha na área não logada
     Quando informo o seguinte CPF "06193372067" que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'
@@ -33,19 +33,19 @@ Funcionalidade: Login
     E clico em confirmar sms
     E insiro o token email
     E clico em confirmar email
-    E insiro a senha "Devires@1234"
-    E confirmo a nova senha "Devires@1234"
+    E insiro a senha "Teste1234"
+    E confirmo a nova senha "Teste1234"
     E clico em confirmar redefinir senha
     Entao acesso a tela home do aplicativo
 
   Cenário:06 Login com senha antiga
     Dado que estou na área não logada do app
-    Quando submeto minhas credenciais válidas para login, cpf '06193372067' e senha 'Devires@123'
+    Quando submeto minhas credenciais válidas para login, cpf '06193372067' e senha 'Teste123'
     Entao visualizo o modal de CPF e, ou Senha inválidos
 
   Cenário:07 Login com nova senha
     Dado que estou na área não logada do app
-    Quando submeto minhas credenciais válidas para login, cpf '06193372067' e senha 'Devires@1234'
+    Quando submeto minhas credenciais válidas para login, cpf '06193372067' e senha 'Teste1234'
     Entao acesso a home do aplicativo
     E redefino a senha
 
@@ -67,7 +67,7 @@ Funcionalidade: Login
     E clico em confirmar email
     Entao visualizo o modal de codigo invalido
 
-  Cenário:10 Recuperação de senha com senha inválida
+  Cenário:10 Recuperacao de senha com senha invalida
     Dado que estou na área não logada do app
     E que acesso a opção esqueci minha senha na área não logada
     Quando informo o seguinte CPF "06193372067" que possui o email 'testecav8@gmail.com' e o telefone '+5511922334456'
@@ -92,7 +92,7 @@ Funcionalidade: Login
 
   Cenário:11 Login com as credenciais validas
     Dado que estou na área não logada do app
-    Quando submeto minhas credenciais válidas para login, cpf '06193372067' e senha 'Devires@123'
+    Quando submeto minhas credenciais válidas para login, cpf '06193372067' e senha 'Teste123'
     Entao acesso a home do aplicativo
 
 #  Cenario: Atendimento usuário bloqueado

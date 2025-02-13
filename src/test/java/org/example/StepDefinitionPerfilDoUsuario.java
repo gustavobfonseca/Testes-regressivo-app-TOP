@@ -1,6 +1,7 @@
 package org.example;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
@@ -205,7 +206,7 @@ public class StepDefinitionPerfilDoUsuario {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
 
-        perfilDoUsuario.inserirSenhaAtual("Devires@123");
+        perfilDoUsuario.inserirSenhaAtual("Teste123");
         Tela tela = new Tela(driver);
         tela.clicarEmElemento(tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"\uE91C\"])[1]", 10));
     }
@@ -381,6 +382,8 @@ public class StepDefinitionPerfilDoUsuario {
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
 
         Tela tela = new Tela(driver);
+        MobileElement faceId = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true))" +
+                ".scrollIntoView(new UiSelector().text(\"Senha do aplicativo\"));"));
         tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Touch ID ou Face ID\"]", 10);
         tela.clicarEmElemento("//android.view.ViewGroup[@content-desc=\"Autenticação biométrica\"]/android.view.ViewGroup/android.view.ViewGroup", 10);
     }
@@ -438,7 +441,7 @@ public class StepDefinitionPerfilDoUsuario {
     public void selecionoAOpçãoCelularCadastroContaDigitalCréditoNovamente() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
-        MobileElement celularContaDigital = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Celular (Transporte)\"]", 10);
+        MobileElement celularContaDigital = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Celular (Cadastro Conta Digital/Crédito)\"]", 10);
         tela.clicarEmElemento(celularContaDigital);
     }
 }

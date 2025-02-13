@@ -3,7 +3,7 @@ Funcionalidade: Bilhete Unico
 
   Cenario:01 Onboarding Bilhete Unico
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
     E acesso a home do aplicativo
     Quando navego ate Bilhete Unico
     Entao visualizo a tela de onboarding de Bilhete Unico
@@ -93,9 +93,9 @@ Funcionalidade: Bilhete Unico
     Entao visualizo a tela de codigo pix gerado para recarga de bilhete unico podendo copiar o codigo via icone ou botao Copiar Codigo Pix
 
   Cenario:10 Recarga comum codigo pix expirado
-#    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
-#    E acesso a home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
+    E acesso a home do aplicativo
     Quando navego ate Bilhete Unico
     E clico no bilhete unico de numero "556005492"
     E clico em Recargar
@@ -232,12 +232,12 @@ Funcionalidade: Bilhete Unico
     Então visualizo a tela de - Você não possui nenhum bilhete único cadastrado.
 
   Cenario:22 Cadastro de BU vinculado a outro CPF
-#    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@123"
-#    E acesso a home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
+    E acesso a home do aplicativo
     Quando navego ate Bilhete Unico
     E clico em Cadasrar Bilhete Unico
     E submeto as informacoes validas do bilhete
       |  numero   |  apelido  |
-      | 190564755 | BU Matheus|
+      | 467295293 | BU Matheus|
     Entao visualizo a mensagem de "Bilhete único já está vinculado a outro perfil.” No campo Número

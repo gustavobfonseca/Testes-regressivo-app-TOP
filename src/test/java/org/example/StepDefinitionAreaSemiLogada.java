@@ -47,7 +47,7 @@ public class StepDefinitionAreaSemiLogada {
         Login telaLogin = new Login(driver);
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("13715099054", "Teste123");
+        telaLogin.preencherFormulario("06193372067", "Teste123");
         telaLogin.logar();
 
         Home telaHome = new Home(driver);
