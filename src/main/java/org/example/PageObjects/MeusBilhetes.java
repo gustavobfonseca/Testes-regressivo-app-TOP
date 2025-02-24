@@ -357,7 +357,7 @@ public class MeusBilhetes {
         WebDriverWait espera = new WebDriverWait(driver, 10);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]")));
 
-        input0InserirSenhaSaldoEmConta = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup[1]");
+        input0InserirSenhaSaldoEmConta = (MobileElement) driver.findElementByXPath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup[1]");
         botaoConfirmarCompra = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]");
     }
 
@@ -392,9 +392,9 @@ public class MeusBilhetes {
 
     public void buscarFormaDePagamentoTelaConfirmacaoPix() {
         WebDriverWait espera = new WebDriverWait(driver, 120);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Pix copia e cola\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Copie o código Pix:\"]")));
 
-        textoPixCopiaECola = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Pix copia e cola\"]");
+        textoPixCopiaECola = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Copie o código Pix:\"]");
 
     }
 

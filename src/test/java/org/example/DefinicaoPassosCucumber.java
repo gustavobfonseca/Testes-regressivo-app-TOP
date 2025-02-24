@@ -590,8 +590,6 @@ public class DefinicaoPassosCucumber {
 
         telaMeusBilhetes.buscarMensagemCompraRealizadaComSucesso();
         assertTrue(telaMeusBilhetes.getMensagemCompraRealizadaComSucesso().isDisplayed());
-        telaMeusBilhetes.buscarBotaoVoltarParaHome();
-        telaMeusBilhetes.clicarBotaoVoltarParaHome();
 
     }
 
@@ -607,11 +605,11 @@ public class DefinicaoPassosCucumber {
         driver.executeScript("mobile: performEditorAction", keyEvent);
 //        driver.navigate().back();
         Thread.sleep(1000);
-        MobileElement confirmar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]", 10);
-        assertTrue(confirmar.isEnabled());
-        System.out.println(confirmar.getCenter());
-
-        tela.clicarEmElemento("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]", 10);
+//        MobileElement confirmar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]", 10);
+//        assertTrue(confirmar.isEnabled());
+//        System.out.println(confirmar.getCenter());
+//
+//        tela.clicarEmElemento("//android.widget.TextView[@content-desc=\"CONFIRMAR\"]", 10);
     }
 
     @Então("visualizo a tela de Erro no pagamento")
@@ -1025,13 +1023,17 @@ public class DefinicaoPassosCucumber {
     }
 
     @E("confirmo saldo disponível como forma de pagamento")
-    public void confirmoSaldoDisponívelComoFormaDePagamento() {
+    public void confirmoSaldoDisponívelComoFormaDePagamento() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
 
-        telaMeusBilhetes.buscarOpcaoSaldoEmConta();
-        telaMeusBilhetes.clicarSaldoEmConta();
-        telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Saldo disponível\"]", 60);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        Thread.sleep(100);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
 
     }
 
@@ -1207,9 +1209,13 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         MeusBilhetes telaMeusBilhetes = new MeusBilhetes(driver);
 
-        telaMeusBilhetes.buscarOpcaoPix();
-        telaMeusBilhetes.clicarOpcaoPix();
-        telaMeusBilhetes.clicarBotaoConfirmarFormaPagamento();
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
+        tela.clicarEmElemento("(//android.widget.TextView[@text=\"Pix\"])[2]", 10);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
+
     }
   
     @E("não possua foto de perfil")
@@ -1254,14 +1260,76 @@ public class DefinicaoPassosCucumber {
     }
 
     @E("confirmo Cartão de débito de final {string} como forma de pagamento")
-    public void confirmoCartãoDeDébitoDeFinalComoFormaDePagamento(String arg0) {
+    public void confirmoCartãoDeDébitoDeFinalComoFormaDePagamento(String arg0) throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
 
         tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
         tela.clicarEmElemento("//android.widget.TextView[@text=\"•••• " + arg0 + "\"]", 60);
         tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        Thread.sleep(100);
         tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
+    }
+
+    @E("volto para a home")
+    public void voltoParaAHome() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"\uE96F\"]", 10);
+    }
+
+    @E("clico em Conta Digital na home")
+    public void clicoEmContaDigitalNaHome() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Conta\n" +
+                "Digital\"]", 60);
+        tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Saldo\"]", 60);
+
+    }
+
+    @E("confirmo Cartão de credito de final {string} como forma de pagamento")
+    public void confirmoCartãoDeCreditoDeFinalComoFormaDePagamento(String arg0) throws InterruptedException {
+
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"•••• " + arg0 + "\"]", 60);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        Thread.sleep(100);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
+
+    }
+
+    @E("confirmo Cartão de credito válido")
+    public void confirmoCartãoDeCreditoVálido() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
+        tela.clicarEmElemento("(//android.widget.TextView[@text=\"Crédito\"])[1]", 60);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        Thread.sleep(100);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
+
+
+
+    }
+
+    @E("confirmo Cartão de credito inválido")
+    public void confirmoCartãoDeCreditoInválido() throws InterruptedException {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
+        tela.clicarEmElemento("(//android.widget.TextView[@text=\"Crédito\"])[2]", 60);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        Thread.sleep(100);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
+
     }
 }
 

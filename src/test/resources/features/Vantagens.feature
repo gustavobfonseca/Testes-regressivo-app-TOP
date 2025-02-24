@@ -49,9 +49,9 @@ Funcionalidade: Vantagens
     Então sou direcionado para a pagina de guia medico da AVUS
 
   Cenário:06 Saiba mais sobre o TOP Saude
-#    Dado que estou na área não logada do app
-#    E logo com uma conta recem criada com mais de sessenta anos
-#    E vou para a minha home do aplicativo
+    Dado que estou na área não logada do app
+    E logo com uma conta recem criada com mais de sessenta anos
+    E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     Quando eu acesso o TOP Saude
     E clico em Saiba mais
@@ -89,7 +89,7 @@ Funcionalidade: Vantagens
 
   Cenário:10 Personalizar favoritos
 #    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
 #    E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     E clico em Personalizar Favoritos

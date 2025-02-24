@@ -94,7 +94,7 @@ public class Home {
     public void redefinirSenhaPeloPerfil() throws InterruptedException {
         clicarIconePerfil();
         clicarPerfilSenhaDoAplicativo();
-        redefinirSenha("Devires@1234", "Devires@123", "Devires@123");
+        redefinirSenha("Teste1234", "Teste123", "Teste123");
 
     }
 

@@ -23,21 +23,24 @@ public class GerarVideoEvidencia {
     public void gravarEvidencia(Scenario scenario) throws IOException, InterruptedException {
         Thread.sleep(3000);
         nomeArquivoVideo = scenario.getName().replaceAll(" ", "_") + "_" + timestamp + ".mp4";
+        Thread.sleep(3000);
 
         // iniciar a gravação
 //        System.out.println("Iniciando gravação da evidência");
         timestampInicial = LocalTime.now();
         ProcessBuilder processBuilder = new ProcessBuilder("adb", "shell", "screenrecord", "--time-limit", "180", "/sdcard/" + nomeArquivoVideo);
         screenRecordProcess = processBuilder.start();
+
     }
 
     @After
     public void pararGravacao() throws IOException, InterruptedException {
         System.out.println("Parando vídeo");
         if (screenRecordProcess != null) {
-//            System.out.println("video maior que 0");
-            Thread.sleep(3000);
+            System.out.println("video maior que 0");
+            Thread.sleep(2000);
             screenRecordProcess.destroy();
+            Thread.sleep(2000);
             screenRecordProcess.waitFor();
         }
 
@@ -47,6 +50,7 @@ public class GerarVideoEvidencia {
 //        System.out.println("Puxando o vídeo do dispositivo para o diretório de destino: " + caminho);
         Process pullProcess = Runtime.getRuntime().exec(puxarVideo);
         int exitCode = pullProcess.waitFor();
+        Thread.sleep(2000);
 
         if (exitCode != 0) {
             System.err.println("Erro ao puxar o vídeo do dispositivo, código de saída: " + exitCode);

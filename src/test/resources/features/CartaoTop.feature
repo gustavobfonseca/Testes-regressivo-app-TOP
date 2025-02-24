@@ -33,7 +33,7 @@ Funcionalidade: Cartão Top
     E clico em Comprar Créditos
     E clico na opção Comum
     E insiro o valor de R$ "400"
-    E clico em Comprar
+    E clico em Talvez Mais Tarde
     E submeto a opção Cartão de Débito como forma de pagamento
     E confirmo o pagamento informando o CVV "001"
     Então visualizo a tela de Erro no pagamento

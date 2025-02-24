@@ -113,7 +113,7 @@ public class Cadastro {
     }
 
     public void preencherEmailPadrao() {
-        inputEmail.sendKeys("testecav8@gmail.com");
+        inputEmail.sendKeys("matheusmunari0@gmail.com");
     }
 
     public void preencherTelefone(String telefone) {
@@ -125,7 +125,7 @@ public class Cadastro {
     }
 
     public void preencherTelefonePadrao() {
-        inputTelefone.sendKeys("11922334456");
+        inputTelefone.sendKeys("11994787098");
     }
 
     public void clicarBotaoContinuar() {

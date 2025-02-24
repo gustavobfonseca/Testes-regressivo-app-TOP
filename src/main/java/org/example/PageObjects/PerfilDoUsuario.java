@@ -113,7 +113,7 @@ public class PerfilDoUsuario {
 
     public void escolherFotoGaleria() throws InterruptedException {
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        MobileElement primeiraFoto = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.widget.ImageView[@resource-id=\"com.google.android.providers.media.module:id/icon_thumbnail\"])[1]")));
+        MobileElement primeiraFoto = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View[5]/android.view.View[2]/android.view.View[2]/android.view.View")));
         primeiraFoto.click();
         MobileElement confirmarAjuste = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Crop\"]")));
         Thread.sleep(2000);
@@ -273,7 +273,7 @@ public class PerfilDoUsuario {
 
     public void clicarCelularCadastroContaDigitalCredito() {
         WebDriverWait espera = new WebDriverWait(driver, 15);
-        MobileElement celularCadastroContaDigitalCredito = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Celular (Transporte)\"]")));
+        MobileElement celularCadastroContaDigitalCredito = (MobileElement) espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Celular (Cadastro Conta Digital / Crédito)\"]")));
         celularCadastroContaDigitalCredito.click();
     }
 
