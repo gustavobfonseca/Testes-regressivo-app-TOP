@@ -47,7 +47,8 @@ public class StepDefinitionDowngradeDeProdutos {
 
     @E("clico em Conta Digital")
     public void clicoEmContaDigital() {
-        tela.clicarEmElemento("//android.widget.TextView[@text=\"Conta Digital\"]", 60);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Conta\n" +
+                "Digital\"]", 60);
         tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Saldo\"]", 60);
     }
 

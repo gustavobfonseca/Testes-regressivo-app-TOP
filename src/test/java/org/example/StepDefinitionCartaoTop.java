@@ -8,6 +8,7 @@ import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import org.example.PageObjects.*;
 import org.junit.Assert;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import java.util.List;
@@ -294,6 +295,7 @@ public class StepDefinitionCartaoTop {
             try{
                 MobileElement elementoSaibaMais = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Saiba mais\"]", 20);
                 tela.clicarEmElemento(elementoSaibaMais);
+                tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Dúvidas sobre seu Benefício Escolar?\"]", 10);
                 break;
             }catch (Exception e){
                 i++;
@@ -438,8 +440,7 @@ public class StepDefinitionCartaoTop {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
 
-        MobileElement botaoQueroCancelarMeuCartao = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"MANTER MEU CARTÃO TRANSPORTE\"]", 20);
-        tela.clicarEmElemento(botaoQueroCancelarMeuCartao);
+        tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"SOLICITAR SEGUNDA VIA\"]", 30);
     }
 
     @E("clico no botão Eu Quero")
@@ -460,7 +461,7 @@ public class StepDefinitionCartaoTop {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
 
-        MobileElement botaoReceberEmCasa = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Receber em casa (R$ 28,50)\"]", 20);
+        MobileElement botaoReceberEmCasa = tela.buscarElementoNaTela("//android.widget.TextView[contains(@text, 'Receber em casa')]", 20);
         tela.clicarEmElemento(botaoReceberEmCasa);
         MobileElement botaoContinuar = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"CONTINUAR\"]", 20);
         tela.clicarEmElemento(botaoContinuar);
@@ -578,5 +579,88 @@ public class StepDefinitionCartaoTop {
         Tela tela = new Tela(driver);
 
         tela.clicarEmElemento("//android.widget.TextView[@text=\"TALVEZ MAIS TARDE\"]", 10);
+    }
+
+    @E("submeto o cartao final {string}")
+    public void submetoOCartaoFinal(String arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+
+
+        tela.buscarElementoNaTela("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"DETALHES DA COMPRA\"]", 10, "new UiSelector().text(\"TROCAR\")");
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"•••• " + arg0 + "\"]", 10);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
+    }
+
+    @E("submeto pix como forma de pagamento para recarga comum")
+    public void submetoPixComoFormaDePagamentoParaRecargaComum() {
+
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.buscarElementoNaTela("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"DETALHES DA COMPRA\"]", 10, "new UiSelector().text(\"TROCAR\")");
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
+        tela.clicarEmElemento("(//android.widget.TextView[@text=\"Pix\"])[2]", 10);
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
+
+    }
+
+    @E("clico em Duvidas sobre o seu Beneficio Escolar")
+    public void clicoEmDuvidasSobreOSeuBeneficioEscolar() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@content-desc=\"Dúvidas sobre seu Benefício Escolar?\"]", 10);
+    }
+
+    @Entao("sou direcionado para a pagina da EMTU de beneficio meia tarifa")
+    public void souDirecionadoParaAPaginaDaEMTUDeBeneficioMeiaTarifa() {
+
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement telaEmtu = tela.buscarElementoNaTela("//android.widget.Image[@text=\"Estudantes e Professores\"]", 20);
+
+        assertTrue(telaEmtu.isDisplayed());
+    }
+
+    @Então("visualizo a tela de cancelamento enviado")
+    public void visualizoATelaDeCancelamentoEnviado() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement botaoSegundaVia = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"SOLICITAR SEGUNDA VIA\"]", 20);
+        assertTrue(botaoSegundaVia.isDisplayed());
+    }
+
+    @Então("visualizo a tela de beneficio escolar passe livre")
+    public void visualizoATelaDeBeneficioEscolarPasseLivre() {
+
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement textoPasseLivre = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Benefício Escolar (,Passe Livre,)\"]", 20);
+
+        assertTrue(textoPasseLivre.isDisplayed());
+    }
+
+    @E("dou scroll até outro valor")
+    public void douScrollAtéOutroValor() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        MobileElement pontos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"150 PONTOS\"]", 10);
+        MobileElement agoraNao = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"AGORA NÃO\"]", 10);
+
+        Point center = pontos.getCenter();
+        Point center2 = agoraNao.getCenter();
+
+        tela.arrastarParaOLado(center.getX(), center.getY(), center2.getX(), center2.getY());
     }
 }

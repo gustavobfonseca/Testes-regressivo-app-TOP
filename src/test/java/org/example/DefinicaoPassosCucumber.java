@@ -617,7 +617,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
 
-        MobileElement erro = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Falha no pagamento!\"]", 10);
+        MobileElement erro = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Falha no pagamento!\"]", 60);
         assertTrue(erro.isDisplayed());
         }
 
@@ -1240,7 +1240,7 @@ public class DefinicaoPassosCucumber {
         Tela tela = new Tela(driver);
 
         if(arg0 > 1){
-            for (int i = 0; i < arg0; i++){
+            for (int i = 1; i < arg0; i++){
                 tela.clicarEmElemento("//android.widget.TextView[@text=\"+\"]", 10);
             }
         }
@@ -1264,6 +1264,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela = new Tela(driver);
 
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"DETALHES DA COMPRA\"]", 10, "new UiSelector().text(\"TROCAR\")");
         tela.clicarEmElemento("//android.widget.TextView[@text=\"TROCAR\"]", 10);
         tela.clicarEmElemento("//android.widget.TextView[@text=\"•••• " + arg0 + "\"]", 60);
         tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
@@ -1329,6 +1330,50 @@ public class DefinicaoPassosCucumber {
         tela.scrollAteElemento("//android.widget.TextView[@text=\"PAGAMENTO\"]", 10, "new UiSelector().text(\"CONFIRMAR PAGAMENTO\")");
         Thread.sleep(100);
         tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 10);
+
+    }
+
+    @E("continuo a compra com pontos")
+    public void continuoACompraComPontos() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONTINUAR COMPRA COM PONTOS\"]", 10);
+
+    }
+
+    @E("clico em {int} pontos")
+    public void clicoEmPontos(int arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"" + arg0 + " PONTOS\"]", 10);
+    }
+
+    @E("clico em outro valor")
+    public void clicoEmOutroValor() {
+
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"OUTRO VALOR\"]", 10);
+    }
+
+    @E("insiro o valor de R$ {string} em pontos")
+    public void insiroOValorDeR$EmPontos(String arg0) {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.inputNoElemento("//android.widget.EditText[@content-desc=\"Informe o valor desejado\"]", arg0);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR\"]", 10);
+    }
+
+    @E("continuo a recarga com pontos")
+    public void continuoARecargaComPontos() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONTINUAR RECARGA COM PONTOS\"]", 10);
 
     }
 }
