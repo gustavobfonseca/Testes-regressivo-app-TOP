@@ -51,9 +51,9 @@ public class MeusBilhetes {
 
     public void buscarUltimaCompraDeBilhete() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//android.view.ViewGroup[@content-desc=\"null  null no valor de 5 reais\"])[1]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Compra de Bilhetes  1 Un. CPTM / Metrô no valor de 5 reais\"]")));
 
-        ultimaCompraDeBilhete = (MobileElement) driver.findElementByXPath("(//android.view.ViewGroup[@content-desc=\"null  null no valor de 5 reais\"])[1]");
+        ultimaCompraDeBilhete = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Compra de Bilhetes  1 Un. CPTM / Metrô no valor de 5 reais\"]");
 
     }
 
@@ -392,9 +392,9 @@ public class MeusBilhetes {
 
     public void buscarFormaDePagamentoTelaConfirmacaoPix() {
         WebDriverWait espera = new WebDriverWait(driver, 120);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Pix copia e cola\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Copie o código Pix:\"]")));
 
-        textoPixCopiaECola = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Pix copia e cola\"]");
+        textoPixCopiaECola = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Copie o código Pix:\"]");
 
     }
 

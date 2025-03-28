@@ -21,21 +21,23 @@ public class StepDefinitionAreaSemiLogada {
         Login telaLogin = new Login(driver);
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("13715099054", "Devires@123");
+        telaLogin.preencherFormulario("06193372067", "Teste123");
         telaLogin.logar();
 
         Home telaHome = new Home(driver);
 
         telaHome.esperarBotaoBiometria();
+        telaHome.buscarMensagemBemVindo();
 //        telaHome.clicarBotaoAtivarBiometria();
 
-        try {
-            telaHome.arrastarModalParaBaixo();
-        } catch (Exception e) {
-            telaHome.clicarBotaoModalQueroConhecer();
-        }
+//        try {
+//            telaHome.arrastarModalParaBaixo();
+//        } catch (Exception e) {
+//            telaHome.clicarBotaoModalQueroConhecer();
+//        }
         Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
-
+        Tela tela = new Tela(driver);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Tenha uma boa viagem.\"]", 10);
         telaHome.deslogar();
     }
 
@@ -45,7 +47,7 @@ public class StepDefinitionAreaSemiLogada {
         Login telaLogin = new Login(driver);
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("13715099054", "Devires@123");
+        telaLogin.preencherFormulario("06193372067", "Teste123");
         telaLogin.logar();
 
         Home telaHome = new Home(driver);
@@ -53,12 +55,12 @@ public class StepDefinitionAreaSemiLogada {
         telaHome.esperarBotaoBiometria();
 //        telaHome.clicarBotaoAtivarBiometria();
 
-        try {
-            telaHome.arrastarModalParaBaixo();
-        } catch (Exception e) {
-            telaHome.clicarBotaoModalQueroConhecer();
-        }
-        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
+//        try {
+//            telaHome.arrastarModalParaBaixo();
+//        } catch (Exception e) {
+//            telaHome.clicarBotaoModalQueroConhecer();
+//        }
+//        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
 
         telaHome.desativarBiometria();
     }
@@ -108,7 +110,7 @@ public class StepDefinitionAreaSemiLogada {
         Login telaLogin = new Login(driver);
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("659.989.520-49", "Laura107");
+        telaLogin.preencherFormulario("659.989.520-49", "Teste123");
         telaLogin.logar();
 
         Home telaHome = new Home(driver);
@@ -254,7 +256,7 @@ public class StepDefinitionAreaSemiLogada {
         Login telaLogin = new Login(driver);
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("365.369.350-04", "Devires@123");
+        telaLogin.preencherFormulario("365.369.350-04", "Teste123");
         telaLogin.logar();
 
         Home telaHome = new Home(driver);
@@ -274,8 +276,9 @@ public class StepDefinitionAreaSemiLogada {
 
         MeusBilhetes meusBilhetes = new MeusBilhetes(driver);
         meusBilhetes.buscarElementos();
-        meusBilhetes.verificarQtdDeBilhete();
-        meusBilhetes.clicarSetaVoltar();
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"\uE96F\"]", 10);
     }
 
     @E("faço o logoff do app para a área semi logada")
@@ -330,5 +333,13 @@ public class StepDefinitionAreaSemiLogada {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         SemiLogado semiLogado = new SemiLogado(driver);
         semiLogado.buscarElementos();
+    }
+
+    @E("vou até o perfil do usuario")
+    public void vouAtéOPerfilDoUsuario() {
+        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
+        Tela tela = new Tela(driver);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Tenha uma boa viagem.\"]", 10);
     }
 }

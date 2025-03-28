@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.cucumber.java.pt.E;
+import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import org.example.PageObjects.Home;
@@ -24,8 +25,8 @@ public class StepDefinitionMinhasVantagens {
         tela.scrollAteElemento(
                 "//android.widget.TextView[@text=\"Transporte\"]",
                 20,
-                "new UiSelector().text(\"TOP\n" +
-                        "Saúde\")");
+                "new UiSelector().text(\"SuperTOP\n" +
+                        "\")");
 
     }
 
@@ -86,6 +87,13 @@ public class StepDefinitionMinhasVantagens {
 
     @Quando("eu acesso o TOP Saude")
     public void euAcessoOTOPSaude() {
+        MobileElement topSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP +\n" +
+                "Recompensas\"]", 20);
+        Point pontoA = topSaude.getLocation();
+        MobileElement personalizarFavoritos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Personalizar\n" +
+                "Favoritos\"]", 20);
+        Point pontoB = personalizarFavoritos.getLocation();
+        tela.arrastarParaOLado(pontoA.getX(), pontoA.getY(), pontoB.getX(), pontoB.getY());
         MobileElement botaoTopSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP\n" +
                 "Saúde\"]", 20);
         tela.clicarEmElemento(botaoTopSaude);
@@ -130,8 +138,8 @@ public class StepDefinitionMinhasVantagens {
 
     @E("dou scroll até Drogaria São Paulo")
     public void douScrollAtéDrogariaSãoPaulo() {
-        MobileElement topSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP\n" +
-                "Saúde\"]", 20);
+        MobileElement topSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP +\n" +
+                "Recompensas\"]", 20);
         Point pontoA = topSaude.getLocation();
         MobileElement personalizarFavoritos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Personalizar\n" +
                 "Favoritos\"]", 20);
@@ -205,8 +213,8 @@ public class StepDefinitionMinhasVantagens {
 
     @Então("retorno a home com a exibicao dos menus de vantagens ordenados de acordo com a minha escolha")
     public void retornoAHomeComAExibicaoDosMenusDeVantagensOrdenadosDeAcordoComAMinhaEscolha() {
-        MobileElement menuTopMaisRecompensas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP +\n" +
-                "Recompensas\"]", 5);
+        MobileElement menuSuperTop = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"SuperTOP\n" +
+                "\"]", 5);
         MobileElement menuTopSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP\n" +
                 "Saúde\"]",5);
         MobileElement menuDrogariaSaoPaulo = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Drogaria\n" +
@@ -214,28 +222,149 @@ public class StepDefinitionMinhasVantagens {
 
         int posicaoXTopSaude = menuTopSaude.getLocation().getX();
         int posicaoXDrogariaSaoPaulo = menuDrogariaSaoPaulo.getLocation().getX();
-        int posicaoXTopMaisRecompensas = menuTopMaisRecompensas.getLocation().getX();
+        int posicaoXSuperTop = menuSuperTop.getLocation().getX();
 
         Assert.assertTrue(posicaoXTopSaude < posicaoXDrogariaSaoPaulo &&
-                posicaoXTopSaude < posicaoXTopMaisRecompensas &&
-                posicaoXDrogariaSaoPaulo < posicaoXTopMaisRecompensas);
+                posicaoXTopSaude > posicaoXSuperTop);
 
     }
 
     @E("o menu de personalizar favoritos deve estar por utilmo")
     public void oMenuDePersonalizarFavoritosDeveEstarPorUtilmo() {
-        MobileElement topMaisRecompensas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP +\n" +
-                "Recompensas\"]", 20);
-        Point pontoA = topMaisRecompensas.getLocation();
-        MobileElement topSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP\n" +
-                "Saúde\"]", 20);
-        Point pontoB = topSaude.getLocation();
+        MobileElement drogariaSaoPaulo = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Drogaria\n" +
+                "São Paulo\"]", 20);
+        Point pontoA = drogariaSaoPaulo.getLocation();
+        MobileElement superTop = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"SuperTOP\n" +
+                "\"]", 20);
+        Point pontoB = superTop.getLocation();
         tela.arrastarParaOLado(pontoA.getX(), pontoA.getY(), pontoB.getX(), pontoB.getY());
-        topMaisRecompensas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP +\n" +
+        MobileElement topMaisRecompensas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP +\n" +
                 "Recompensas\"]", 20);
 
         MobileElement personalizarFavoritos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Personalizar\n" +
                 "Favoritos\"]", 20);
         Assert.assertTrue(topMaisRecompensas.getLocation().getX() < personalizarFavoritos.getLocation().getX());
+    }
+
+    @E("assino meu nome")
+    public void assinoMeuNome() {
+        tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Receber em casa (R$ 28,50)\"]", 120);
+
+    }
+
+    @E("clico em Super Top")
+    public void clicoEmSuperTop() {
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"SuperTOP\n" +
+                "\"]", 20);
+
+
+    }
+
+    @E("clico em Vamos La")
+    public void clicoEmVamosLa() {
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"VAMOS LÁ!\"]", 20);
+    }
+
+    @E("arrasto ate o final da tela")
+    public void arrastoAteOFinalDaTela() {
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"Comprar Pontos\"]", 20, "new UiSelector().text(\"Sorteios realizados através de Título de Capitalização de pagamento único da modalidade incentivo emitido pela ICATU CAPITALIZAÇÃO S/A, CNPJ/MF nº 74.267.170/0001-73, Processo SUSEP nº 15414.901825/2019-77. Após a realização do sorteio, seu prêmio estará disponível para pagamento pelo prazo prescricional em vigor, o qual, atualmente é de 5 anos, conforme previsto no Código Civil de 2002. SAC Promotora 0800 602 8042. Ouvidoria Icatu Seguros 0800 286 0047. Para mais informações consulte as condições gerais, regulamentos e as características essenciais em www.supertroco.com.br\")");
+
+    }
+
+    @E("clico em comprar pontos")
+    public void clicoEmComprarPontos() {
+        MobileElement comprarPontos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"COMPRAR PONTOS\"]", 20);
+        tela.clicarEmElemento(comprarPontos);
+    }
+
+    @E("arrasto o slider ate selecionar {int} reais em pontos")
+    public void arrastoOSliderAteSelecionarReaisEmPontos(int arg0) {
+
+//        MobileElement slider = tela.buscarElementoNaTela("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[4]/android.view.ViewGroup", 20);
+//
+//        int xInicial = slider.getCenter().getX();
+//        int yInicial = slider.getCenter().getY();
+//
+//        MobileElement textoInformativo = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Deslize para escolher quantos pontos supertroco deseja comprar\"]", 10);
+//
+//        int xFinal = textoInformativo.getLocation().getX();
+//
+//        tela.arrastarParaDireita(xInicial, yInicial, xFinal, yInicial);
+
+        for (int i = 4; i < 13; i++) {
+            tela.clicarEmElemento("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[" + i + "]", 20);
+        }
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONTINUAR\"]", 20);
+
+    }
+
+
+
+    @E("seleciono a opcao uma chance de ganhar ate quinhentos mil")
+    public void selecionoAOpcaoUmaChanceDeGanharAteQuinhentosMil() {
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"1 chance de ganhar até\n" +
+                "R$ 460 mil*\"]", 20);
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONTINUAR PARA PAGAMENTO\"]", 20);
+    }
+
+    @E("seleciono pix como forma de pagamento")
+    public void selecionoPixComoFormaDePagamento() {
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"CONFIRMAR PAGAMENTO\"]", 20);
+    }
+
+    @Entao("visualizo a tela de detalhes da compra via pix")
+    public void visualizoATelaDeDetalhesDaCompraViaPix() {
+        MobileElement textoDetalhes = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Copie o código Pix:\"]", 20);
+        Assert.assertTrue(textoDetalhes.isDisplayed());
+    }
+
+    @E("clico em minhas transacoes")
+    public void clicoEmMinhasTransacoes() {
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Minhas Transações\"]", 20);
+    }
+
+
+    @E("clico no ultimo bilhete comprado")
+    public void clicoNoUltimoBilheteComprado() {
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"150\"]", 20);
+    }
+
+    @Entao("visualizo os detalhes da transacao")
+    public void visualizoOsDetalhesDaTransacao() {
+        MobileElement textoDetalhes = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"DETALHES DA TRANSAÇÃO\"]", 20);
+        Assert.assertTrue(textoDetalhes.isDisplayed());
+    }
+
+    @Entao("visualizo a tela Minhas Transacoes com o botao COMPRAR PONTOS")
+    public void visualizoATelaMinhasTransacoesComOBotaoCOMPRARPONTOS() {
+        MobileElement botaoComprarPontos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"COMPRAR PONTOS\"]", 20);
+        Assert.assertTrue(botaoComprarPontos.isDisplayed());
+    }
+
+    @E("clico em sorteios")
+    public void clicoEmSorteios() {
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Sorteios\"]", 20);
+    }
+
+    @Entao("visualizo a tela de sorteios com o botao COMPRAR PONTOS")
+    public void visualizoATelaDeSorteiosComOBotaoCOMPRARPONTOS() {
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"Confira os resultados dos últimos sorteios\"]", 20, "new UiSelector().text(\"COMPRAR PONTOS\")");
+        MobileElement botaoComprarPontos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"COMPRAR PONTOS\"]", 20);
+        Assert.assertTrue(botaoComprarPontos.isDisplayed());
+    }
+
+    @E("clico em Vencedores")
+    public void clicoEmVencedores() {
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Vencedores\"]", 20);
+    }
+
+    @Entao("visualizo a tela de vencedores com o botao QUERO SABER MAIS")
+    public void visualizoATelaDeVencedoresComOBotaoQUEROSABERMAIS() {
+        tela.scrollAteElemento("//android.widget.TextView[@text=\"Acompanhe alguns dos ganhadores do último sorteio\"]", 20, "new UiSelector().text(\"QUERO SABER MAIS\")");
+        MobileElement botaoQueroSaberMais = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"QUERO SABER MAIS\"]", 20);
+        Assert.assertTrue(botaoQueroSaberMais.isDisplayed());
     }
 }

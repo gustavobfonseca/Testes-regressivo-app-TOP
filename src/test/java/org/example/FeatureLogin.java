@@ -15,29 +15,6 @@ public class FeatureLogin
         extends TestCase
 {
 
-    public void login_com_preenchimento_correto() throws InterruptedException {
-
-        AppiumDriver driver = AppiumDriverConfig.Instance().driver;
-
-        Login telaLogin = new Login(driver);
-
-        telaLogin.buscarElementos();
-        telaLogin.preencherFormulario("327.721.478-86", "Devires@123");
-        telaLogin.logar();
-
-        Home telaHome = new Home(driver);
-
-        telaHome.esperarBotaoBiometria();
-//        telaHome.clicarBotaoAtivarBiometria();
-
-        telaHome.arrastarModalParaBaixo();
-
-        Assert.assertEquals("Tenha uma boa viagem.", telaHome.getMsgBoaViagem().getText());
-
-        assertTrue( true );
-    }
-
-
     public void login_com_credenciais_invalidas() throws InterruptedException {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
 

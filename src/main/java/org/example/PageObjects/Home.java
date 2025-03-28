@@ -66,10 +66,10 @@ public class Home {
         int tentativa = 0;
         int tentativaMax = 10;
         Tela tela = new Tela(this.driver);
+        WebDriverWait espera = new WebDriverWait(driver, 10);
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para ativar biometria.\"]/android.view.ViewGroup")));
         while(tentativa < tentativaMax){
             try{
-                WebDriverWait espera = new WebDriverWait(driver, 20);
-                espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.view.ViewGroup[@content-desc=\"Botão para ativar biometria.\"]/android.view.ViewGroup")));
                 botaoBiometria = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@resource-id=\"Botão para ativar biometria.\"]/android.view.ViewGroup");
                 botaoBiometria.click();
                 Thread.sleep(3000);
@@ -94,7 +94,7 @@ public class Home {
     public void redefinirSenhaPeloPerfil() throws InterruptedException {
         clicarIconePerfil();
         clicarPerfilSenhaDoAplicativo();
-        redefinirSenha("Devires@1234", "Devires@123", "Devires@123");
+        redefinirSenha("Teste1234", "Teste123", "Teste123");
 
     }
 

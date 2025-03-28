@@ -49,9 +49,9 @@ Funcionalidade: Vantagens
     Então sou direcionado para a pagina de guia medico da AVUS
 
   Cenário:06 Saiba mais sobre o TOP Saude
-#    Dado que estou na área não logada do app
-#    E logo com uma conta recem criada com mais de sessenta anos
-#    E vou para a minha home do aplicativo
+    Dado que estou na área não logada do app
+    E logo com uma conta recem criada com mais de sessenta anos
+    E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     Quando eu acesso o TOP Saude
     E clico em Saiba mais
@@ -68,7 +68,7 @@ Funcionalidade: Vantagens
 
   Cenário:08 Desconto em loja fisica Drogaria São Paulo
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
     E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     E dou scroll até Drogaria São Paulo
@@ -89,10 +89,62 @@ Funcionalidade: Vantagens
 
   Cenário:10 Personalizar favoritos
 #    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
 #    E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     E clico em Personalizar Favoritos
     E troco a ordem de exibição das vantagens
     Então retorno a home com a exibicao dos menus de vantagens ordenados de acordo com a minha escolha
     E o menu de personalizar favoritos deve estar por utilmo
+
+  Cenario:11 Super top
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
+    E vou para a minha home do aplicativo
+    E dou scroll até Minhas Vantagens
+    E clico em Super Top
+    E clico em Vamos La
+    E arrasto ate o final da tela
+
+  Cenario:12 comprar pontos Super TOP
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
+    E vou para a minha home do aplicativo
+    E dou scroll até Minhas Vantagens
+    E clico em Super Top
+    E clico em Vamos La
+    E clico em comprar pontos
+    E arrasto o slider ate selecionar 10 reais em pontos
+    E seleciono a opcao uma chance de ganhar ate quinhentos mil
+    E seleciono pix como forma de pagamento
+    Entao visualizo a tela de detalhes da compra via pix
+
+  Cenario:13 minhas transacoes
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "40830564870", senha "Teste123"
+    E vou para a minha home do aplicativo
+    E dou scroll até Minhas Vantagens
+    E clico em Super Top
+    E clico em Vamos La
+    E clico em minhas transacoes
+    Entao visualizo a tela Minhas Transacoes com o botao COMPRAR PONTOS
+
+  Cenario:14 sorteios Super TOP
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "40830564870", senha "Teste123"
+    E vou para a minha home do aplicativo
+    E dou scroll até Minhas Vantagens
+    E clico em Super Top
+    E clico em Vamos La
+    E clico em sorteios
+    Entao visualizo a tela de sorteios com o botao COMPRAR PONTOS
+
+  Cenario:15 vencedores
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "40830564870", senha "Teste123"
+    E vou para a minha home do aplicativo
+    E dou scroll até Minhas Vantagens
+    E clico em Super Top
+    E clico em Vamos La
+    E clico em Vencedores
+    Entao visualizo a tela de vencedores com o botao QUERO SABER MAIS

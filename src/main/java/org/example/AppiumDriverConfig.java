@@ -27,6 +27,9 @@ public class AppiumDriverConfig {
         config.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
 
         config.setCapability(MobileCapabilityType.UDID, "RQ8NA0A9GYW");
+
+        // Alan
+//        config.setCapability(MobileCapabilityType.UDID, "0077219046");
 //        config.setCapability(MobileCapabilityType.UDID, "RQ8R507XXTX");
 
 //        motorola gustavo
@@ -37,7 +40,7 @@ public class AppiumDriverConfig {
         //motorola gustavo
 //        config.setCapability(MobileCapabilityType.PLATFORM_VERSION, "8.1.0");
 
-//        config.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "1000");
+        config.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "3000");
 
 
         URL urlConexao = null;

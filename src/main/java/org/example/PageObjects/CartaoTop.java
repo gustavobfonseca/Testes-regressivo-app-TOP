@@ -178,9 +178,9 @@ public class CartaoTop {
 
     public void buscarTextoBeneficioEscolarPasseLivre(){
         WebDriverWait espera = new WebDriverWait(driver, 20);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"Benefício Escolar (,Passe Livre,)\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.Image[@text=\"Estudantes e Professores\"]")));
 
-        textoBeneficioEscolarPasseLivre = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Benefício Escolar (,Passe Livre,)\"]");
+        textoBeneficioEscolarPasseLivre = (MobileElement) driver.findElementByXPath("//android.widget.Image[@text=\"Estudantes e Professores\"]");
 
     }
 

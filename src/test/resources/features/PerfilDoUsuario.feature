@@ -1,9 +1,9 @@
 # language: pt
 Funcionalidade: Perfil do usuário
 
-  Cenário:01 Inclusão de foto de perfil via câmera
+  Cenário:01 Inclusao de foto de perfil via camera
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "54926406829", senha "Teste@123"
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
     E acesso a home do aplicativo
     E não possua foto de perfil
     E sem ter a permissão de acesso à câmera habilitada para o aplicativo TOP
@@ -25,8 +25,11 @@ Funcionalidade: Perfil do usuário
 #    E removida na apresentação da Home
 
 
-  Cenário:02 Inclusão de foto de perfil via galeria
+  Cenário:02 Inclusao de foto de perfil via galeria
 #    Dado que eu acesso a tela home do aplicativo
+#    Dado que estou na área não logada do app
+#    E submeto as seguintes credenciais validas para login, cpf "54926406829", senha "Teste@123"
+#    E acesso a home do aplicativo
     Dado que acesso a Home do aplicativo sem possuir foto de perfil
     E sem ter a permissão de acesso à galeria habilitada para o aplicativo TOP
     Quando clico em minha apresentação na Home
@@ -38,8 +41,11 @@ Funcionalidade: Perfil do usuário
     E na apresentação da Home.
 
 
-  Cenário:03 Alteração de Apelido ou Nome Social e reseto o app
+  Cenário:03 Alteracao de Apelido ou Nome Social e reseto o app
 #    Dado que eu acesso a tela home do aplicativo
+#    Dado que estou na área não logada do app
+#    E submeto as seguintes credenciais validas para login, cpf "54926406829", senha "Teste@123"
+#    E acesso a home do aplicativo
     Dado que acesso o perfil de usuário
     Quando insiro dados com mais de 2 caracteres no campo "Apelido ou nome social"
     E clico no ícone de edição para salvar
@@ -47,10 +53,9 @@ Funcionalidade: Perfil do usuário
     E visualizo o apelido ou nome social na Home
     E visualizo apelido ou nome social na área semi-logada do aplicativo
 
-#teste Matheus
-  Cenário:04 Meu telefone de contato Pefisa
+  Cenário:04 meu telefone de contato pefisa
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "53189161801", senha "Devires@123"
+    E submeto as seguintes credenciais validas para login, cpf "32772147886", senha "Devires@123"
     E acesso a home do aplicativo
     Quando clico em minha apresentação na Home
     E clico na opção "Seus telefones de contato"
@@ -59,7 +64,7 @@ Funcionalidade: Perfil do usuário
     Então sou direcionado para o chatbot Pefisa via WhatsApp
 
 
-  Cenário:05 Alteração de senha com senha atual incorreta
+  Cenário:05 Alteracao de senha com senha atual incorreta
 #        Dado que eu acesso a tela home do aplicativo
     Dado que acesso o perfil de usuário
     Quando clico na opção "Senha do aplicativo"
@@ -69,7 +74,7 @@ Funcionalidade: Perfil do usuário
     E clico em Enviar
     Então visualizo a mensagem de "Senha atual inválida"
 
-  Cenário:06 alteração de senha com novas senhas divergentes
+  Cenário:06 alteracao de senha com novas senhas divergentes
 #    Dado que eu acesso a tela home do aplicativo
     Dado que acesso o perfil de usuário
     Quando clico na opção "Senha do aplicativo"
@@ -82,14 +87,14 @@ Funcionalidade: Perfil do usuário
 
 
   Cenário:07 Meu telefone de contato Autopass
-    #        Dado que eu acesso a tela home do aplicativo
+            Dado que eu acesso a tela home do aplicativo
     Dado que acesso o perfil de usuário
     Quando clico na opção "Seus telefones de contato"
     E seleciono a opção "Celular (Transporte)"
     E seleciono a opção "Celular (Transporte)"
     Então sou direcionado para o atendimento Autopass via WhatsApp
 
-  Cenário:08 Autenticação biométrica ativa
+  Cenário:08 Autenticacao biometrica ativa e reseto o app
 #    Dado que eu acesso a tela home do aplicativo
     Dado que acesso o perfil de usuário com biometria ativa
     Quando faço o logoff do app para a área semi logada
@@ -97,12 +102,15 @@ Funcionalidade: Perfil do usuário
     Então visualizo a solicitação de biometria para login
 #  Ou a solicitação de Face ID
 
-  Cenário:09 Biométrica desativada
+  Cenário:09 Biometrica desativada
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
+    E acesso a home do aplicativo
 #    Dado que eu acesso a tela home do aplicativo
     Dado que acesso o perfil de usuário com biometria ativa
     Quando desabilito o Touch ID ou Face ID no campo "Autenticação biométrica"
     E faço o logoff do app para a área semi logada
-    E submeto a senha correta do CPF "Teste@123"
+    E submeto a senha correta do CPF "Teste123"
     E clico em "Entrar" na área semi logada
     Então sou logado para a home do aplicativo com o modal de ativação de biometria
 
@@ -113,7 +121,7 @@ Funcionalidade: Perfil do usuário
     Quando clico na opção "Termos de uso"
     Então sou direcionado para a página dos termos de uso na Central de Ajuda Autopass
 
-  Cenário:11 Logout para área semi logada
+  Cenário:11 Logout para área semi logada e reseto o app
 #        Dado que eu acesso a tela home do aplicativo
     Dado que acesso o perfil de usuário
     Quando clico na opção "Sair do Aplicativo" confirmando o modal
@@ -121,14 +129,17 @@ Funcionalidade: Perfil do usuário
 
   Cenário:12 Central de ajuda e reseto o app
 #    Dado que eu acesso a tela home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
+    E acesso a home do aplicativo
     Dado que acesso o perfil de usuário
     Quando clico no "Central de Ajuda"
 #    Ou no ícone (?) no header
     Então sou direcionado para o a página inicial da Central de Ajuda Autopass
 
-  Cenário:13 Alteração de senha
+  Cenário:13 Alterar senha e reseto o app
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "54926406829", senha "Teste@123"
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
     E acesso a home do aplicativo
     Dado que acesso o perfil de usuário
     Quando clico na opção "Senha do aplicativo"
@@ -140,15 +151,15 @@ Funcionalidade: Perfil do usuário
     E desabilito o Touch ID ou Face ID no campo "Autenticação biométrica"
     E ao fazer um novo login, apenas a nova senha deve estar válida como credencial de acesso ao aplicativo
 
-    Cenário:14 voltar senha padrao
+    Cenário:14 Voltar senha padrao
 #      Dado que eu acesso a tela home do aplicativo
       Dado que estou na área não logada do app
-      E submeto as seguintes credenciais validas para login, cpf "54926406829", senha "Teste@1234"
+      E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Devires@1234"
       E acesso a home do aplicativo
       Dado que acesso o perfil de usuário
       Quando clico na opção "Senha do aplicativo"
-      E insiro a senha atual alterada "Teste@1234"
+      E insiro a senha atual alterada "Devires@1234"
       E clico em Editar
-      E insiro Nova senha "Teste@123" e Confirmar nova senha "Teste@123"
+      E insiro Nova senha "Teste123" e Confirmar nova senha "Teste123"
       E clico em Enviar
       Então visualizo a mensagem de "Senha alterada com sucesso"

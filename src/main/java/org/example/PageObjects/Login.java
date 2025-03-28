@@ -23,6 +23,8 @@ public class Login {
     private MobileElement centralDeAjuda;
     private MobileElement enviarMensagem;
     private MobileElement criarConta;
+
+
     private MobileElement modalErro;
 
     public Login(AppiumDriver driver) {
@@ -146,9 +148,9 @@ public class Login {
 
     public void clicarEnviarMensagem() {
         WebDriverWait espera = new WebDriverWait(driver, 10);
-        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@content-desc=\"ENVIAR MENSAGEM\"]")));
+        espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"ENVIAR MENSAGEM\"]")));
 
-        enviarMensagem = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@content-desc=\"ENVIAR MENSAGEM\"]");
+        enviarMensagem = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"ENVIAR MENSAGEM\"]");
         enviarMensagem.click();
     }
 
