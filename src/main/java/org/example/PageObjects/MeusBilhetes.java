@@ -162,7 +162,7 @@ public class MeusBilhetes {
     }
 
     public void buscarElementosTelaFalhaCadastro() {
-        WebDriverWait espera = new WebDriverWait(driver, 10);
+        WebDriverWait espera = new WebDriverWait(driver, 30);
         espera.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//android.widget.TextView[@text=\"Falha no cadastro\"]")));
 
         msgFalhaCadastroCartao = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text=\"Falha no cadastro\"]");

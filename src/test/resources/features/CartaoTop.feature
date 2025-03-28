@@ -103,7 +103,7 @@ Funcionalidade: Cartão Top
     E confirmo o pagamento informando o CVV "737"
     Então visualizo a tela de Erro no pagamento
 
-  Cenario:07 Compra combo de credito comum + 150 pontos Pagamento via cartao de debito e reseto o app
+  Cenario:07 Compra combo de credito comum + 150 pontos Pagamento via cartao de debito e reseto o app e reseto o app
 #    Dado que estou na área não logada do app
 #    E submeto as seguintes credenciais validas para login, cpf "01627692029", senha "Teste123"
 #    E vou para a minha home do aplicativo
@@ -199,7 +199,6 @@ Funcionalidade: Cartão Top
     E clico em Comprar Créditos
     E clico na opção Escolar
     E insiro o valor de R$ "1000"
-    E clico em Comprar
 #    E clico em Talvez Mais Tarde
     E submeto o cartao final "0148"
     E confirmo o pagamento informando o CVV "001"
@@ -258,15 +257,15 @@ Funcionalidade: Cartão Top
 #    Então visualizo a tela de Pagamento efetuado com sucesso
 
   Cenário:16 Filtro de histórico e depois reseto o app
-    Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "36536935004", senha "Teste123"
-    E vou para a minha home do aplicativo
+#    Dado que estou na área não logada do app
+#    E submeto as seguintes credenciais validas para login, cpf "36536935004", senha "Teste123"
+#    E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico no icone de filtro
     E filtro por periodo e uso
     Então visualizo o registro de uso do cartao
 
-  Cenário:17 Comunicar Perda ou Roubo de Cartao Hibrido e reseto app
+  Cenário:17 Comunicar Perda ou Roubo de Cartao Hibrido e reseto o app
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Teste123"
     E vou para a minha home do aplicativo
@@ -305,7 +304,7 @@ Funcionalidade: Cartão Top
 #    E submeto as seguintes credenciais validas para login, cpf "51168429242", senha "Teste123"
 #    E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
-    E expando o modal de saldo
+    E expando o modal de beneficios
     E clico na opção Saiba mais no item escolar
     E clico em Duvidas sobre o seu Beneficio Escolar
     Entao sou direcionado para a pagina da EMTU de beneficio meia tarifa
