@@ -54,15 +54,29 @@ Funcionalidade: BilhetesQrCode
     E confirmo o pagamento informando o CVV "123"
     Então visualizo a tela de Pagamento efetuado com sucesso
 
-  Cenario:05 Compra de bilhete via cartão de débito e reseto o app
+  Cenario:05 Compra combo de bilhete +50 pontos via cartão de débito e reseto o app
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "36536935004", senha "Teste123"
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
     E vou para a minha home do aplicativo
     Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
     E clico na opçao Comprar Bilhetes
     E clico na opção Metro e Trem
     E seleciono 1 bilhete
-    E avanço para as formas de pagamento
+    E continuo a compra com pontos
+    E confirmo Cartão de débito de final "6091" como forma de pagamento
+    E confirmo o pagamento informando o CVV "333"
+    Então visualizo a tela de Pagamento efetuado com sucesso
+
+  Cenario:06 Compra combo de bilhete +100 pontos via cartão de débito e reseto o app
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
+    E vou para a minha home do aplicativo
+    Quando que eu acesso o menu Bilhetes Qr Code na home do aplicativo tendo cartão de crédito cadastrado
+    E clico na opçao Comprar Bilhetes
+    E clico na opção Metro e Trem
+    E seleciono 2 bilhete
+    E continuo a compra com pontos
+    E clico em 100 pontos
     E confirmo Cartão de débito de final "6091" como forma de pagamento
     E confirmo o pagamento informando o CVV "333"
     Então visualizo a tela de Pagamento efetuado com sucesso

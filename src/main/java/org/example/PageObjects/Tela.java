@@ -17,7 +17,7 @@ import org.springframework.util.Assert;
 import java.time.Duration;
 import java.util.Collections;
 
-public class Tela {
+public class    Tela {
 
     private AppiumDriver driver;
 
@@ -97,6 +97,22 @@ public class Tela {
 
         swipe.addAction(finger.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), endX, endY));
         swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+
+        driver.perform(Collections.singletonList(swipe));
+    }
+
+    public void arrastarParaDireita(int startX, int startY, int endX, int endY){
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+
+        Sequence swipe = new Sequence(finger, 1);
+
+        swipe.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, startY));
+        swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.RIGHT.asArg()));
+
+        swipe.addAction(new Pause(finger, Duration.ofMillis(500)));
+
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(600), PointerInput.Origin.viewport(), endX, endY));
+        swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.RIGHT.asArg()));
 
         driver.perform(Collections.singletonList(swipe));
     }
