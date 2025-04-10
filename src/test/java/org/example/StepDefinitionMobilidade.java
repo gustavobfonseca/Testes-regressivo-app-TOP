@@ -40,7 +40,7 @@ public class StepDefinitionMobilidade {
         telaLogin.buscarElementos();
         telaLogin.buscarElementos();
         telaLogin.limparCamposLogin();
-        telaLogin.preencherFormulario("54926406829", "Teste@123");
+        telaLogin.preencherFormulario("54926406829", "Teste123");
         telaLogin.logar();
         Home telaHome = new Home(driver);
 
@@ -141,7 +141,7 @@ public class StepDefinitionMobilidade {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Tela tela= new Tela(driver);
 
-        MobileElement linhaOnibus = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"5029-10\"]", 10);
+        MobileElement linhaOnibus = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Siga as instruções abaixo até o seu destino\"]", 10);
         MobileElement botaoVoltar = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"\uF124\"]", 10);
 
         tela.arrastarParaOLado(linhaOnibus.getLocation().getX(), linhaOnibus.getLocation().getY(),
@@ -154,7 +154,7 @@ public class StepDefinitionMobilidade {
         Tela tela = new Tela(driver);
 
         MobileElement linha2 = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Sacomã - Plataforma 1\"]", 10);
-        MobileElement endereco = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Rua Anny, 870, Sacoma, São Paulo, São Paulo\"]", 10);
+        MobileElement endereco = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"Siga as instruções abaixo até o seu destino\"]", 10);
 
         tela.arrastarParaOLado(endereco.getCenter().getX(), linha2.getCenter().getY(),
                 endereco.getCenter().getX(), endereco.getCenter().getY());

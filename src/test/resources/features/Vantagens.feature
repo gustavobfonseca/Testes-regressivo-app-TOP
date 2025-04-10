@@ -58,9 +58,9 @@ Funcionalidade: Vantagens
     Então sou direcionado para a pagina do TOP Saude
 
   Cenário:07 TOP Saude e reseto o app
-#    Dado que estou na área não logada do app
-#    E logo com uma conta recem criada com mais de sessenta anos
-#    E vou para a minha home do aplicativo
+    Dado que estou na área não logada do app
+    E logo com uma conta recem criada com mais de sessenta anos
+    E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     Quando eu acesso o TOP Saude
     E clico em Quero Contratar
@@ -68,7 +68,7 @@ Funcionalidade: Vantagens
 
   Cenário:08 Desconto em loja fisica Drogaria São Paulo
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
     E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     E dou scroll até Drogaria São Paulo
@@ -78,7 +78,7 @@ Funcionalidade: Vantagens
 
   Cenário:09 Desconto pelo site da Drogaria Sao Paulo
 #    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Devires@123"
+#    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
 #    E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     E dou scroll até Drogaria São Paulo
@@ -89,7 +89,7 @@ Funcionalidade: Vantagens
 
   Cenário:10 Personalizar favoritos
 #    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
+#    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
 #    E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     E clico em Personalizar Favoritos
@@ -98,9 +98,9 @@ Funcionalidade: Vantagens
     E o menu de personalizar favoritos deve estar por utilmo
 
   Cenario:11 Super top
-    Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
-    E vou para a minha home do aplicativo
+#    Dado que estou na área não logada do app
+#    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
+#    E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     E clico em Super Top
     E clico em Vamos La
@@ -108,7 +108,7 @@ Funcionalidade: Vantagens
 
   Cenario:12 comprar pontos Super TOP
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "11335685995", senha "Teste123"
+    E submeto as seguintes credenciais validas para login, cpf "06193372067", senha "Teste123"
     E vou para a minha home do aplicativo
     E dou scroll até Minhas Vantagens
     E clico em Super Top

@@ -133,7 +133,7 @@ public class StepDefinitionDowngradeDeProdutos {
 
     @Entao("visualizo a tela de cartao cancelado com sucesso com a opcao de solicitar a segunda via")
     public void visualizoATelaDeCartaoCanceladoComSucessoComAOpcaoDeSolicitarASegundaVia() {
-        MobileElement solicitacaoEnviada = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Sua solicitação foi enviada com sucesso.\"]", 10);
+        MobileElement solicitacaoEnviada = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Sua solicitação foi enviada com sucesso.\"]", 30);
         MobileElement solicitarSegundaVia = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"SOLICITAR SEGUNDA VIA\"]", 10);
 
         Assert.assertTrue(solicitacaoEnviada.isDisplayed());
@@ -200,5 +200,12 @@ public class StepDefinitionDowngradeDeProdutos {
         MobileElement telaLogin = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Crie uma conta.\"]", 30);
 
         Assert.assertTrue(telaLogin.isDisplayed());
+    }
+
+    @E("clico em Conta Digital no perfil do usuario")
+    public void clicoEmContaDigitalNoPerfilDoUsuario() {
+
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Conta Digital\"]", 60);
+
     }
 }
