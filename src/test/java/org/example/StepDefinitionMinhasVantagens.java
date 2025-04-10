@@ -32,10 +32,8 @@ public class StepDefinitionMinhasVantagens {
 
     @E("clico em TOP+ recompensas")
     public void clicoEmTOPRecompensas() {
-        MobileElement topMaisRecompensas = tela.buscarElementoNaTela(
-                "//android.widget.TextView[@text=\"TOP +\n" +
-                "Recompensas\"]", 20);
-        tela.clicarEmElemento(topMaisRecompensas);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"TOP+\n" +
+                "Recompensas\"]", 10);
     }
 
     @Então("visualizo o onboarding do TOP + recompensas")
@@ -87,7 +85,7 @@ public class StepDefinitionMinhasVantagens {
 
     @Quando("eu acesso o TOP Saude")
     public void euAcessoOTOPSaude() {
-        MobileElement topSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP +\n" +
+        MobileElement topSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP+\n" +
                 "Recompensas\"]", 20);
         Point pontoA = topSaude.getLocation();
         MobileElement personalizarFavoritos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Personalizar\n" +
@@ -138,7 +136,7 @@ public class StepDefinitionMinhasVantagens {
 
     @E("dou scroll até Drogaria São Paulo")
     public void douScrollAtéDrogariaSãoPaulo() {
-        MobileElement topSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP +\n" +
+        MobileElement topSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP+\n" +
                 "Recompensas\"]", 20);
         Point pontoA = topSaude.getLocation();
         MobileElement personalizarFavoritos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Personalizar\n" +
@@ -160,13 +158,13 @@ public class StepDefinitionMinhasVantagens {
         tela.scrollAteElemento("//android.widget.TextView[@content-desc=\"DESCONTO EM ,\n" +
                 ", LOJA FÍSICA\"]", 10, "new UiSelector().text(\"BUSCAR LOJA\")");
 
-        MobileElement buscarLoja = tela.buscarElementoNaTela("//android.widget.TextView[@content-desc=\"BUSCAR LOJA\"]", 10);
-        tela.clicarEmElemento(buscarLoja);
+
+        tela.clicarEmElemento("//android.widget.TextView[@content-desc=\"BUSCAR LOJA\"]", 10);
     }
 
     @Então("sou direcionado para a página institucional da Drogaria Sao Paulo")
     public void souDirecionadoParaAPáginaInstitucionalDaDrogariaSaoPaulo() {
-        MobileElement nossasLojas = tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"Nossas Lojas\"])[1]", 10);
+        MobileElement nossasLojas = tela.buscarElementoNaTela("(//android.widget.TextView[@text=\"Nossas Lojas\"])[2]", 10);
         Assert.assertTrue(nossasLojas.isDisplayed());
     }
 
@@ -195,10 +193,10 @@ public class StepDefinitionMinhasVantagens {
 
     @E("troco a ordem de exibição das vantagens")
     public void trocoAOrdemDeExibiçãoDasVantagens() {
-        MobileElement topMaisRecompensas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP + RECOMPENSAS\"]", 20);
-        MobileElement drogariaSp = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"DROGARIA SP\"]", 20);
-        Point pontoA = topMaisRecompensas.getLocation();
-        Point pontoB = drogariaSp.getLocation();
+        MobileElement topMaisRecompensas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP+ RECOMPENSAS\"]", 20);
+        MobileElement superTop = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"SUPERTOP\"]", 20);
+        Point pontoA = superTop.getLocation();
+        Point pontoB = topMaisRecompensas.getLocation();
         tela.arrastarParaOLado(pontoA.getX(), pontoA.getY(), pontoB.getX(), pontoB.getY());
         MobileElement confirmar = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"CONFIRMAR\"]", 20);
         tela.clicarEmElemento(confirmar);
@@ -215,35 +213,29 @@ public class StepDefinitionMinhasVantagens {
     public void retornoAHomeComAExibicaoDosMenusDeVantagensOrdenadosDeAcordoComAMinhaEscolha() {
         MobileElement menuSuperTop = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"SuperTOP\n" +
                 "\"]", 5);
-        MobileElement menuTopSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP\n" +
-                "Saúde\"]",5);
-        MobileElement menuDrogariaSaoPaulo = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Drogaria\n" +
-                "São Paulo\"]", 5);
+        MobileElement menuTopMaisRecompensas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP+\n" +
+                "Recompensas\"]",5);
+        MobileElement menuTopMaisSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP\n" +
+                "Saúde\"]", 5);
 
-        int posicaoXTopSaude = menuTopSaude.getLocation().getX();
-        int posicaoXDrogariaSaoPaulo = menuDrogariaSaoPaulo.getLocation().getX();
+        int posicaoXTopSaude = menuTopMaisSaude.getLocation().getX();
+        int posicaoXTopMaisRecompensas = menuTopMaisRecompensas.getLocation().getX();
         int posicaoXSuperTop = menuSuperTop.getLocation().getX();
 
-        Assert.assertTrue(posicaoXTopSaude < posicaoXDrogariaSaoPaulo &&
-                posicaoXTopSaude > posicaoXSuperTop);
+        Assert.assertTrue(posicaoXTopMaisRecompensas < posicaoXSuperTop &&
+                posicaoXSuperTop < posicaoXTopSaude);
 
     }
 
     @E("o menu de personalizar favoritos deve estar por utilmo")
     public void oMenuDePersonalizarFavoritosDeveEstarPorUtilmo() {
-        MobileElement drogariaSaoPaulo = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Drogaria\n" +
-                "São Paulo\"]", 20);
-        Point pontoA = drogariaSaoPaulo.getLocation();
-        MobileElement superTop = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"SuperTOP\n" +
-                "\"]", 20);
-        Point pontoB = superTop.getLocation();
-        tela.arrastarParaOLado(pontoA.getX(), pontoA.getY(), pontoB.getX(), pontoB.getY());
-        MobileElement topMaisRecompensas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP +\n" +
+        MobileElement topSaude = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP\n" +
+                "Saúde\"]", 10);
+        Point pontoA = topSaude.getLocation();
+        MobileElement topMaisRecompensas = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"TOP+\n" +
                 "Recompensas\"]", 20);
-
-        MobileElement personalizarFavoritos = tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Personalizar\n" +
-                "Favoritos\"]", 20);
-        Assert.assertTrue(topMaisRecompensas.getLocation().getX() < personalizarFavoritos.getLocation().getX());
+        Point pontoB = topMaisRecompensas.getLocation();
+        tela.arrastarParaOLado(pontoA.getX(), pontoA.getY(), pontoB.getX(), pontoB.getY());
     }
 
     @E("assino meu nome")

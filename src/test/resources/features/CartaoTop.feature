@@ -4,23 +4,23 @@ Funcionalidade: Cartão Top
   #OBS: Garantir que a massa 325.056.645-44 tenha um cartão puro transporte FORA da blacklist antes de executar o teste da funcionalidade
 
 
-#  Cenário:01 Onboarding puro transporte e reseto o app
-#    Dado que estou na área não logada do app
-#    E logo com uma conta recem criada
-#    E vou para a minha home do aplicativo
-#    Quando eu clico em Cartão TOP
-#    E clico no botão Eu Quero
-#    E seleciono a opção receber em casa
-#    Então sou direcionado para o serviço de cartão da Pacman
-#
-#  Cenário:02 Onboarding puro transporte senior e reseto o app
-#    Dado que estou na área não logada do app
-#    E logo com uma conta recem criada com mais de sessenta anos
-#    E vou para a minha home do aplicativo
-#    Quando eu clico em Cartão TOP
-#    E clico no botão Eu Quero
-#    E clico em Continuar
-#    Então so devo visualizar o elemento de retirar na loja
+  Cenário:01 Onboarding puro transporte e reseto o app
+    Dado que estou na área não logada do app
+    E logo com uma conta recem criada
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E clico no botão Eu Quero
+    E seleciono a opção receber em casa
+    Então sou direcionado para o serviço de cartão da Pacman
+
+  Cenário:02 Onboarding puro transporte senior e reseto o app
+    Dado que estou na área não logada do app
+    E logo com uma conta recem criada com mais de sessenta anos
+    E vou para a minha home do aplicativo
+    Quando eu clico em Cartão TOP
+    E clico no botão Eu Quero
+    E clico em Continuar
+    Então so devo visualizar o elemento de retirar na loja
 
   Cenario:03 Compra combo de credito comum + 1000 pontos pagamento via pix
     Dado que estou na área não logada do app
@@ -257,13 +257,13 @@ Funcionalidade: Cartão Top
 #    Então visualizo a tela de Pagamento efetuado com sucesso
 
   Cenário:16 Filtro de histórico e depois reseto o app
-#    Dado que estou na área não logada do app
-#    E submeto as seguintes credenciais validas para login, cpf "36536935004", senha "Teste123"
-#    E vou para a minha home do aplicativo
+    Dado que estou na área não logada do app
+    E submeto as seguintes credenciais validas para login, cpf "36536935004", senha "Teste123"
+    E vou para a minha home do aplicativo
     Quando eu clico em Cartão TOP
     E clico no icone de filtro
     E filtro por periodo e uso
-    Então visualizo o registro de uso do cartao
+    Então o filtro deve ser aplicado
 
   Cenário:17 Comunicar Perda ou Roubo de Cartao Hibrido e reseto o app
     Dado que estou na área não logada do app

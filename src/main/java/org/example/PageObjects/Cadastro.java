@@ -221,7 +221,7 @@ public class Cadastro {
         botaoIrParaLoginModalJaCadastrado.click();
     }
 
-    private static String fakeCpf() throws Exception {
+    public static String fakeCpf() throws Exception {
         String url = "https://www.4devs.com.br/ferramentas_online.php";
         HttpResponse<String> response = Unirest.post(url)
                 .header("Content-Type", "application/x-www-form-urlencoded")
