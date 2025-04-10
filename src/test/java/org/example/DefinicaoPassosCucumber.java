@@ -433,7 +433,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         Cadastro cadastro = new Cadastro(driver);
         cadastro.buscarElementos();
-        cadastro.preencherCpf("54926406829");
+        cadastro.preencherCpf("06193372067");
 
     }
 
@@ -676,7 +676,7 @@ public class DefinicaoPassosCucumber {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         EsqueciMinhaSenha telaEsqueciminhaSenha = new EsqueciMinhaSenha(driver);
 
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         telaEsqueciminhaSenha.buscarInput0Email();
         telaEsqueciminhaSenha.clicarInput0();
         String token = OTPUtils.getOTPtokenByPhoneNumberOrEmail("matheusmunari0@gmail.com");
@@ -1084,16 +1084,19 @@ public class DefinicaoPassosCucumber {
     public void clicoEmInformandoTodosOsDadosPessoaisCorretamente() throws Exception {
         AppiumDriver appiumDriver = AppiumDriverConfig.Instance().driver;
         Cadastro cadastro = new Cadastro(appiumDriver);
+        Tela tela = new Tela(appiumDriver);
+
         cadastro.buscarElementos();
+        String cpf = Cadastro.fakeCpf();
+        tela.inputNoElemento("//android.widget.EditText[@content-desc=\"Campo com cpf digitado\"]", cpf);
+        Thread.sleep(3000);
+        tela.inputNoElemento("//android.widget.EditText[@content-desc=\" Campo para digitação do nome completo\"]", "Teste Cadastro");
+        tela.inputNoElemento("//android.widget.EditText[@content-desc=\"Campo para informar data de nascimento completa\"]", "24052005");
+        tela.clicarEmElemento("//android.widget.EditText[@content-desc=\"Campo para informar o gênero\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Masculino\"]", 10);
         Thread.sleep(1000);
-        cadastro.preencherCpf();
-        cadastro.buscarElementos();
-        cadastro.preencherNome();
-        cadastro.preencherDataNascimentoPadrao();
-        cadastro.escolherGenero();
-        Thread.sleep(1000);
-        cadastro.preencherEmailPadrao();
-        cadastro.preencherTelefonePadrao();
+        tela.inputNoElemento("//android.widget.EditText[@content-desc=\"Campo para informar email\"]", "matheusmunari0@gmail.com");
+        tela.inputNoElemento("//android.widget.EditText[@content-desc=\"Campo para informar telefone\"]", "11994787098");
         cadastro.clicarBotaoContinuar();
     }
 

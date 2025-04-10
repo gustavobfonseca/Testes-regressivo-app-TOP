@@ -3,7 +3,7 @@ Funcionalidade: Downgrade de Produtos
 
   #Verificar se a massa do cenário 04 está com cartão cancelado, se sim, recupere este cartão antes de executar a feature
 
-  Cenário:01 Cancelamento de cartão de crédito
+  Cenário:01 Cancelamento de cartao de credito e reseto o app
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "53189161801", senha "Teste123"
     E acesso a home do aplicativo
@@ -15,19 +15,19 @@ Funcionalidade: Downgrade de Produtos
     E clico em prosseguir com cancelamento
     Entao sou direcionado para o chatbot da Pefisa via WhatsApp
 
-  Cenário:02 Cancelamento de conta digital
+  Cenário:02 Cancelamento de conta digital e reseto o app
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Teste123"
     E acesso a home do aplicativo
     Quando que acesso o perfil de usuário
     E dou scroll até Cancelar Cartao Ou Conta Digital
     E clico em Cancelar Cartao Ou Conta Digital
-    E clico em Conta Digital
+    E clico em Conta Digital no perfil do usuario
     E clico em cancelar a conta digital
     E clico em prosseguir com cancelamento de conta digital
     Entao sou direcionado para o chatbot da Pefisa via WhatsApp
 
-  Cenário:03 Cancelamento de cartão transporte com pendências
+  Cenário:03 Cancelamento de cartão transporte com pendências e reseto o app
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "90099644002", senha "Teste123"
     E acesso a home do aplicativo
@@ -39,7 +39,7 @@ Funcionalidade: Downgrade de Produtos
 
   #Recuperar cartão cancelado depois de executado esse cenário
 
-  Cenário:04 Cancelamento de cartão transporte
+  Cenário:04 Cancelamento de cartão transporte e reseto o app
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "32505664544", senha "Teste123"
     E acesso a home do aplicativo
@@ -54,7 +54,7 @@ Funcionalidade: Downgrade de Produtos
     E clico no botao Quero Cancelar Meu Cartao TOP
     Entao visualizo a tela de cartao cancelado com sucesso
 
-  Cenário:05 Reportar cartão hibrido perdido ou danificado
+  Cenário:05 Reportar cartão hibrido perdido ou danificado e reseto o app
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "51919740856", senha "Teste123"
     E acesso a home do aplicativo
@@ -65,7 +65,7 @@ Funcionalidade: Downgrade de Produtos
     E clico em cancelar a cartao perdido ou danificado
     Entao sou direcionado para o chatbot da Pefisa via WhatsApp
 
-  Cenário:06 Comunicar Perda Roubo de cartão Puro transporte
+  Cenário:06 Comunicar Perda Roubo de cartão Puro transporte e reseto o app
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "32505664544", senha "Teste123"
     E acesso a home do aplicativo
@@ -79,7 +79,7 @@ Funcionalidade: Downgrade de Produtos
     E clico no botao Quero Cancelar Meu Cartao TOP
     Entao visualizo a tela de cartao cancelado com sucesso com a opcao de solicitar a segunda via
 
-  Cenário:07 Encerramento de cadastro com pendências
+  Cenário:07 Encerramento de cadastro com pendências e reseto o app
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "53189161801", senha "Teste123"
     E acesso a home do aplicativo
@@ -93,9 +93,9 @@ Funcionalidade: Downgrade de Produtos
     Entao visualizo as pendencias antes de encerrar
 
 #    Criar uma conta a partir do 4devs para os cenários 08 e 09
-  Cenário:08 Encerramento de cadastro
+  Cenário:08 Encerramento de cadastro e reseto o app
     Dado que estou na área não logada do app
-    E submeto as seguintes credenciais validas para login, cpf "04218095078", senha "Teste123"
+    E logo com uma conta recem criada
     E acesso a home do aplicativo
     Quando que acesso o perfil de usuário
     E dou scroll até Cancelar Cartao Ou Conta Digital
@@ -108,7 +108,7 @@ Funcionalidade: Downgrade de Produtos
     Entao visualizo a tela de cancelamento efetuado com sucesso
     E ao finalizar devo ser desligado do app
 
-  Cenario:09 login apos encerramento de cadastro
+  Cenario:09 login apos encerramento de cadastro e reseto app
     Dado que estou na área não logada do app
     E submeto as seguintes credenciais validas para login, cpf "32241338052", senha "Teste123"
     Entao visualizo o modal de usuário bloqueado

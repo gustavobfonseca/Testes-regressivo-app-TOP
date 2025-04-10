@@ -1,5 +1,4 @@
 # language: pt
-
 Funcionalidade: Cadastro
 
   Cenário:01 Cadastro com sucesso
@@ -11,8 +10,8 @@ Funcionalidade: Cadastro
     E clico em confirmar sms
     E insiro o token email
     E clico em confirmar email
-    E insiro a senha "Devires@123"
-    E confirmo a nova senha "Devires@123"
+    E insiro a senha "Teste123"
+    E confirmo a nova senha "Teste123"
     E clico em confirmar cadastrar senha
     E aceito os termos de uso e privacidade
     Entao visualizo o modal de "Cadastro realizado com sucesso".

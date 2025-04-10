@@ -72,7 +72,7 @@ public class Home {
             try{
                 botaoBiometria = (MobileElement) driver.findElementByXPath("//android.view.ViewGroup[@resource-id=\"Botão para ativar biometria.\"]/android.view.ViewGroup");
                 botaoBiometria.click();
-                Thread.sleep(3000);
+                Thread.sleep(6000);
                 List elementos = driver.findElementsByXPath("//android.widget.TextView[@text=\"Ativar biometria\"]");
                 if(elementos.isEmpty()){
                     break;
@@ -298,11 +298,11 @@ public class Home {
 
             MobileElement mapaMobilidade = (MobileElement) driver.findElementByXPath("//android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup");
 
-            if (mapaMobilidade != null) {
-                mapaMobilidade.click();
-            } else {
-                System.out.println("Elemento 'Mobilidade' não encontrado.");
-            }
+//            if (mapaMobilidade != null) {
+//                mapaMobilidade.click();
+//            } else {
+//                System.out.println("Elemento 'Mobilidade' não encontrado.");
+//            }
         } catch (NoSuchElementException e) {
             System.out.println("Elemento 'Mobilidade' não encontrado: " + e.getMessage());
         }

@@ -418,7 +418,10 @@ public class StepDefinitionPerfilDoUsuario {
     public void souDirecionadoParaOAPáginaInicialDaCentralDeAjudaAutopass() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         PerfilDoUsuario perfilDoUsuario = new PerfilDoUsuario(driver);
-        perfilDoUsuario.buscarTelaCentralAtendimento();
+        Tela tela = new Tela(driver);
+
+        tela.buscarElementoNaTela("//android.widget.TextView[@text=\"Olá, podemos te ajudar?\"]", 20);
+
     }
 
     @E("insiro a senha atual alterada {string}")

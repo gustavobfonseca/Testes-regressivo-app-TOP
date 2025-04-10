@@ -195,9 +195,11 @@ public class StepDefinitionCartaoTop {
     public void clicoNoBotão(String arg0) {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         CartaoTop tela1CartaoTop = new CartaoTop(driver);
+        Tela tela = new Tela(driver);
 
-        tela1CartaoTop.buscarBotaoComunicarPerdaCartao();
-        tela1CartaoTop.clicarBotaoComunicarPerdaCartao();
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Comunicar \n" +
+                "Perda/Roubo\"]", 20);
+
     }
 
     @E("clico em {string}")
@@ -251,20 +253,23 @@ public class StepDefinitionCartaoTop {
     public void clicoNoIconeDeFiltro() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         CartaoTop tela1CartaoTop = new CartaoTop(driver);
+        Tela tela = new Tela(driver);
 
-        tela1CartaoTop.buscarIconeFiltro();
-        tela1CartaoTop.clicarFiltroDeHistorico();
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"\uE9AE\"]", 10);
+
     }
 
     @E("filtro por periodo e uso")
     public void filtroPorPeriodoEUso() {
         AppiumDriver driver = AppiumDriverConfig.Instance().driver;
         CartaoTop tela2CartaoTop = new CartaoTop(driver);
+        Tela tela = new Tela(driver);
 
-        tela2CartaoTop.buscarElementosFiltro();
-        tela2CartaoTop.clicarFiltroDePeriodo();
-        tela2CartaoTop.clicarFiltroDeTipoDeTransacao();
-        tela2CartaoTop.clicarBotaoAplicarFiltros();
+//        tela.clicarEmElemento("//android.widget.TextView[@text=\"\uE9AE\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"7 dias\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@text=\"Compra/Recarga\"]", 10);
+        tela.clicarEmElemento("//android.widget.TextView[@content-desc=\"APLICAR FILTROS\"]", 10);
+
     }
 
     @Então("visualizo o registro de uso do cartao")
@@ -662,5 +667,11 @@ public class StepDefinitionCartaoTop {
         Point center2 = agoraNao.getCenter();
 
         tela.arrastarParaOLado(center.getX(), center.getY(), center2.getX(), center2.getY());
+    }
+
+    @Então("o filtro deve ser aplicado")
+    public void oFiltroDeveSerAplicado() throws InterruptedException {
+        Thread.sleep(3000);
+
     }
 }
