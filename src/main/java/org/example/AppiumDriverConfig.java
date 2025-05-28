@@ -29,8 +29,8 @@ public class AppiumDriverConfig {
         config.setCapability(MobileCapabilityType.UDID, "RQ8NA0A9GYW");
 
         // Alan
-//        config.setCapability(MobileCapabilityType.UDID, "0077219046");
-//        config.setCapability(MobileCapabilityType.UDID, "RQ8R507XXTX");
+        config.setCapability(MobileCapabilityType.UDID, "0077219046");
+        config.setCapability(MobileCapabilityType.UDID, "RQ8R507XXTX");
 
 //        motorola gustavo
 //        config.setCapability(MobileCapabilityType.UDID, "0030523335");
